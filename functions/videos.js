@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const mongoUri = process.env.MONGO_URI;
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoUri = process.env.MONGODB_URI; // Updated to MONGODB_URI
+
+if (!mongoUri) {
+  console.error('MONGODB_URI is not defined in environment variables');
+  return {
+    statusCode: 500,
+    body: JSON.stringify({ error: 'Server configuration error: Missing MONGODB_URI' }),
+  };
+}
+
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const Video = mongoose.model('Video', new mongoose.Schema({
   title: String,
@@ -10,7 +20,7 @@ const Video = mongoose.model('Video', new mongoose.Schema({
   fileUrl: String,
   thumbnailUrl: String,
   uploadedBy: String,
-  views: { type: Number, default: 0 }, // Add views with default
+  views: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 }));
 
@@ -23,6 +33,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify(videos),
       };
     } catch (err) {
+      console.error('Fetch videos error:', err);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Failed to fetch videos' }),
@@ -40,6 +51,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify(video),
       };
     } catch (err) {
+      console.error('Save video error:', err);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Failed to save video' }),
@@ -66,6 +78,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify(video),
       };
     } catch (err) {
+      console.error('Update views error:', err);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Failed to update views' }),

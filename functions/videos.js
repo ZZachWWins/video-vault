@@ -10,7 +10,7 @@ const Video = mongoose.model('Video', new mongoose.Schema({
   fileUrl: String,
   thumbnailUrl: String,
   uploadedBy: String,
-  views: { type: Number, default: 0 },
+  views: { type: Number, default: 0 }, // Add views with default
   createdAt: { type: Date, default: Date.now }
 }));
 
@@ -47,15 +47,20 @@ exports.handler = async (event, context) => {
     }
   }
 
-  // New endpoint for incrementing views
   if (event.httpMethod === 'PUT') {
     try {
       const { id } = JSON.parse(event.body);
       const video = await Video.findByIdAndUpdate(
         id,
-        { $inc: { views: 1 } }, // Increment views by 1
-        { new: true } // Return updated document
+        { $inc: { views: 1 } },
+        { new: true }
       );
+      if (!video) {
+        return {
+          statusCode: 404,
+          body: JSON.stringify({ error: 'Video not found' }),
+        };
+      }
       return {
         statusCode: 200,
         body: JSON.stringify(video),

@@ -139,7 +139,7 @@ function App() {
         title,
         description,
         fileUrl: res.data.secure_url,
-        thumbnailUrl: res.data.secure_url.replace('/upload/', '/upload/w_320,h_240/'),
+        thumbnailUrl: res.data.secure_url.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_240/'),
         uploadedBy: user.username,
       };
 
@@ -155,6 +155,8 @@ function App() {
       alert('Upload failed—check your file or permissions!');
     }
   };
+
+  const featuredVideo = videos.length > 0 ? videos[0] : null; // First video as featured
 
   return (
     <div className="app">
@@ -220,12 +222,32 @@ function App() {
         <p className="landing-text">
           At Gods Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
+        <button className="cta-btn" onClick={() => window.location.href = 'mailto:your-email@example.com'}>
+          Share Your Story
+        </button>
         <p className="landing-disclaimer">
           Disclaimer: Views on this site are for entertainment and opinion-sharing only. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration—evaluate it carefully and make your own informed decisions.
         </p>
       </section>
 
       <main className="main">
+        {featuredVideo && (
+          <section className="featured-section">
+            <h2 className="featured-title">Featured Video</h2>
+            <div className="featured-video">
+              <ReactPlayer
+                url={featuredVideo.fileUrl}
+                light={featuredVideo.thumbnailUrl}
+                width="100%"
+                height="400px"
+                controls
+              />
+              <h3 className="video-title">{featuredVideo.title}</h3>
+              <p className="video-description">{featuredVideo.description}</p>
+            </div>
+          </section>
+        )}
+
         {user && (
           <form onSubmit={handleUpload} className="upload-form">
             <input
@@ -254,7 +276,7 @@ function App() {
 
         <section className="video-grid">
           {loading ? (
-            <p className="no-videos">Loading videos...</p>
+            <div className="loader"></div> // Spinner added
           ) : videos.length === 0 ? (
             <p className="no-videos">No videos yet—upload some!</p>
           ) : (
@@ -266,6 +288,7 @@ function App() {
                   width="100%"
                   height="200px"
                   controls
+                  lazy={true}
                 />
                 <h2 className="video-title">{video.title}</h2>
                 <p className="video-description">{video.description}</p>

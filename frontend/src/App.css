@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cinzel', serif; /* Premium title font */
   background: linear-gradient(180deg, #2b1d4a, #3d2e6b);
   color: #f0e6d2;
   min-height: 100vh;
@@ -10,7 +10,7 @@ body {
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px; /* Keep original for desktop */
+  padding: 40px;
   position: relative;
   z-index: 1;
 }
@@ -27,17 +27,15 @@ body {
 
 .header {
   text-align: center;
-  padding: 50px 20px; /* Keep original */
+  padding: 60px 20px;
   background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  margin-bottom: 50px; /* Keep original */
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(31, 38, 135, 0.5);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 60px;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
 .header::before {
@@ -47,39 +45,47 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   animation: glow 8s infinite ease-in-out;
-  pointer-events: none;
-  z-index: 0;
 }
 
 @keyframes glow {
   0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 0.9; }
 }
 
 .title {
-  font-size: 4rem; /* Keep original */
-  font-weight: 800;
+  font-size: 4.5rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  background: linear-gradient(90deg, #f0e6d2, #d4af37);
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #f0e6d2, #d4af37, #8a5db5);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  margin: 0;
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+  animation: gradientShift 6s infinite ease-in-out;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .subtitle {
-  font-size: 1.6rem; /* Keep original */
-  font-weight: 300;
+  font-family: 'Lora', serif; /* Body font */
+  font-size: 1.8rem;
+  font-weight: 400;
   margin: 15px 0 25px;
   color: #e6d8a7;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .auth-section {
@@ -90,8 +96,6 @@ body {
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 2;
 }
 
 .login-form, .signup-form {
@@ -105,70 +109,115 @@ body {
   padding: 12px;
   border-radius: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: #f0e6d2;
+  font-family: 'Lora', serif;
   font-size: 1rem;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .login-form input:focus, .signup-form input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
 }
 
 .auth-btn {
   padding: 12px 24px;
   background: linear-gradient(45deg, #8a5db5, #d4af37);
+  background-size: 200% 100%;
   color: #2b1d4a;
   border: none;
   border-radius: 12px;
+  font-family: 'Cinzel', serif;
   font-weight: 600;
   cursor: pointer;
-  z-index: 2;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  animation: gradientShift 4s infinite ease-in-out;
 }
 
 .auth-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.7);
 }
 
 /* Landing Section */
 .landing-section {
   text-align: center;
-  padding: 40px 20px; /* Keep original */
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 20px;
+  background: rgba(74, 46, 133, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   margin-bottom: 40px;
 }
 
 .landing-title {
-  font-size: 2.5rem; /* Keep original */
+  font-size: 2.5rem;
   font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s infinite ease-in-out;
+}
+
+.landing-text {
+  font-family: 'Lora', serif;
+  font-size: 1.4rem;
+  color: #e6d8a7;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.cta-btn {
+  padding: 14px 28px;
+  background: linear-gradient(45deg, #d4af37, #8a5db5);
+  background-size: 200% 100%;
+  color: #2b1d4a;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: gradientShift 4s infinite ease-in-out;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 25px rgba(212, 175, 55, 0.8);
+}
+
+.landing-disclaimer {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  color: #b8a9d1;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* Featured Section */
+.featured-section {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.featured-title {
+  font-size: 2rem;
   background: linear-gradient(90deg, #d4af37, #8a5db5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
 }
 
-.landing-text {
-  font-size: 1.4rem; /* Keep original */
-  color: #e6d8a7;
-  margin: 0 0 20px;
-  line-height: 1.6;
-}
-
-.landing-disclaimer {
-  font-size: 1rem;
-  color: #b8a9d1;
-  font-style: italic;
-  margin-top: 20px;
+.featured-video {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Main Content */
@@ -182,7 +231,7 @@ body {
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -192,55 +241,74 @@ body {
   padding: 12px;
   border-radius: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: #f0e6d2;
+  font-family: 'Lora', serif;
   font-size: 1rem;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .upload-form input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
 }
 
 .upload-btn {
   padding: 12px 24px;
   background: linear-gradient(45deg, #4a2e85, #8a5db5);
+  background-size: 200% 100%;
   color: #f0e6d2;
   border: none;
   border-radius: 12px;
+  font-family: 'Cinzel', serif;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  animation: gradientShift 4s infinite ease-in-out;
 }
 
 .upload-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
+  box-shadow: 0 5px 20px rgba(138, 93, 181, 0.7);
 }
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Keep original */
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .video-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.video-card::before {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #d4af37;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-card:hover::before {
+  opacity: 0.8;
 }
 
 .video-title {
@@ -253,15 +321,32 @@ body {
 }
 
 .video-description {
+  font-family: 'Lora', serif;
   font-size: 1rem;
   margin: 0 15px 15px;
   color: #e6d8a7;
 }
 
 .video-uploader {
+  font-family: 'Lora', serif;
   font-size: 0.9rem;
   margin: 0 15px 15px;
   color: #b8a9d1;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d4af37;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .no-videos {
@@ -271,127 +356,26 @@ body {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* Media Queries for Mobile */
+/* Media Queries */
 @media (max-width: 768px) {
-  .app {
-    padding: 15px;
-  }
-
-  .header {
-    padding: 30px 15px;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .auth-section {
-    padding: 5px;
-    gap: 10px;
-  }
-
-  .login-form, .signup-form, .upload-form {
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .login-form input, .signup-form input, .upload-form input {
-    padding: 10px;
-    font-size: 0.9rem;
-    border-radius: 10px;
-  }
-
-  .auth-btn, .upload-btn {
-    padding: 10px 20px;
-  }
-
-  .landing-section {
-    padding: 20px 10px;
-  }
-
-  .landing-title {
-    font-size: 1.8rem;
-  }
-
-  .landing-text {
-    font-size: 1rem;
-  }
-
-  .landing-disclaimer {
-    font-size: 0.8rem;
-  }
-
-  .main {
-    padding: 0 10px;
-  }
-
-  .upload-form {
-    padding: 15px;
-    margin-bottom: 30px;
-  }
-
-  .video-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-  }
-
-  .video-title {
-    font-size: 1.4rem;
-  }
-
-  .video-description {
-    font-size: 0.9rem;
-  }
-
-  .video-uploader {
-    font-size: 0.8rem;
-  }
+  .app { padding: 20px; }
+  .header { padding: 40px 15px; margin-bottom: 40px; }
+  .title { font-size: 3rem; }
+  .subtitle { font-size: 1.4rem; }
+  .landing-section { padding: 30px 15px; }
+  .landing-title { font-size: 2rem; }
+  .landing-text { font-size: 1.2rem; }
+  .cta-btn { padding: 12px 24px; font-size: 1rem; }
+  .featured-video { padding: 15px; }
+  .video-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .auth-btn, .upload-btn {
-    padding: 8px 16px;
-  }
-
-  .landing-title {
-    font-size: 1.5rem;
-  }
-
-  .landing-text {
-    font-size: 0.9rem;
-  }
-
-  .video-grid {
-    grid-template-columns: 1fr; /* Single column */
-    gap: 10px;
-  }
-
-  .video-title {
-    font-size: 1.2rem;
-  }
-
-  .video-description {
-    font-size: 0.8rem;
-  }
-
-  .video-uploader {
-    font-size: 0.7rem;
-  }
-
-  .no-videos {
-    font-size: 1.2rem;
-  }
+  .title { font-size: 2.5rem; }
+  .subtitle { font-size: 1.2rem; }
+  .landing-title { font-size: 1.6rem; }
+  .landing-text { font-size: 1rem; }
+  .cta-btn { padding: 10px 20px; }
+  .video-grid { grid-template-columns: 1fr; gap: 15px; }
+  .video-title { font-size: 1.4rem; }
 }

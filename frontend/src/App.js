@@ -168,6 +168,19 @@ function App() {
     }
   };
 
+  // Handle video delete
+  const handleDelete = async (videoId) => {
+    if (window.confirm('Are you sure you want to delete this video?')) {
+      try {
+        await axios.post('/.netlify/functions/deleteVideo', { videoId });
+        setVideos(videos.filter((v) => v._id !== videoId));
+      } catch (err) {
+        console.error('Delete failed:', err);
+        alert('Delete failed—try again!');
+      }
+    }
+  };
+
   // Render UI
   return (
     <div className="app">
@@ -226,7 +239,7 @@ function App() {
           Sharing faith through video, we bring you stories of grace, hope, and inspiration.
         </p>
         <p className="info-cta">
-          Explore our collection below or join us as an admin to share your own message.
+          Explore our collection below or message us with your story about CLO2 to share your own message.
         </p>
       </section>
 
@@ -275,6 +288,9 @@ function App() {
                 <h2 className="video-title">{video.title}</h2>
                 <p className="video-description">{video.description}</p>
                 <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
+                {user && user.app_metadata && user.app_metadata.roles && user.app_metadata.roles.includes('admin') && (
+                  <button onClick={() => handleDelete(video._id)} className="delete-btn">Delete</button>
+                )}
               </div>
             ))
           )}

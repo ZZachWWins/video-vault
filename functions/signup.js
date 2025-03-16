@@ -13,7 +13,7 @@ const User = mongoose.model('User', UserSchema);
 exports.handler = async (event) => {
   const { username, password } = JSON.parse(event.body);
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ username, password: hashedPassword, role: 'admin' });
+  const user = new User({ username, password: hashedPassword, role: 'user' });
   await user.save();
   return { statusCode: 200, body: JSON.stringify({ message: 'User created' }) };
 };

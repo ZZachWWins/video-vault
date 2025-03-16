@@ -70,7 +70,7 @@ function App() {
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
-        setVideos(res.data);
+        setVideos(res.data || []); // Fallback to empty array if null
       } catch (err) {
         console.error('Fetch error:', err);
       } finally {
@@ -148,7 +148,7 @@ function App() {
       setTitle('');
       setDescription('');
       const videosRes = await axios.get('/.netlify/functions/videos');
-      setVideos(videosRes.data);
+      setVideos(videosRes.data || []);
       alert('Video uploaded successfully!');
     } catch (err) {
       console.error('Upload error:', err);

@@ -1,41 +1,29 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import './App.css';
 
 function App() {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [file, setFile] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const canvasRef = useRef(null);
+  // State variables
+  const [user, setUser] = useState(null); // Logged-in user data
+  const [videos, setVideos] = useState([]); // List of videos
+  const [loading, setLoading] = useState(true); // Loading state for videos
+  const [file, setFile] = useState(null); // Video file for upload
+  const [title, setTitle] = useState(''); // Video title
+  const [description, setDescription] = useState(''); // Video description
+  const [username, setUsername] = useState(''); // Login username
+  const [password, setPassword] = useState(''); // Login password
+  const [signupUsername, setSignupUsername] = useState(''); // Signup username
+  const [signupPassword, setSignupPassword] = useState(''); // Signup password
+  const canvasRef = useRef(null); // Reference to canvas for starry background
 
-  const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload';
-  const UPLOAD_PRESET = 'video-vault-preset'; // Create this in Cloudinary if not done
-
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const res = await axios.get('/.netlify/functions/videos');
-        setVideos(res.data);
-      } catch (err) {
-        console.error('Fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchVideos();
-  }, []);
-
+  // Setup starry background and fetch videos on mount
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
+    // Resize canvas to fit window
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -43,6 +31,7 @@ function App() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    // Create stars
     const stars = Array.from({ length: 100 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -50,11 +39,13 @@ function App() {
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
+    // Define constellations
     const constellations = [
       { points: [[200, 200], [200, 300], [150, 250], [250, 250]], color: '#d32f2f' },
       { points: [[400, 100], [450, 150], [500, 200], [450, 250], [400, 200]], color: '#1976d2' },
     ];
 
+    // Animation loop for stars and constellations
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => {
@@ -82,12 +73,27 @@ function App() {
     };
     animate();
 
+    // Fetch videos from Netlify Function
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get('/.netlify/functions/videos');
+        setVideos(res.data);
+      } catch (err) {
+        console.error('Fetch error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideos();
+
+    // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -100,6 +106,20 @@ function App() {
     }
   };
 
+  // Handle signup
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/.netlify/functions/signup', { username: signupUsername, password: signupPassword });
+      alert('Signup successful! Please log in.');
+      setSignupUsername('');
+      setSignupPassword('');
+    } catch (err) {
+      alert('Signup failed—username might be taken!');
+    }
+  };
+
+  // Handle logout
   const handleLogout = async () => {
     try {
       await axios.get('/.netlify/functions/logout');
@@ -109,25 +129,30 @@ function App() {
     }
   };
 
+  // Handle video upload
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!user || user.role !== 'admin') {
-      alert('Only admins can upload videos!');
+    if (!user) {
+      alert('Please log in to upload videos!');
+      return;
+    }
+    if (!file) {
+      alert('Please select a video file!');
       return;
     }
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('upload_preset', 'video-vault-preset'); // Replace with your preset
 
     try {
-      const res = await axios.post(CLOUDINARY_URL, formData);
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData);
       const videoData = {
         title,
         description,
         fileUrl: res.data.secure_url,
-        thumbnailUrl: `${res.data.secure_url.replace('/upload/', '/upload/w_320,h_240/')}`,
-        uploadedBy: user.username
+        thumbnailUrl: res.data.secure_url.replace('/upload/', '/upload/w_320,h_240/'),
+        uploadedBy: user.username,
       };
 
       await axios.post('/.netlify/functions/videos', videoData);
@@ -143,19 +168,20 @@ function App() {
     }
   };
 
+  // Render UI
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
       <header className="header">
         <h1 className="title">Gods Detox</h1>
-        <p className="subtitle">By Bob The Plumber</p>
-        <div className="auth-section">
-          {user ? (
-            <>
-              <span>Welcome, {user.username} ({user.role})</span>
-              <button onClick={handleLogout} className="auth-btn">Logout</button>
-            </>
-          ) : (
+        <p className="subtitle">Presented by Bob The Plumber</p>
+        {user ? (
+          <div className="auth-section">
+            <span>Welcome, {user.username}</span>
+            <button onClick={handleLogout} className="auth-btn">Logout</button>
+          </div>
+        ) : (
+          <div className="auth-section">
             <form onSubmit={handleLogin} className="login-form">
               <input
                 type="text"
@@ -173,12 +199,29 @@ function App() {
               />
               <button type="submit" className="auth-btn">Login</button>
             </form>
-          )}
-        </div>
+            <form onSubmit={handleSignup} className="signup-form">
+              <input
+                type="text"
+                value={signupUsername}
+                onChange={(e) => setSignupUsername(e.target.value)}
+                placeholder="Choose Username"
+                required
+              />
+              <input
+                type="password"
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+                placeholder="Choose Password"
+                required
+              />
+              <button type="submit" className="auth-btn">Signup</button>
+            </form>
+          </div>
+        )}
       </header>
 
       <section className="info-section">
-        <h2 className="info-title">Gods Detox</h2>
+        <h2 className="info-title">Welcome to Gods Detox</h2>
         <p className="info-text">
           Sharing faith through video, we bring you stories of grace, hope, and inspiration.
         </p>
@@ -188,7 +231,7 @@ function App() {
       </section>
 
       <main className="main">
-        {user && user.role === 'admin' && (
+        {user && (
           <form onSubmit={handleUpload} className="upload-form">
             <input
               type="file"

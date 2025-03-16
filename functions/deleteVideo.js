@@ -1,7 +1,7 @@
 // functions/deleteVideo.js
 const mongoose = require('./db');
 const cloudinary = require('cloudinary').v2;
-const Video = require('./Video');
+const Video = require('./videos');
 
 // Configure Cloudinary with environment variables
 cloudinary.config({

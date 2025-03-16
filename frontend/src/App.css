@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif; /* Apple’s SF Pro */
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(180deg, #2b1d4a, #3d2e6b);
   color: #f0e6d2;
   min-height: 100vh;
@@ -10,7 +10,7 @@ body {
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 30px;
   position: relative;
   z-index: 1;
 }
@@ -27,15 +27,17 @@ body {
 
 .header {
   text-align: center;
-  padding: 60px 20px;
-  background: rgba(74, 46, 133, 0.1); /* Subtler gradient */
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 60px;
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 50px;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .header::before {
@@ -46,88 +48,91 @@ body {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-  animation: glow 10s infinite ease-in-out; /* Slower for elegance */
+  animation: glow 8s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes glow {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.05); opacity: 0.7; }
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
 }
 
 .title {
   font-size: 4rem;
-  font-weight: 600;
-  letter-spacing: -0.5px; /* Tighter, Apple-style */
-  color: #f0e6d2;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #f0e6d2, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .subtitle {
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif; /* Lighter variant */
   font-size: 1.6rem;
-  font-weight: 400;
-  margin: 10px 0 20px;
+  font-weight: 300;
+  margin: 15px 0 25px;
   color: #e6d8a7;
-  opacity: 0.9;
-  animation: fadeIn 1.5s ease-in;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 0.9; transform: translateY(0); }
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
 }
 
 .auth-section {
-  margin-top: 20px;
+  margin-top: 25px;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .login-form, .signup-form {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .login-form input, .signup-form input {
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   background: rgba(255, 255, 255, 0.1);
   color: #f0e6d2;
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
   font-size: 1rem;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .login-form input:focus, .signup-form input:focus {
+  outline: none;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .auth-btn {
   padding: 12px 24px;
-  background: #8a5db5; /* Solid color, less gradient */
-  color: #f0e6d2;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
   border: none;
-  border-radius: 10px;
-  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif;
-  font-weight: 500;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  z-index: 2;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .auth-btn:hover, .auth-btn:active {
-  background: #a074d1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
 }
 
 /* Landing Section */
@@ -137,53 +142,49 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 40px;
 }
 
 .landing-title {
   font-size: 2.5rem;
-  font-weight: 600;
-  color: #d4af37;
-  letter-spacing: -0.5px;
-  margin-bottom: 15px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
 }
 
 .landing-text {
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #e6d8a7;
   margin: 0 0 20px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .cta-btn {
-  padding: 14px 28px;
-  background: #d4af37; /* Solid gold */
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #d4af37, #8a5db5);
   color: #2b1d4a;
   border: none;
-  border-radius: 10px;
-  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 500;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .cta-btn:hover, .cta-btn:active {
-  background: #e6c74f;
-  transform: scale(1.03);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
 }
 
 .landing-disclaimer {
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #b8a9d1;
   font-style: italic;
   margin-top: 20px;
-  opacity: 0.8;
 }
 
 /* Featured Section */
@@ -194,16 +195,20 @@ body {
 
 .featured-title {
   font-size: 2rem;
-  color: #d4af37;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
 }
 
 .featured-video {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  padding: 15px;
+  padding: 20px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -215,48 +220,46 @@ body {
 .upload-form {
   margin-bottom: 40px;
   display: flex;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
   background: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .upload-form input {
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   background: rgba(255, 255, 255, 0.1);
   color: #f0e6d2;
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
   font-size: 1rem;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .upload-form input:focus {
+  outline: none;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .upload-btn {
   padding: 12px 24px;
-  background: #4a2e85;
+  background: linear-gradient(45deg, #4a2e85, #8a5db5);
   color: #f0e6d2;
   border: none;
-  border-radius: 10px;
-  font-family: 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif;
-  font-weight: 500;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .upload-btn:hover, .upload-btn:active {
-  background: #5e3ea8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(138, 93, 181, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
 }
 
 .video-grid {
@@ -266,20 +269,21 @@ body {
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
-  cursor: pointer;
+  cursor: pointer; /* For tap feedback */
 }
 
 .video-card:hover, .video-card:active {
   transform: scale(1.03);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .video-card::before {
@@ -288,45 +292,44 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: #d4af37;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
 .video-card:hover::before, .video-card:active::before {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .video-title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin: 12px 15px;
-  color: #d4af37;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 15px;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .video-description {
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
-  font-size: 0.95rem;
-  margin: 0 15px 12px;
+  font-size: 1rem;
+  margin: 0 15px 15px;
   color: #e6d8a7;
 }
 
 .video-uploader {
-  font-family: 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
-  font-size: 0.85rem;
-  margin: 0 15px 12px;
+  font-size: 0.9rem;
+  margin: 0 15px 15px;
   color: #b8a9d1;
-  opacity: 0.8;
 }
 
 .loader {
-  width: 48px;
-  height: 48px;
-  border: 4px solid #d4af37;
-  border-top: 4px solid transparent;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #d4af37;
+  border-top: 5px solid transparent;
   border-radius: 50%;
-  animation: spin 1s ease-in-out infinite, glowPulse 1.5s infinite;
+  animation: spin 1s ease-in-out infinite, glowPulse 2s infinite;
   margin: 20px auto;
 }
 
@@ -336,76 +339,175 @@ body {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
-  50% { box-shadow: 0 0 16px rgba(212, 175, 55, 0.8); }
+  0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(212, 175, 55, 1); }
 }
 
 .no-videos {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #d4af37;
-  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* Media Queries */
+/* Media Queries for Mobile */
 @media (max-width: 768px) {
-  .app { padding: 20px; }
-  .header { padding: 40px 15px; margin-bottom: 40px; }
-  .title { font-size: 3rem; }
-  .subtitle { font-size: 1.4rem; }
-  .auth-section { gap: 10px; }
+  .app {
+    padding: 15px;
+  }
+
+  .header {
+    padding: 30px 15px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .auth-section {
+    padding: 5px;
+    gap: 10px;
+  }
+
   .login-form, .signup-form, .upload-form {
     flex-direction: column;
     width: 100%;
-    max-width: 100%;
+    max-width: 300px;
   }
+
   .login-form input, .signup-form input, .upload-form input {
     padding: 10px;
     font-size: 0.9rem;
+    border-radius: 10px;
   }
-  .auth-btn, .upload-btn {
+
+  .auth-btn, .upload-btn, .cta-btn {
     padding: 10px 20px;
   }
-  .landing-section { padding: 30px 15px; }
-  .landing-title { font-size: 2rem; }
-  .landing-text { font-size: 1.1rem; }
-  .cta-btn { 
-    padding: 12px 24px; 
-    font-size: 1rem; 
-    width: 80%; 
-    margin: 20px auto; 
-    display: block; 
+
+  .landing-section {
+    padding: 20px 10px;
   }
-  .featured-section { padding: 0 10px; }
-  .featured-title { font-size: 1.8rem; }
-  .featured-video { padding: 10px; margin: 0 5px; }
-  .video-grid { 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 20px; 
+
+  .landing-title {
+    font-size: 1.8rem;
   }
-  .video-title { font-size: 1.4rem; }
+
+  .landing-text {
+    font-size: 1rem;
+  }
+
+  .cta-btn {
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .landing-disclaimer {
+    font-size: 0.8rem;
+  }
+
+  .featured-section {
+    padding: 0 10px;
+  }
+
+  .featured-title {
+    font-size: 1.6rem;
+  }
+
+  .featured-video {
+    padding: 15px;
+    margin: 0 5px;
+  }
+
+  .main {
+    padding: 0 10px;
+  }
+
+  .upload-form {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .video-title {
+    font-size: 1.4rem;
+  }
+
+  .video-description {
+    font-size: 0.9rem;
+  }
+
+  .video-uploader {
+    font-size: 0.8rem;
+  }
+
+  .loader {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media (max-width: 480px) {
-  .app { padding: 15px; }
-  .header { padding: 30px 10px; margin-bottom: 30px; }
-  .title { font-size: 2.5rem; }
-  .subtitle { font-size: 1.2rem; }
-  .auth-btn, .upload-btn { padding: 8px 16px; }
-  .landing-title { font-size: 1.6rem; }
-  .landing-text { font-size: 1rem; }
-  .cta-btn { 
-    padding: 10px 20px; 
-    font-size: 0.95rem; 
-    width: 90%; 
+  .title {
+    font-size: 2rem;
   }
-  .featured-video > div { height: 25vh !important; }
-  .video-grid { 
-    grid-template-columns: 1fr; 
-    gap: 15px; 
+
+  .subtitle {
+    font-size: 1rem;
   }
-  .video-title { font-size: 1.3rem; }
-  .video-description { font-size: 0.9rem; }
-  .video-uploader { font-size: 0.8rem; }
-  .loader { width: 40px; height: 40px; }
+
+  .auth-btn, .upload-btn, .cta-btn {
+    padding: 8px 16px;
+  }
+
+  .landing-title {
+    font-size: 1.5rem;
+  }
+
+  .landing-text {
+    font-size: 0.9rem;
+  }
+
+  .cta-btn {
+    width: 90%;
+  }
+
+  .featured-video > div { /* Target ReactPlayer wrapper */
+    height: 25vh !important; /* Optimized for mobile */
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .video-title {
+    font-size: 1.2rem;
+  }
+
+  .video-description {
+    font-size: 0.8rem;
+  }
+
+  .video-uploader {
+    font-size: 0.7rem;
+  }
+
+  .no-videos {
+    font-size: 1.2rem;
+  }
+
+  .loader {
+    width: 36px;
+    height: 36px;
+  }
 }

@@ -10,7 +10,7 @@ body {
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 30px; /* Keep original for desktop */
   position: relative;
   z-index: 1;
 }
@@ -27,14 +27,14 @@ body {
 
 .header {
   text-align: center;
-  padding: 50px 20px;
+  padding: 50px 20px; /* Keep original */
   background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  margin-bottom: 50px;
+  margin-bottom: 50px; /* Keep original */
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -59,7 +59,7 @@ body {
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 4rem; /* Keep original */
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -73,7 +73,7 @@ body {
 }
 
 .subtitle {
-  font-size: 1.6rem;
+  font-size: 1.6rem; /* Keep original */
   font-weight: 300;
   margin: 15px 0 25px;
   color: #e6d8a7;
@@ -138,7 +138,7 @@ body {
 /* Landing Section */
 .landing-section {
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 20px; /* Keep original */
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -149,7 +149,7 @@ body {
 }
 
 .landing-title {
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* Keep original */
   font-weight: 700;
   background: linear-gradient(90deg, #d4af37, #8a5db5);
   -webkit-background-clip: text;
@@ -158,7 +158,7 @@ body {
 }
 
 .landing-text {
-  font-size: 1.4rem;
+  font-size: 1.4rem; /* Keep original */
   color: #e6d8a7;
   margin: 0 0 20px;
   line-height: 1.6;
@@ -223,7 +223,7 @@ body {
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Keep original */
   gap: 25px;
 }
 
@@ -269,4 +269,129 @@ body {
   font-size: 1.8rem;
   color: #d4af37;
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+
+  .header {
+    padding: 30px 15px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .auth-section {
+    padding: 5px;
+    gap: 10px;
+  }
+
+  .login-form, .signup-form, .upload-form {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .login-form input, .signup-form input, .upload-form input {
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .auth-btn, .upload-btn {
+    padding: 10px 20px;
+  }
+
+  .landing-section {
+    padding: 20px 10px;
+  }
+
+  .landing-title {
+    font-size: 1.8rem;
+  }
+
+  .landing-text {
+    font-size: 1rem;
+  }
+
+  .landing-disclaimer {
+    font-size: 0.8rem;
+  }
+
+  .main {
+    padding: 0 10px;
+  }
+
+  .upload-form {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .video-title {
+    font-size: 1.4rem;
+  }
+
+  .video-description {
+    font-size: 0.9rem;
+  }
+
+  .video-uploader {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .auth-btn, .upload-btn {
+    padding: 8px 16px;
+  }
+
+  .landing-title {
+    font-size: 1.5rem;
+  }
+
+  .landing-text {
+    font-size: 0.9rem;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 10px;
+  }
+
+  .video-title {
+    font-size: 1.2rem;
+  }
+
+  .video-description {
+    font-size: 0.8rem;
+  }
+
+  .video-uploader {
+    font-size: 0.7rem;
+  }
+
+  .no-videos {
+    font-size: 1.2rem;
+  }
 }

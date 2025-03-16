@@ -156,7 +156,18 @@ function App() {
     }
   };
 
-  const featuredVideo = videos.length > 0 ? videos[0] : null; // First video as featured
+  const handleViewIncrement = async (id) => {
+    try {
+      const res = await axios.put('/.netlify/functions/videos', { id });
+      setVideos(videos.map(video => 
+        video._id === id ? { ...video, views: res.data.views } : video
+      ));
+    } catch (err) {
+      console.error('Failed to increment views:', err);
+    }
+  };
+
+  const featuredVideo = videos.length > 0 ? videos[0] : null;
 
   return (
     <div className="app">
@@ -241,9 +252,12 @@ function App() {
                 width="100%"
                 height="400px"
                 controls
+                onStart={() => handleViewIncrement(featuredVideo._id)}
               />
               <h3 className="video-title">{featuredVideo.title}</h3>
               <p className="video-description">{featuredVideo.description}</p>
+              <p className="video-uploader">Uploaded by: {featuredVideo.uploadedBy}</p>
+              <p className="video-views">Views: {featuredVideo.views || 0}</p>
             </div>
           </section>
         )}
@@ -276,7 +290,7 @@ function App() {
 
         <section className="video-grid">
           {loading ? (
-            <div className="loader"></div> // Spinner added
+            <div className="loader"></div>
           ) : videos.length === 0 ? (
             <p className="no-videos">No videos yet—upload some!</p>
           ) : (
@@ -289,10 +303,12 @@ function App() {
                   height="200px"
                   controls
                   lazy={true}
+                  onStart={() => handleViewIncrement(video._id)}
                 />
                 <h2 className="video-title">{video.title}</h2>
                 <p className="video-description">{video.description}</p>
                 <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
+                <p className="video-views">Views: {video.views || 0}</p>
               </div>
             ))
           )}

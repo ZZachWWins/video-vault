@@ -4,26 +4,23 @@ import ReactPlayer from 'react-player';
 import './App.css';
 
 function App() {
-  // State variables
-  const [user, setUser] = useState(null); // Logged-in user data
-  const [videos, setVideos] = useState([]); // List of videos
-  const [loading, setLoading] = useState(true); // Loading state for videos
-  const [file, setFile] = useState(null); // Video file for upload
-  const [title, setTitle] = useState(''); // Video title
-  const [description, setDescription] = useState(''); // Video description
-  const [username, setUsername] = useState(''); // Login username
-  const [password, setPassword] = useState(''); // Login password
-  const [signupUsername, setSignupUsername] = useState(''); // Signup username
-  const [signupPassword, setSignupPassword] = useState(''); // Signup password
-  const canvasRef = useRef(null); // Reference to canvas for starry background
+  const [user, setUser] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const canvasRef = useRef(null);
 
-  // Setup starry background and fetch videos on mount
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    // Resize canvas to fit window
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -31,7 +28,6 @@ function App() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Create stars
     const stars = Array.from({ length: 100 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -39,13 +35,11 @@ function App() {
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
-    // Define constellations
     const constellations = [
       { points: [[200, 200], [200, 300], [150, 250], [250, 250]], color: '#d32f2f' },
       { points: [[400, 100], [450, 150], [500, 200], [450, 250], [400, 200]], color: '#1976d2' },
     ];
 
-    // Animation loop for stars and constellations
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => {
@@ -73,7 +67,6 @@ function App() {
     };
     animate();
 
-    // Fetch videos from Netlify Function
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
@@ -86,14 +79,12 @@ function App() {
     };
     fetchVideos();
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -106,7 +97,6 @@ function App() {
     }
   };
 
-  // Handle signup
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -119,7 +109,6 @@ function App() {
     }
   };
 
-  // Handle logout
   const handleLogout = async () => {
     try {
       await axios.get('/.netlify/functions/logout');
@@ -129,7 +118,6 @@ function App() {
     }
   };
 
-  // Handle video upload
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -143,7 +131,7 @@ function App() {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'video-vault-preset'); // Replace with your preset
+    formData.append('upload_preset', 'video-vault-preset');
 
     try {
       const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData);
@@ -168,20 +156,6 @@ function App() {
     }
   };
 
-  // Handle video delete
-  const handleDelete = async (videoId) => {
-    if (window.confirm('Are you sure you want to delete this video?')) {
-      try {
-        await axios.post('/.netlify/functions/deleteVideo', { videoId });
-        setVideos(videos.filter((v) => v._id !== videoId));
-      } catch (err) {
-        console.error('Delete failed:', err);
-        alert('Delete failed—try again!');
-      }
-    }
-  };
-
-  // Render UI
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
@@ -233,13 +207,21 @@ function App() {
         )}
       </header>
 
-      <section className="info-section">
-        <h2 className="info-title">Welcome to Gods Detox</h2>
-        <p className="info-text">
-          Sharing faith through video, we bring you stories of grace, hope, and inspiration.
+      <section className="landing-section">
+        <h2 className="landing-title">Welcome to Gods Detox</h2>
+        <p className="landing-text">
+          Welcome to Gods Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
-        <p className="info-cta">
-          Explore our collection below or message us with your story about CLO2 to share your own message.
+        <h2 className="landing-title">The CLO2 Movement</h2>
+        <p className="landing-text">
+          Chlorine dioxide (CLO2) isn’t just another health fad—it’s a movement. Used for years in water purification, CLO2 is affordable and easy to make, offering an option for those seeking alternatives. Through our videos, hear from people of faith who’ve embraced it and share your own story of detox and renewal.
+        </p>
+        <h2 className="landing-title">Your Choice, Your Voice</h2>
+        <p className="landing-text">
+          At Gods Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
+        </p>
+        <p className="landing-disclaimer">
+          Disclaimer: Views on this site are for entertainment and opinion-sharing only. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration—evaluate it carefully and make your own informed decisions.
         </p>
       </section>
 
@@ -288,9 +270,6 @@ function App() {
                 <h2 className="video-title">{video.title}</h2>
                 <p className="video-description">{video.description}</p>
                 <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
-                {user && user.app_metadata && user.app_metadata.roles && user.app_metadata.roles.includes('admin') && (
-                  <button onClick={() => handleDelete(video._id)} className="delete-btn">Delete</button>
-                )}
               </div>
             ))
           )}

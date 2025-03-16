@@ -4,7 +4,7 @@ body {
   background: linear-gradient(180deg, #2b1d4a, #3d2e6b);
   color: #f0e6d2;
   min-height: 100vh;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
 .app {
@@ -12,21 +12,19 @@ body {
   margin: 0 auto;
   padding: 30px;
   position: relative;
-  z-index: 1; /* Above canvas */
+  z-index: 1;
 }
 
-/* Starry Background */
 .starry-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Behind everything */
-  pointer-events: none; /* Don’t block clicks */
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Header */
 .header {
   text-align: center;
   padding: 50px 20px;
@@ -84,7 +82,6 @@ body {
   z-index: 1;
 }
 
-/* Auth Section */
 .auth-section {
   margin-top: 25px;
   padding: 10px;
@@ -97,14 +94,14 @@ body {
   z-index: 2;
 }
 
-.login-form {
+.login-form, .signup-form {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.login-form input {
+.login-form input, .signup-form input {
   padding: 12px;
   border-radius: 12px;
   border: none;
@@ -115,7 +112,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.login-form input:focus {
+.login-form input:focus, .signup-form input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
@@ -138,33 +135,8 @@ body {
   box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
 }
 
-/* Signup Form */
-.signup-form {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.signup-form input {
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: #f0e6d2;
-  font-size: 1rem;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.signup-form input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-}
-
-/* Info Section */
-.info-section {
+/* Landing Section */
+.landing-section {
   text-align: center;
   padding: 40px 20px;
   background: rgba(255, 255, 255, 0.05);
@@ -176,7 +148,7 @@ body {
   margin-bottom: 40px;
 }
 
-.info-title {
+.landing-title {
   font-size: 2.5rem;
   font-weight: 700;
   background: linear-gradient(90deg, #d4af37, #8a5db5);
@@ -185,17 +157,18 @@ body {
   margin-bottom: 20px;
 }
 
-.info-text {
+.landing-text {
   font-size: 1.4rem;
   color: #e6d8a7;
-  margin: 0 0 15px;
+  margin: 0 0 20px;
   line-height: 1.6;
 }
 
-.info-cta {
-  font-size: 1.2rem;
+.landing-disclaimer {
+  font-size: 1rem;
   color: #b8a9d1;
   font-style: italic;
+  margin-top: 20px;
 }
 
 /* Main Content */
@@ -248,7 +221,6 @@ body {
   box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
 }
 
-/* Video Grid */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -297,17 +269,4 @@ body {
   font-size: 1.8rem;
   color: #d4af37;
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-}
-.delete-btn {
-  background: linear-gradient(45deg, #d32f2f, #b71c1c);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.delete-btn:hover {
-  background: linear-gradient(45deg, #b71c1c, #d32f2f);
 }

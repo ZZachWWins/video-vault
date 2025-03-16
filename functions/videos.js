@@ -1,18 +1,34 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const mongoUri = process.env.MONGODB_URI; // Updated to MONGODB_URI
+const mongoUri = process.env.MONGODB_URI;
 
 if (!mongoUri) {
-  console.error('MONGODB_URI is not defined in environment variables');
+  console.error('MONGODB_URI is not defined');
   return {
     statusCode: 500,
     body: JSON.stringify({ error: 'Server configuration error: Missing MONGODB_URI' }),
   };
 }
 
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .catch(err => console.error('MongoDB connection error:', err));
+// Connect to MongoDB with error handling
+let cachedConnection = null;
+
+async function connectToDatabase() {
+  if (cachedConnection) return cachedConnection;
+  try {
+    cachedConnection = await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s
+    });
+    console.log('MongoDB connected successfully');
+    return cachedConnection;
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    throw new Error('Failed to connect to MongoDB');
+  }
+}
 
 const Video = mongoose.model('Video', new mongoose.Schema({
   title: String,
@@ -25,42 +41,32 @@ const Video = mongoose.model('Video', new mongoose.Schema({
 }));
 
 exports.handler = async (event, context) => {
-  if (event.httpMethod === 'GET') {
-    try {
+  context.callbackWaitsForEmptyEventLoop = false; // Prevent timeout issues
+
+  try {
+    await connectToDatabase();
+
+    if (event.httpMethod === 'GET') {
       const videos = await Video.find().sort({ createdAt: -1 });
       return {
         statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(videos),
       };
-    } catch (err) {
-      console.error('Fetch videos error:', err);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Failed to fetch videos' }),
-      };
     }
-  }
 
-  if (event.httpMethod === 'POST') {
-    try {
+    if (event.httpMethod === 'POST') {
       const data = JSON.parse(event.body);
       const video = new Video(data);
       await video.save();
       return {
         statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(video),
       };
-    } catch (err) {
-      console.error('Save video error:', err);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Failed to save video' }),
-      };
     }
-  }
 
-  if (event.httpMethod === 'PUT') {
-    try {
+    if (event.httpMethod === 'PUT') {
       const { id } = JSON.parse(event.body);
       const video = await Video.findByIdAndUpdate(
         id,
@@ -70,24 +76,28 @@ exports.handler = async (event, context) => {
       if (!video) {
         return {
           statusCode: 404,
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ error: 'Video not found' }),
         };
       }
       return {
         statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(video),
       };
-    } catch (err) {
-      console.error('Update views error:', err);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Failed to update views' }),
-      };
     }
-  }
 
-  return {
-    statusCode: 405,
-    body: JSON.stringify({ error: 'Method not allowed' }),
-  };
+    return {
+      statusCode: 405,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
+  } catch (err) {
+    console.error('Function error:', err.message);
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Internal server error', details: err.message }),
+    };
+  }
 };

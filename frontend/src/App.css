@@ -510,4 +510,95 @@ body {
     width: 36px;
     height: 36px;
   }
+  /* Add below your existing styles in App.css */
+
+/* History Modal */
+.history-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(43, 29, 74, 0.9); /* Matches your gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.history-content {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.history-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.history-text {
+  font-size: 1.2rem;
+  color: #e6d8a7;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
+  margin: 0 auto;
+}
+
+.close-btn:hover, .close-btn:active {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .history-title {
+    font-size: 1.6rem;
+  }
+
+  .history-text {
+    font-size: 1rem;
+  }
+
+  .history-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-title {
+    font-size: 1.4rem;
+  }
+
+  .history-text {
+    font-size: 0.9rem;
+  }
+
+  .close-btn {
+    padding: 8px 16px;
+  }
 }

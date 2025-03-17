@@ -14,6 +14,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+  const [showHistory, setShowHistory] = useState(false); // New state for pop-out
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -70,9 +71,10 @@ function App() {
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
-        setVideos(res.data || []); // Fallback to empty array if null
+        console.log('Fetched videos:', res.data);
+        setVideos(res.data || []);
       } catch (err) {
-        console.error('Fetch error:', err);
+        console.error('Fetch error:', err.response ? err.response.data : err.message);
       } finally {
         setLoading(false);
       }
@@ -148,10 +150,11 @@ function App() {
       setTitle('');
       setDescription('');
       const videosRes = await axios.get('/.netlify/functions/videos');
+      console.log('Videos after upload:', videosRes.data);
       setVideos(videosRes.data || []);
       alert('Video uploaded successfully!');
     } catch (err) {
-      console.error('Upload error:', err);
+      console.error('Upload error:', err.response ? err.response.data : err.message);
       alert('Upload failed—check your file or permissions!');
     }
   };
@@ -159,11 +162,12 @@ function App() {
   const handleViewIncrement = async (id) => {
     try {
       const res = await axios.put('/.netlify/functions/videos', { id });
+      console.log('Updated video views:', res.data);
       setVideos(videos.map(video => 
         video._id === id ? { ...video, views: res.data.views } : video
       ));
     } catch (err) {
-      console.error('Failed to increment views:', err);
+      console.error('Failed to increment views:', err.response ? err.response.data : err.message);
     }
   };
 
@@ -236,9 +240,27 @@ function App() {
         <button className="cta-btn" onClick={() => window.location.href = 'mailto:your-email@example.com'}>
           Share Your Story
         </button>
+        <button className="cta-btn" onClick={() => setShowHistory(true)}>
+          History of CLO2
+        </button>
         <p className="landing-disclaimer">
           Disclaimer: Views on this site are for entertainment and opinion-sharing only. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration—evaluate it carefully and make your own informed decisions.
         </p>
+
+        {/* Pop-out Modal */}
+        {showHistory && (
+          <div className="history-modal">
+            <div className="history-content">
+              <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
+              <p className="history-text">
+                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy over unapproved health claims. From a lab curiosity to a global tool, its story blends innovation with responsibility.
+              </p>
+              <button className="close-btn" onClick={() => setShowHistory(false)}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       <main className="main">

@@ -237,14 +237,14 @@ function App() {
         <p className="landing-text">
           At Gods Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
-        <button className="cta-btn" onClick={() => window.location.href = 'mailto:your-email@example.com'}>
+        <button className="cta-btn" onClick={() => window.location.href = 'mailto:zacharystreamingdba@gmail.com'}>
           Share Your Story
         </button>
         <button className="cta-btn" onClick={() => setShowHistory(true)}>
           History of CLO2
         </button>
         <p className="landing-disclaimer">
-          Disclaimer: Views on this site are for entertainment and opinion-sharing only. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration—evaluate it carefully and make your own informed decisions.
+          Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
 
         {/* Pop-out Modal */}
@@ -253,7 +253,7 @@ function App() {
             <div className="history-content">
               <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
               <p className="history-text">
-                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy over unapproved health claims. From a lab curiosity to a global tool, its story blends innovation with responsibility.
+                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy. It's recently being used as a way to detox your system. From a lab curiosity to a global tool, its story blends innovation with responsibility.
               </p>
               <button className="close-btn" onClick={() => setShowHistory(false)}>
                 Close

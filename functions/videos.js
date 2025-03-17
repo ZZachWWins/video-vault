@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
 
-const mongoUri = process.env.MONGODB_URI;
-
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Video = mongoose.model('Video', new mongoose.Schema({
   title: String,
@@ -11,6 +8,7 @@ const Video = mongoose.model('Video', new mongoose.Schema({
   fileUrl: String,
   thumbnailUrl: String,
   uploadedBy: String,
+  views: { type: Number, default: 0 }, // Added view counter
   createdAt: { type: Date, default: Date.now }
 }));
 
@@ -43,6 +41,32 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Failed to save video' }),
+      };
+    }
+  }
+
+  if (event.httpMethod === 'PUT') {
+    try {
+      const { id } = JSON.parse(event.body);
+      const video = await Video.findByIdAndUpdate(
+        id,
+        { $inc: { views: 1 } },
+        { new: true }
+      );
+      if (!video) {
+        return {
+          statusCode: 404,
+          body: JSON.stringify({ error: 'Video not found' }),
+        };
+      }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(video),
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Failed to update views' }),
       };
     }
   }

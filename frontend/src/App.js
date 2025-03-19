@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
+import { gsap } from 'gsap';
 import './App.css';
 
 function App() {
@@ -14,24 +15,29 @@ function App() {
   const [password, setPassword] = useState('');
   const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
-  const [showHistory, setShowHistory] = useState(false); // New state for pop-out
+  const [showHistory, setShowHistory] = useState(false);
+  const [showCourse, setShowCourse] = useState(false); // For ClO₂ Course
   const canvasRef = useRef(null);
+  const titleRef = useRef(null);
 
   useEffect(() => {
+    // Starry background animation
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas?.getContext('2d');
     let animationFrameId;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
     const stars = Array.from({ length: 100 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+      x: Math.random() * (canvas?.width || window.innerWidth),
+      y: Math.random() * (canvas?.height || window.innerHeight),
       radius: Math.random() * 1.5 + 0.5,
       alpha: Math.random() * 0.5 + 0.5,
     }));
@@ -42,48 +48,66 @@ function App() {
     ];
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.fill();
-        star.alpha += Math.random() * 0.05 - 0.025;
-        if (star.alpha > 1) star.alpha = 1;
-        if (star.alpha < 0.5) star.alpha = 0.5;
-      });
-
-      constellations.forEach(constellation => {
-        ctx.beginPath();
-        ctx.strokeStyle = constellation.color;
-        ctx.lineWidth = 1;
-        constellation.points.forEach(([x, y], i) => {
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star) => {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+          ctx.fill();
+          star.alpha += Math.random() * 0.05 - 0.025;
+          star.alpha = Math.max(0.5, Math.min(1, star.alpha));
         });
-        ctx.stroke();
-      });
 
-      animationFrameId = requestAnimationFrame(animate);
+        constellations.forEach((constellation) => {
+          ctx.beginPath();
+          ctx.strokeStyle = constellation.color;
+          ctx.lineWidth = 1;
+          constellation.points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
+          ctx.stroke();
+        });
+
+        animationFrameId = requestAnimationFrame(animate);
+      }
     };
     animate();
 
+    // Fetch videos
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
-        console.log('Fetched videos:', res.data);
         setVideos(res.data || []);
       } catch (err) {
-        console.error('Fetch error:', err.response ? err.response.data : err.message);
+        console.error('Fetch error:', err.response?.data || err.message);
       } finally {
         setLoading(false);
       }
     };
     fetchVideos();
 
+    // GSAP title animation
+    const title = titleRef.current;
+    if (title) {
+      const letters = title.innerText
+        .split('')
+        .map((char) => `<span class="letter">${char}</span>`)
+        .join('');
+      title.innerHTML = letters;
+      gsap.from('.letter', {
+        duration: 1.5,
+        opacity: 0,
+        scale: 0,
+        rotation: 360,
+        x: () => Math.random() * 200 - 100,
+        y: () => Math.random() * 200 - 100,
+        stagger: 0.1,
+        ease: 'elastic.out(1, 0.5)',
+      });
+    }
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -122,14 +146,8 @@ function App() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!user) {
-      alert('Please log in to upload videos!');
-      return;
-    }
-    if (!file) {
-      alert('Please select a video file!');
-      return;
-    }
+    if (!user) return alert('Please log in to upload videos!');
+    if (!file) return alert('Please select a video file!');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -150,11 +168,10 @@ function App() {
       setTitle('');
       setDescription('');
       const videosRes = await axios.get('/.netlify/functions/videos');
-      console.log('Videos after upload:', videosRes.data);
       setVideos(videosRes.data || []);
       alert('Video uploaded successfully!');
     } catch (err) {
-      console.error('Upload error:', err.response ? err.response.data : err.message);
+      console.error('Upload error:', err.response?.data || err.message);
       alert('Upload failed—check your file or permissions!');
     }
   };
@@ -162,12 +179,11 @@ function App() {
   const handleViewIncrement = async (id) => {
     try {
       const res = await axios.put('/.netlify/functions/videos', { id });
-      console.log('Updated video views:', res.data);
-      setVideos(videos.map(video => 
-        video._id === id ? { ...video, views: res.data.views } : video
-      ));
+      setVideos((videos) =>
+        videos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
+      );
     } catch (err) {
-      console.error('Failed to increment views:', err.response ? err.response.data : err.message);
+      console.error('Failed to increment views:', err.response?.data || err.message);
     }
   };
 
@@ -175,9 +191,15 @@ function App() {
 
   return (
     <div className="app">
+      {/* Starry background canvas */}
       <canvas ref={canvasRef} className="starry-background" />
+      {/* CSS-based rotating text background */}
+      <div className="rotating-text-background">Gods Detox</div>
+
       <header className="header">
-        <h1 className="title">Gods Detox</h1>
+        <h1 ref={titleRef} className="title">
+          Gods Detox
+        </h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         {user ? (
           <div className="auth-section">
@@ -237,17 +259,20 @@ function App() {
         <p className="landing-text">
           At Gods Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
-        <button className="cta-btn" onClick={() => window.location.href = 'mailto:zacharystreamingdba@gmail.com'}>
+        <button className="cta-btn" onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')}>
           Share Your Story
         </button>
         <button className="cta-btn" onClick={() => setShowHistory(true)}>
           History of CLO2
         </button>
+        <button className="cta-btn" onClick={() => setShowCourse(true)}>
+          ClO₂ Course
+        </button>
         <p className="landing-disclaimer">
           Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
 
-        {/* Pop-out Modal */}
+        {/* History Modal */}
         {showHistory && (
           <div className="history-modal">
             <div className="history-content">
@@ -256,6 +281,31 @@ function App() {
                 Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy. It's recently being used as a way to detox your system. From a lab curiosity to a global tool, its story blends innovation with responsibility.
               </p>
               <button className="close-btn" onClick={() => setShowHistory(false)}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ClO₂ Course Modal */}
+        {showCourse && (
+          <div className="course-modal">
+            <div className="course-content">
+              <h2 className="course-title">The Universal Antidote Course: ClO₂ Basics</h2>
+              <p className="course-text">
+                The Universal Antidote Course is a free, eight-part video series teaching you how to make and use chlorine dioxide (ClO₂), a substance dubbed “The Universal Antidote.” Created by “The Curious Outlier,” it’s rooted in faith and a mission to help people heal. Here’s what you’ll learn:
+              </p>
+              <ul className="course-list">
+                <li><strong>History:</strong> ClO₂’s journey from water purification to health applications, including NASA’s 1987 “universal antidote” claim.</li>
+                <li><strong>Making MMS1 (CD):</strong> Mix sodium chlorite with an acid (e.g., 4% hydrochloric or 50% citric) for 30 seconds to release 10% ClO₂ gas. Use orally starting with 1-3 drops.</li>
+                <li><strong>Making CDS:</strong> Pure ClO₂ gas dissolved in water, free of residuals, ideal for those sensitive to MMS1.</li>
+                <li><strong>Usage:</strong> Start with the MMS Starting Procedure (low doses), then escalate to protocols like 1000 for illness—always with caution.</li>
+                <li><strong>Safety:</strong> Use food-grade ingredients, avoid overuse, and consult the free guidebook for detailed steps.</li>
+              </ul>
+              <p className="course-text">
+                Testimonials claim ClO₂ helps with everything from heart issues to cancer, but evidence is anecdotal. Explore the course at <a href="https://theuniversalantidote.com" target="_blank" rel="noopener noreferrer">theuniversalantidote.com</a> and decide for yourself.
+              </p>
+              <button className="close-btn" onClick={() => setShowCourse(false)}>
                 Close
               </button>
             </div>
@@ -286,19 +336,8 @@ function App() {
 
         {user && (
           <form onSubmit={handleUpload} className="upload-form">
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-              accept="video/*"
-              required
-            />
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Title"
-              required
-            />
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
             <input
               type="text"
               value={description}

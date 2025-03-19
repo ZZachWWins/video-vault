@@ -25,6 +25,34 @@ body {
   pointer-events: none;
 }
 
+.rotating-text-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  font-weight: 700;
+  color: rgba(212, 175, 55, 0.2); /* Faded gold */
+  text-transform: uppercase;
+  animation: rotateGlow 20s linear infinite;
+  pointer-events: none;
+  z-index: -1; /* Behind starry background */
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
 .header {
   text-align: center;
   padding: 50px 20px;
@@ -37,7 +65,7 @@ body {
   margin-bottom: 50px;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 
 .header::before {
@@ -70,6 +98,10 @@ body {
   margin: 0;
   position: relative;
   z-index: 1;
+}
+
+.letter {
+  display: inline-block; /* For GSAP animation */
 }
 
 .subtitle {
@@ -146,6 +178,7 @@ body {
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 40px;
+  z-index: 2;
 }
 
 .landing-title {
@@ -191,6 +224,7 @@ body {
 .featured-section {
   margin-bottom: 40px;
   text-align: center;
+  z-index: 2;
 }
 
 .featured-title {
@@ -215,6 +249,7 @@ body {
 /* Main Content */
 .main {
   padding: 0 20px;
+  z-index: 2;
 }
 
 .upload-form {
@@ -278,7 +313,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
-  cursor: pointer; /* For tap feedback */
+  cursor: pointer;
 }
 
 .video-card:hover, .video-card:active {
@@ -350,168 +385,6 @@ body {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* Media Queries for Mobile */
-@media (max-width: 768px) {
-  .app {
-    padding: 15px;
-  }
-
-  .header {
-    padding: 30px 15px;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .auth-section {
-    padding: 5px;
-    gap: 10px;
-  }
-
-  .login-form, .signup-form, .upload-form {
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .login-form input, .signup-form input, .upload-form input {
-    padding: 10px;
-    font-size: 0.9rem;
-    border-radius: 10px;
-  }
-
-  .auth-btn, .upload-btn, .cta-btn {
-    padding: 10px 20px;
-  }
-
-  .landing-section {
-    padding: 20px 10px;
-  }
-
-  .landing-title {
-    font-size: 1.8rem;
-  }
-
-  .landing-text {
-    font-size: 1rem;
-  }
-
-  .cta-btn {
-    width: 80%;
-    margin: 20px auto;
-    display: block;
-  }
-
-  .landing-disclaimer {
-    font-size: 0.8rem;
-  }
-
-  .featured-section {
-    padding: 0 10px;
-  }
-
-  .featured-title {
-    font-size: 1.6rem;
-  }
-
-  .featured-video {
-    padding: 15px;
-    margin: 0 5px;
-  }
-
-  .main {
-    padding: 0 10px;
-  }
-
-  .upload-form {
-    padding: 15px;
-    margin-bottom: 30px;
-  }
-
-  .video-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-  }
-
-  .video-title {
-    font-size: 1.4rem;
-  }
-
-  .video-description {
-    font-size: 0.9rem;
-  }
-
-  .video-uploader {
-    font-size: 0.8rem;
-  }
-
-  .loader {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .auth-btn, .upload-btn, .cta-btn {
-    padding: 8px 16px;
-  }
-
-  .landing-title {
-    font-size: 1.5rem;
-  }
-
-  .landing-text {
-    font-size: 0.9rem;
-  }
-
-  .cta-btn {
-    width: 90%;
-  }
-
-  .featured-video > div { /* Target ReactPlayer wrapper */
-    height: 25vh !important; /* Optimized for mobile */
-  }
-
-  .video-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .video-title {
-    font-size: 1.2rem;
-  }
-
-  .video-description {
-    font-size: 0.8rem;
-  }
-
-  .video-uploader {
-    font-size: 0.7rem;
-  }
-
-  .no-videos {
-    font-size: 1.2rem;
-  }
-
-  .loader {
-    width: 36px;
-    height: 36px;
-  }
-  /* Add below your existing styles in App.css */
-
 /* History Modal */
 .history-modal {
   position: fixed;
@@ -519,7 +392,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(43, 29, 74, 0.9); /* Matches your gradient */
+  background: rgba(43, 29, 74, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -574,32 +447,121 @@ body {
   box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
 }
 
-/* Mobile Adjustments */
+/* ClO₂ Course Modal */
+.course-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(43, 29, 74, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.course-content {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.course-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.course-text {
+  font-size: 1.2rem;
+  color: #e6d8a7;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.course-text a {
+  color: #d4af37;
+  text-decoration: underline;
+}
+
+.course-text a:hover {
+  color: #8a5db5;
+}
+
+.course-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  color: #e6d8a7;
+}
+
+.course-list li {
+  margin-bottom: 10px;
+}
+
+.course-list strong {
+  color: #d4af37;
+}
+
+/* Media Queries for Mobile */
 @media (max-width: 768px) {
-  .history-title {
-    font-size: 1.6rem;
-  }
-
-  .history-text {
-    font-size: 1rem;
-  }
-
-  .history-content {
-    padding: 15px;
-  }
+  .app { padding: 15px; }
+  .header { padding: 30px 15px; }
+  .title { font-size: 2.5rem; }
+  .subtitle { font-size: 1.2rem; }
+  .auth-section { padding: 5px; gap: 10px; }
+  .login-form, .signup-form, .upload-form { flex-direction: column; width: 100%; max-width: 300px; }
+  .login-form input, .signup-form input, .upload-form input { padding: 10px; font-size: 0.9rem; border-radius: 10px; }
+  .auth-btn, .upload-btn, .cta-btn { padding: 10px 20px; }
+  .landing-section { padding: 20px 10px; }
+  .landing-title { font-size: 1.8rem; }
+  .landing-text { font-size: 1rem; }
+  .cta-btn { width: 80%; margin: 20px auto; display: block; }
+  .landing-disclaimer { font-size: 0.8rem; }
+  .featured-section { padding: 0 10px; }
+  .featured-title { font-size: 1.6rem; }
+  .featured-video { padding: 15px; margin: 0 5px; }
+  .main { padding: 0 10px; }
+  .upload-form { padding: 15px; margin-bottom: 30px; }
+  .video-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+  .video-title { font-size: 1.4rem; }
+  .video-description { font-size: 0.9rem; }
+  .video-uploader { font-size: 0.8rem; }
+  .loader { width: 40px; height: 40px; }
+  .history-title, .course-title { font-size: 1.6rem; }
+  .history-text, .course-text { font-size: 1rem; }
+  .history-content, .course-content { padding: 15px; }
+  .rotating-text-background { font-size: 4rem; }
 }
 
 @media (max-width: 480px) {
-  .history-title {
-    font-size: 1.4rem;
-  }
-
-  .history-text {
-    font-size: 0.9rem;
-  }
-
-  .close-btn {
-    padding: 8px 16px;
-  }
-}
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+  .auth-btn, .upload-btn, .cta-btn { padding: 8px 16px; }
+  .landing-title { font-size: 1.5rem; }
+  .landing-text { font-size: 0.9rem; }
+  .cta-btn { width: 90%; }
+  .featured-video > div { height: 25vh !important; }
+  .video-grid { grid-template-columns: 1fr; gap: 10px; }
+  .video-title { font-size: 1.2rem; }
+  .video-description { font-size: 0.8rem; }
+  .video-uploader { font-size: 0.7rem; }
+  .no-videos { font-size: 1.2rem; }
+  .loader { width: 36px; height: 36px; }
+  .history-title, .course-title { font-size: 1.4rem; }
+  .history-text, .course-text { font-size: 0.9rem; }
+  .close-btn { padding: 8px 16px; }
+  .rotating-text-background { font-size: 3rem; }
 }

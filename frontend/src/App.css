@@ -32,25 +32,17 @@ body {
   transform: translate(-50%, -50%);
   font-size: 6rem;
   font-weight: 700;
-  color: rgba(212, 175, 55, 0.2); /* Faded gold */
+  color: rgba(212, 175, 55, 0.2);
   text-transform: uppercase;
   animation: rotateGlow 20s linear infinite;
   pointer-events: none;
-  z-index: -1; /* Behind starry background */
+  z-index: -1;
 }
 
 @keyframes rotateGlow {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-    opacity: 0.2;
-  }
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.2; }
+  50% { opacity: 0.4; }
+  100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.2; }
 }
 
 .header {
@@ -101,7 +93,10 @@ body {
 }
 
 .letter {
-  display: inline-block; /* For GSAP animation */
+  display: inline-block;
+  transform: translateZ(0); /* Forces hardware acceleration for sharper rendering */
+  -webkit-font-smoothing: antialiased; /* Improves text clarity */
+  backface-visibility: hidden; /* Prevents blur from 3D transforms */
 }
 
 .subtitle {

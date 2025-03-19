@@ -16,7 +16,7 @@ function App() {
   const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [showHistory, setShowHistory] = useState(false);
-  const [showCourse, setShowCourse] = useState(false); // For ClO₂ Course
+  const [showCourse, setShowCourse] = useState(false);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -85,7 +85,7 @@ function App() {
     };
     fetchVideos();
 
-    // GSAP title animation
+    // GSAP title animation with reset
     const title = titleRef.current;
     if (title) {
       const letters = title.innerText
@@ -93,6 +93,7 @@ function App() {
         .map((char) => `<span class="letter">${char}</span>`)
         .join('');
       title.innerHTML = letters;
+
       gsap.from('.letter', {
         duration: 1.5,
         opacity: 0,
@@ -102,6 +103,16 @@ function App() {
         y: () => Math.random() * 200 - 100,
         stagger: 0.1,
         ease: 'elastic.out(1, 0.5)',
+        onComplete: () => {
+          // Reset transforms to ensure crisp rendering
+          gsap.set('.letter', {
+            scale: 1,
+            rotation: 0,
+            x: 0,
+            y: 0,
+            clearProps: 'all', // Clears all inline styles for clean CSS rendering
+          });
+        },
       });
     }
 
@@ -191,9 +202,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* Starry background canvas */}
       <canvas ref={canvasRef} className="starry-background" />
-      {/* CSS-based rotating text background */}
       <div className="rotating-text-background">Gods Detox</div>
 
       <header className="header">
@@ -272,7 +281,6 @@ function App() {
           Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
 
-        {/* History Modal */}
         {showHistory && (
           <div className="history-modal">
             <div className="history-content">
@@ -287,7 +295,6 @@ function App() {
           </div>
         )}
 
-        {/* ClO₂ Course Modal */}
         {showCourse && (
           <div className="course-modal">
             <div className="course-content">

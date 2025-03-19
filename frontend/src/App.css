@@ -54,7 +54,7 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  margin-bottom: 30px; /* Adjusted for flow */
+  margin-bottom: 30px;
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -260,7 +260,7 @@ body {
 
 /* Featured Section */
 .featured-section {
-  margin-bottom: 30px; /* Adjusted for flow */
+  margin-bottom: 30px;
   text-align: center;
   z-index: 2;
 }
@@ -294,7 +294,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 30px; /* Adjusted for flow */
+  margin-bottom: 30px;
   z-index: 2;
 }
 
@@ -344,7 +344,7 @@ body {
 }
 
 .upload-form {
-  margin-bottom: 30px; /* Adjusted for flow */
+  margin-bottom: 30px;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
@@ -353,6 +353,7 @@ body {
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .upload-form input {
@@ -386,6 +387,35 @@ body {
 .upload-btn:hover, .upload-btn:active {
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
+}
+
+/* Progress Bar */
+.progress-container {
+  width: 100%;
+  max-width: 300px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8a5db5, #d4af37);
+  transition: width 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2b1d4a;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .video-grid {
@@ -617,6 +647,8 @@ body {
   .rotating-text-background { font-size: 4rem; }
   .auth-form input { padding: 10px; font-size: 0.9rem; }
   .submit-btn { padding: 10px; }
+  .progress-container { max-width: 250px; }
+  .progress-text { font-size: 0.8rem; }
 }
 
 @media (max-width: 480px) {
@@ -640,4 +672,6 @@ body {
   .rotating-text-background { font-size: 3rem; }
   .auth-tabs { flex-direction: column; gap: 5px; }
   .tab-btn { padding: 6px 12px; }
+  .progress-container { max-width: 200px; }
+  .progress-text { font-size: 0.7rem; }
 }

@@ -19,6 +19,7 @@ function App() {
   const [showCourse, setShowCourse] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
+  const [progress, setProgress] = useState(0);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -43,13 +44,32 @@ function App() {
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
-    // More constellations in white and gold
+    // Constellations: Orion's Belt and Big Dipper
     const constellations = [
-      { points: [[200, 200], [200, 300], [150, 250], [250, 250]], color: '#ffffff' }, // White
-      { points: [[400, 100], [450, 150], [500, 200], [450, 250], [400, 200]], color: '#d4af37' }, // Gold
-      { points: [[300, 400], [350, 450], [400, 400], [350, 350]], color: '#ffffff' }, // White
-      { points: [[600, 300], [650, 350], [700, 300], [650, 250]], color: '#d4af37' }, // Gold
-      { points: [[100, 500], [150, 550], [200, 500], [150, 450]], color: '#ffffff' }, // White
+      // Orion's Belt: 3 stars in a line, with two more for the "sword"
+      {
+        points: [
+          [300, 200], // Left star (Mintaka)
+          [350, 200], // Middle star (Alnilam)
+          [400, 200], // Right star (Alnitak)
+          [350, 250], // Sword star 1
+          [350, 300], // Sword star 2
+        ],
+        color: '#d4af37', // Gold
+      },
+      // Big Dipper: 7 stars (3 handle, 4 bowl)
+      {
+        points: [
+          [600, 400], // Bowl bottom-left (Merak)
+          [650, 350], // Bowl top-left (Dubhe)
+          [700, 350], // Bowl top-right (Phecda)
+          [750, 400], // Bowl bottom-right (Megrez)
+          [800, 450], // Handle base (Alioth)
+          [850, 500], // Handle middle (Mizar)
+          [900, 550], // Handle end (Alkaid)
+        ],
+        color: '#ffffff', // White
+      },
     ];
 
     const animate = () => {
@@ -114,7 +134,7 @@ function App() {
     }
 
     return () => {
-      window.addEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -164,7 +184,13 @@ function App() {
     formData.append('upload_preset', 'video-vault-preset');
 
     try {
-      const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData);
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData, {
+        onUploadProgress: (progressEvent) => {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setProgress(percent);
+        },
+      });
+
       const videoData = {
         title,
         description,
@@ -177,12 +203,14 @@ function App() {
       setFile(null);
       setTitle('');
       setDescription('');
+      setProgress(0);
       const videosRes = await axios.get('/.netlify/functions/videos');
       setVideos(videosRes.data || []);
       alert('Video uploaded successfully!');
     } catch (err) {
       console.error('Upload error:', err.response?.data || err.message);
       alert('Upload failed—check your file or permissions!');
+      setProgress(0);
     }
   };
 
@@ -216,12 +244,11 @@ function App() {
               <button onClick={handleLogout} className="auth-btn">Logout</button>
             </>
           ) : (
-            <button onClick={() => setShowAuth(true)} className="auth-btn">Auth</button>
+            <button onClick={() => setShowAuth(true)} className="auth-btn">Sign up or Log in</button>
           )}
         </div>
       </header>
 
-      {/* Featured Video Section - Moved under header */}
       {featuredVideo && (
         <section className="featured-section">
           <h2 className="featured-title">Featured Video</h2>
@@ -242,7 +269,6 @@ function App() {
         </section>
       )}
 
-      {/* Auth Modal */}
       {showAuth && (
         <div className="auth-modal">
           <div className="auth-content">
@@ -305,7 +331,6 @@ function App() {
         </div>
       )}
 
-      {/* Landing Section - Moved after featured video */}
       <section className="landing-section">
         <h2 className="landing-title">Welcome to Gods Detox</h2>
         <p className="landing-text">
@@ -371,7 +396,6 @@ function App() {
         )}
       </section>
 
-      {/* Main Section - Video grid and upload form at the bottom */}
       <main className="main">
         {user && (
           <form onSubmit={handleUpload} className="upload-form">
@@ -385,6 +409,13 @@ function App() {
               required
             />
             <button type="submit" className="upload-btn">Upload Video</button>
+            {progress > 0 && progress < 100 && (
+              <div className="progress-container">
+                <div className="progress-bar" style={{ width: `${progress}%` }}>
+                  <span className="progress-text">{progress}%</span>
+                </div>
+              </div>
+            )}
           </form>
         )}
 

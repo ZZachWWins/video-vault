@@ -17,11 +17,12 @@ function App() {
   const [signupPassword, setSignupPassword] = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [showCourse, setShowCourse] = useState(false);
+  const [showAuth, setShowAuth] = useState(false); // New state for auth modal
+  const [activeTab, setActiveTab] = useState('login'); // Toggle between login/signup
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
   useEffect(() => {
-    // Starry background animation
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     let animationFrameId;
@@ -72,7 +73,6 @@ function App() {
     };
     animate();
 
-    // Fetch videos
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
@@ -85,7 +85,6 @@ function App() {
     };
     fetchVideos();
 
-    // Simplified GSAP animation
     const title = titleRef.current;
     if (title) {
       const letters = title.innerText
@@ -97,14 +96,14 @@ function App() {
       gsap.from('.letter', {
         duration: 1,
         opacity: 0,
-        y: 50, // Simpler vertical entrance
+        y: 50,
         stagger: 0.05,
         ease: 'power2.out',
         onComplete: () => {
           gsap.set('.letter', {
             y: 0,
             opacity: 1,
-            clearProps: 'all', // Remove all GSAP inline styles
+            clearProps: 'all',
           });
         },
       });
@@ -123,6 +122,7 @@ function App() {
       setUser(res.data.user);
       setUsername('');
       setPassword('');
+      setShowAuth(false); // Close modal on success
     } catch (err) {
       alert('Login failed—check your credentials!');
     }
@@ -135,6 +135,7 @@ function App() {
       alert('Signup successful! Please log in.');
       setSignupUsername('');
       setSignupPassword('');
+      setActiveTab('login'); // Switch to login tab
     } catch (err) {
       alert('Signup failed—username might be taken!');
     }
@@ -204,50 +205,80 @@ function App() {
           Gods Detox
         </h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
-        {user ? (
-          <div className="auth-section">
-            <span>Welcome, {user.username}</span>
-            <button onClick={handleLogout} className="auth-btn">Logout</button>
-          </div>
-        ) : (
-          <div className="auth-section">
-            <form onSubmit={handleLogin} className="login-form">
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-              />
-              <button type="submit" className="auth-btn">Login</button>
-            </form>
-            <form onSubmit={handleSignup} className="signup-form">
-              <input
-                type="text"
-                value={signupUsername}
-                onChange={(e) => setSignupUsername(e.target.value)}
-                placeholder="Choose Username"
-                required
-              />
-              <input
-                type="password"
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
-                placeholder="Choose Password"
-                required
-              />
-              <button type="submit" className="auth-btn">Signup</button>
-            </form>
-          </div>
-        )}
+        <div className="auth-section">
+          {user ? (
+            <>
+              <span>Welcome, {user.username}</span>
+              <button onClick={handleLogout} className="auth-btn">Logout</button>
+            </>
+          ) : (
+            <button onClick={() => setShowAuth(true)} className="auth-btn">Auth</button>
+          )}
+        </div>
       </header>
+
+      {/* Auth Modal */}
+      {showAuth && (
+        <div className="auth-modal">
+          <div className="auth-content">
+            <h2 className="auth-title">Authentication</h2>
+            <div className="auth-tabs">
+              <button
+                className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
+                onClick={() => setActiveTab('login')}
+              >
+                Login
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 'signup' ? 'active' : ''}`}
+                onClick={() => setActiveTab('signup')}
+              >
+                Signup
+              </button>
+            </div>
+            {activeTab === 'login' ? (
+              <form onSubmit={handleLogin} className="auth-form">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  required
+                />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  required
+                />
+                <button type="submit" className="submit-btn">Login</button>
+              </form>
+            ) : (
+              <form onSubmit={handleSignup} className="auth-form">
+                <input
+                  type="text"
+                  value={signupUsername}
+                  onChange={(e) => setSignupUsername(e.target.value)}
+                  placeholder="Choose Username"
+                  required
+                />
+                <input
+                  type="password"
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  placeholder="Choose Password"
+                  required
+                />
+                <button type="submit" className="submit-btn">Signup</button>
+              </form>
+            )}
+            <button className="close-btn" onClick={() => setShowAuth(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <section className="landing-section">
         <h2 className="landing-title">Welcome to Gods Detox</h2>

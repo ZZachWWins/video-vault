@@ -47,17 +47,20 @@ body {
 
 .header {
   text-align: center;
-  padding: 50px 20px;
-  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  padding: 20px 15px; /* Reduced padding */
+  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37); /* Same gradient */
+  border-radius: 15px; /* Smaller radius */
+  box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37); /* Slightly tighter shadow */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  margin-bottom: 30px;
+  margin-bottom: 20px; /* Reduced margin */
   position: relative;
   overflow: hidden;
   z-index: 2;
+  max-width: 900px; /* Smaller max-width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .header::before {
@@ -79,11 +82,11 @@ body {
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 2.5rem; /* Smaller (was 4rem) */
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #d4af37;
+  color: #d4af37; /* Same gold */
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
   margin: 0;
   position: relative;
@@ -100,41 +103,43 @@ body {
 }
 
 .subtitle {
-  font-size: 1.6rem;
+  font-size: 1.2rem; /* Smaller (was 1.6rem) */
   font-weight: 300;
-  margin: 15px 0 25px;
-  color: #e6d8a7;
+  margin: 10px 0 15px; /* Tighter margins */
+  color: #e6d8a7; /* Same light gold */
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   position: relative;
   z-index: 1;
 }
 
 .auth-section {
-  margin-top: 25px;
-  padding: 10px;
+  margin-top: 15px; /* Reduced */
+  padding: 5px; /* Tighter */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px; /* Slightly smaller gap */
   flex-wrap: wrap;
   position: relative;
   z-index: 2;
 }
 
 .auth-btn {
-  padding: 12px 24px;
-  background: linear-gradient(45deg, #8a5db5, #d4af37);
-  color: #2b1d4a;
+  padding: 14px 28px; /* Larger padding */
+  background: linear-gradient(45deg, #8a5db5, #d4af37); /* Same gradient */
+  color: #2b1d4a; /* Same font color */
   border: none;
-  border-radius: 12px;
-  font-weight: 600;
+  border-radius: 14px; /* Slightly larger radius */
+  font-weight: 600; /* Same weight */
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5); /* Glow */
+  font-size: 1.1rem; /* Slightly larger text */
 }
 
 .auth-btn:hover, .auth-btn:active {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7); /* Stronger glow */
 }
 
 /* Auth Modal */
@@ -315,18 +320,18 @@ body {
 }
 
 .cta-btn {
-  padding: 18px 36px; /* Bigger padding */
-  font-size: 1.5rem; /* Larger text */
+  padding: 18px 36px;
+  font-size: 1.5rem;
   background: linear-gradient(45deg, #d4af37, #8a5db5);
   color: #2b1d4a;
   border: none;
-  border-radius: 15px; /* Slightly larger radius */
+  border-radius: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  margin: 15px; /* More spacing */
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); /* Default glow */
-  animation: pulseGlow 2s infinite ease-in-out; /* Subtle pulse */
+  margin: 15px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 @keyframes pulseGlow {
@@ -335,8 +340,8 @@ body {
 }
 
 .cta-btn:hover, .cta-btn:active {
-  transform: scale(1.1); /* Slightly bigger scale on hover */
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.8); /* Stronger glow */
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.8);
 }
 
 .landing-disclaimer {
@@ -754,12 +759,14 @@ body {
 .course-list strong {
   color: #d4af37;
 }
+
 .like-section {
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 10px 15px;
 }
+
 .like-btn {
   padding: 8px 16px;
   background: linear-gradient(45deg, #8a5db5, #d4af37);
@@ -787,23 +794,25 @@ body {
   color: #e6d8a7;
 }
 
-@media (max-width: 768px) {
-  .like-btn { padding: 6px 12px; }
-  .like-count { font-size: 0.8rem; }
-}
-
-@media (max-width: 480px) {
-  .like-btn { padding: 5px 10px; }
-  .like-count { font-size: 0.7rem; }
-}
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
   .app { padding: 15px; }
-  .header { padding: 30px 15px; margin-bottom: 20px; }
-  .title { font-size: 2.5rem; }
-  .subtitle { font-size: 1.2rem; }
-  .auth-section { padding: 5px; gap: 10px; }
-  .auth-btn { padding: 10px 20px; }
+  .header { 
+    padding: 15px 10px; /* Tighter */
+    margin-bottom: 15px; 
+    max-width: 700px; /* Smaller */
+  }
+  .title { font-size: 2rem; /* Smaller */ }
+  .subtitle { font-size: 1rem; /* Smaller */ }
+  .auth-section { margin-top: 10px; padding: 5px; gap: 8px; }
+  .auth-btn { 
+    padding: 12px 24px; /* Still larger */
+    font-size: 1rem; 
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7), 0 0 18px rgba(138, 93, 181, 0.5); 
+  }
+  .auth-btn:hover, .auth-btn:active {
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.9), 0 0 25px rgba(138, 93, 181, 0.7);
+  }
   .featured-section { margin-bottom: 20px; }
   .featured-title { font-size: 1.6rem; }
   .featured-video { padding: 15px; }
@@ -811,7 +820,7 @@ body {
   .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
   .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 1rem; }
   .cta-btn { 
-    padding: 14px 28px; /* Slightly smaller but still big */
+    padding: 14px 28px;
     font-size: 1.2rem; 
     width: 80%; 
     margin: 10px auto; 
@@ -836,18 +845,32 @@ body {
   .progress-text { font-size: 0.8rem; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .faq-question { font-size: 1.4rem; }
+  .like-btn { padding: 6px 12px; }
+  .like-count { font-size: 0.8rem; }
 }
 
 @media (max-width: 480px) {
-  .title { font-size: 2rem; }
-  .subtitle { font-size: 1rem; }
-  .auth-btn, .upload-btn { padding: 8px 16px; }
+  .header { 
+    padding: 10px 8px; /* Even tighter */
+    max-width: 90%; /* Fluid but smaller */
+  }
+  .title { font-size: 1.8rem; /* Smaller */ }
+  .subtitle { font-size: 0.9rem; /* Smaller */ }
+  .auth-section { margin-top: 8px; gap: 5px; }
+  .auth-btn { 
+    padding: 10px 20px; /* Still prominent */
+    font-size: 0.9rem; 
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7), 0 0 15px rgba(138, 93, 181, 0.5); 
+  }
+  .auth-btn:hover, .auth-btn:active {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
+  }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
   .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
   .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { 
-    padding: 12px 24px; /* Still prominent */
+    padding: 12px 24px;
     font-size: 1.1rem; 
     width: 90%; 
   }
@@ -868,4 +891,6 @@ body {
   .upload-form input { max-width: 100%; }
   .testimonials-grid { gap: 15px; }
   .faq-question { font-size: 1.2rem; }
+  .like-btn { padding: 5px 10px; }
+  .like-count { font-size: 0.7rem; }
 }

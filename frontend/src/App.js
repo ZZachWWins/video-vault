@@ -85,7 +85,7 @@ function App() {
     };
     fetchVideos();
 
-    // GSAP title animation with reset
+    // Simplified GSAP animation
     const title = titleRef.current;
     if (title) {
       const letters = title.innerText
@@ -95,22 +95,16 @@ function App() {
       title.innerHTML = letters;
 
       gsap.from('.letter', {
-        duration: 1.5,
+        duration: 1,
         opacity: 0,
-        scale: 0,
-        rotation: 360,
-        x: () => Math.random() * 200 - 100,
-        y: () => Math.random() * 200 - 100,
-        stagger: 0.1,
-        ease: 'elastic.out(1, 0.5)',
+        y: 50, // Simpler vertical entrance
+        stagger: 0.05,
+        ease: 'power2.out',
         onComplete: () => {
-          // Reset transforms to ensure crisp rendering
           gsap.set('.letter', {
-            scale: 1,
-            rotation: 0,
-            x: 0,
             y: 0,
-            clearProps: 'all', // Clears all inline styles for clean CSS rendering
+            opacity: 1,
+            clearProps: 'all', // Remove all GSAP inline styles
           });
         },
       });

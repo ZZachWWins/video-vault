@@ -13,12 +13,12 @@ function App() {
   const [description, setDescription] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [signupUsername, setSignupUsername] = useState('');
+  const [signup strangUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [showCourse, setShowCourse] = useState(false);
-  const [showAuth, setShowAuth] = useState(false); // New state for auth modal
-  const [activeTab, setActiveTab] = useState('login'); // Toggle between login/signup
+  const [showAuth, setShowAuth] = useState(false);
+  const [activeTab, setActiveTab] = useState('login');
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -43,9 +43,13 @@ function App() {
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
+    // More constellations in white and gold
     const constellations = [
-      { points: [[200, 200], [200, 300], [150, 250], [250, 250]], color: '#d32f2f' },
-      { points: [[400, 100], [450, 150], [500, 200], [450, 250], [400, 200]], color: '#1976d2' },
+      { points: [[200, 200], [200, 300], [150, 250], [250, 250]], color: '#ffffff' }, // White
+      { points: [[400, 100], [450, 150], [500, 200], [450, 250], [400, 200]], color: '#d4af37' }, // Gold
+      { points: [[300, 400], [350, 450], [400, 400], [350, 350]], color: '#ffffff' }, // White
+      { points: [[600, 300], [650, 350], [700, 300], [650, 250]], color: '#d4af37' }, // Gold
+      { points: [[100, 500], [150, 550], [200, 500], [150, 450]], color: '#ffffff' }, // White
     ];
 
     const animate = () => {
@@ -110,7 +114,7 @@ function App() {
     }
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.addEventListener('resize', resizeCanvas);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -122,7 +126,7 @@ function App() {
       setUser(res.data.user);
       setUsername('');
       setPassword('');
-      setShowAuth(false); // Close modal on success
+      setShowAuth(false);
     } catch (err) {
       alert('Login failed—check your credentials!');
     }
@@ -135,7 +139,7 @@ function App() {
       alert('Signup successful! Please log in.');
       setSignupUsername('');
       setSignupPassword('');
-      setActiveTab('login'); // Switch to login tab
+      setActiveTab('login');
     } catch (err) {
       alert('Signup failed—username might be taken!');
     }
@@ -217,6 +221,27 @@ function App() {
         </div>
       </header>
 
+      {/* Featured Video Section - Moved under header */}
+      {featuredVideo && (
+        <section className="featured-section">
+          <h2 className="featured-title">Featured Video</h2>
+          <div className="featured-video">
+            <ReactPlayer
+              url={featuredVideo.fileUrl}
+              light={featuredVideo.thumbnailUrl}
+              width="100%"
+              height="400px"
+              controls
+              onStart={() => handleViewIncrement(featuredVideo._id)}
+            />
+            <h3 className="video-title">{featuredVideo.title}</h3>
+            <p className="video-description">{featuredVideo.description}</p>
+            <p className="video-uploader">Uploaded by: {featuredVideo.uploadedBy}</p>
+            <p className="video-views">Views: {featuredVideo.views || 0}</p>
+          </div>
+        </section>
+      )}
+
       {/* Auth Modal */}
       {showAuth && (
         <div className="auth-modal">
@@ -280,6 +305,7 @@ function App() {
         </div>
       )}
 
+      {/* Landing Section - Moved after featured video */}
       <section className="landing-section">
         <h2 className="landing-title">Welcome to Gods Detox</h2>
         <p className="landing-text">
@@ -345,27 +371,8 @@ function App() {
         )}
       </section>
 
+      {/* Main Section - Video grid and upload form at the bottom */}
       <main className="main">
-        {featuredVideo && (
-          <section className="featured-section">
-            <h2 className="featured-title">Featured Video</h2>
-            <div className="featured-video">
-              <ReactPlayer
-                url={featuredVideo.fileUrl}
-                light={featuredVideo.thumbnailUrl}
-                width="100%"
-                height="400px"
-                controls
-                onStart={() => handleViewIncrement(featuredVideo._id)}
-              />
-              <h3 className="video-title">{featuredVideo.title}</h3>
-              <p className="video-description">{featuredVideo.description}</p>
-              <p className="video-uploader">Uploaded by: {featuredVideo.uploadedBy}</p>
-              <p className="video-views">Views: {featuredVideo.views || 0}</p>
-            </div>
-          </section>
-        )}
-
         {user && (
           <form onSubmit={handleUpload} className="upload-form">
             <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />

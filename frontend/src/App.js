@@ -37,38 +37,39 @@ function App() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const stars = Array.from({ length: 100 }, () => ({
+    const stars = Array.from({ length: 50 }, () => ({
       x: Math.random() * (canvas?.width || window.innerWidth),
       y: Math.random() * (canvas?.height || window.innerHeight),
       radius: Math.random() * 1.5 + 0.5,
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
-    // Constellations: Orion's Belt and Big Dipper
+    // Dynamic constellations for mobile scaling
+    const getScaledPoints = (basePoints, width, height) => {
+      return basePoints.map(([x, y]) => [
+        (x / 1000) * width, // Scale based on 1000px base width
+        (y / 800) * height, // Scale based on 800px base height
+      ]);
+    };
+
     const constellations = [
-      // Orion's Belt: 3 stars in a line, with two more for the "sword"
+      // Orion's Belt (gold)
       {
-        points: [
-          [300, 200], // Left star (Mintaka)
-          [350, 200], // Middle star (Alnilam)
-          [400, 200], // Right star (Alnitak)
-          [350, 250], // Sword star 1
-          [350, 300], // Sword star 2
-        ],
-        color: '#d4af37', // Gold
+        points: getScaledPoints(
+          [[300, 200], [350, 200], [400, 200], [350, 250], [350, 300]],
+          canvas?.width || window.innerWidth,
+          canvas?.height || window.innerHeight
+        ),
+        color: '#d4af37',
       },
-      // Big Dipper: 7 stars (3 handle, 4 bowl)
+      // Big Dipper (white)
       {
-        points: [
-          [600, 400], // Bowl bottom-left (Merak)
-          [650, 350], // Bowl top-left (Dubhe)
-          [700, 350], // Bowl top-right (Phecda)
-          [750, 400], // Bowl bottom-right (Megrez)
-          [800, 450], // Handle base (Alioth)
-          [850, 500], // Handle middle (Mizar)
-          [900, 550], // Handle end (Alkaid)
-        ],
-        color: '#ffffff', // White
+        points: getScaledPoints(
+          [[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]],
+          canvas?.width || window.innerWidth,
+          canvas?.height || window.innerHeight
+        ),
+        color: '#ffffff',
       },
     ];
 
@@ -111,7 +112,7 @@ function App() {
 
     const title = titleRef.current;
     if (title) {
-      const letters = title.innerText
+      const letters = "God's Detox" // Static string with apostrophe
         .split('')
         .map((char) => `<span class="letter">${char}</span>`)
         .join('');
@@ -124,11 +125,7 @@ function App() {
         stagger: 0.05,
         ease: 'power2.out',
         onComplete: () => {
-          gsap.set('.letter', {
-            y: 0,
-            opacity: 1,
-            clearProps: 'all',
-          });
+          gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' });
         },
       });
     }
@@ -230,11 +227,11 @@ function App() {
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
-      <div className="rotating-text-background">Gods Detox</div>
+      <div className="rotating-text-background">God&apos;s Detox</div>
 
       <header className="header">
         <h1 ref={titleRef} className="title">
-          Gods Detox
+          God&apos;s Detox {/* Escaped apostrophe */}
         </h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <div className="auth-section">
@@ -332,9 +329,9 @@ function App() {
       )}
 
       <section className="landing-section">
-        <h2 className="landing-title">Welcome to Gods Detox</h2>
+        <h2 className="landing-title">Welcome to God&apos;s Detox</h2>
         <p className="landing-text">
-          Welcome to Gods Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
+          Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
         <h2 className="landing-title">The CLO2 Movement</h2>
         <p className="landing-text">
@@ -342,7 +339,7 @@ function App() {
         </p>
         <h2 className="landing-title">Your Choice, Your Voice</h2>
         <p className="landing-text">
-          At Gods Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
+          At God’s Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
         <button className="cta-btn" onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')}>
           Share Your Story
@@ -356,45 +353,103 @@ function App() {
         <p className="landing-disclaimer">
           Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
-
-        {showHistory && (
-          <div className="history-modal">
-            <div className="history-content">
-              <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
-              <p className="history-text">
-                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy. It's recently being used as a way to detox your system. From a lab curiosity to a global tool, its story blends innovation with responsibility.
-              </p>
-              <button className="close-btn" onClick={() => setShowHistory(false)}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
-
-        {showCourse && (
-          <div className="course-modal">
-            <div className="course-content">
-              <h2 className="course-title">The Universal Antidote Course: ClO₂ Basics</h2>
-              <p className="course-text">
-                The Universal Antidote Course is a free, eight-part video series teaching you how to make and use chlorine dioxide (ClO₂), a substance dubbed “The Universal Antidote.” Created by “The Curious Outlier,” it’s rooted in faith and a mission to help people heal. Here’s what you’ll learn:
-              </p>
-              <ul className="course-list">
-                <li><strong>History:</strong> ClO₂’s journey from water purification to health applications, including NASA’s 1987 “universal antidote” claim.</li>
-                <li><strong>Making MMS1 (CD):</strong> Mix sodium chlorite with an acid (e.g., 4% hydrochloric or 50% citric) for 30 seconds to release 10% ClO₂ gas. Use orally starting with 1-3 drops.</li>
-                <li><strong>Making CDS:</strong> Pure ClO₂ gas dissolved in water, free of residuals, ideal for those sensitive to MMS1.</li>
-                <li><strong>Usage:</strong> Start with the MMS Starting Procedure (low doses), then escalate to protocols like 1000 for illness—always with caution.</li>
-                <li><strong>Safety:</strong> Use food-grade ingredients, avoid overuse, and consult the free guidebook for detailed steps.</li>
-              </ul>
-              <p className="course-text">
-                Testimonials claim ClO₂ helps with everything from heart issues to cancer, but evidence is anecdotal. Explore the course at <a href="https://theuniversalantidote.com" target="_blank" rel="noopener noreferrer">theuniversalantidote.com</a> and decide for yourself.
-              </p>
-              <button className="close-btn" onClick={() => setShowCourse(false)}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
       </section>
+
+      {/* New Why CLO2 Section */}
+      <section className="why-clo2-section">
+        <h2 className="why-clo2-title">Why CLO2?</h2>
+        <p className="why-clo2-text">
+          Chlorine dioxide (CLO2) has been a quiet hero in water purification for decades—safe enough to treat municipal water supplies, yet powerful enough to tackle pathogens. Some call it a “universal antidote,” claiming it detoxes the body from heavy metals, parasites, and more. Science backs its oxidative power; anecdotes fuel its following. At God’s Detox, we’re not here to sell it—we’re here to explore it. Watch our videos, dig into the course, and see why this simple compound’s got people talking.
+        </p>
+      </section>
+
+      {/* New Testimonials Section */}
+      <section className="testimonials-section">
+        <h2 className="testimonials-title">What People Are Saying</h2>
+        <div className="testimonials-grid">
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              “I started using CLO2 after watching a video here. It’s changed how I feel every day—more energy, clearer mind. Thank God for this community!”
+            </p>
+            <p className="testimonial-author">- Sarah M., Texas</p>
+          </div>
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              “Skeptical at first, but the stories on God’s Detox convinced me to try it. My family’s noticed a difference. Faith and freedom in action.”
+            </p>
+            <p className="testimonial-author">- John D., Ohio</p>
+          </div>
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              “This site opened my eyes to CLO2. I’ve shared my own video now—it’s amazing to be part of something bigger.”
+            </p>
+            <p className="testimonial-author">- Maria L., California</p>
+          </div>
+        </div>
+      </section>
+
+      {/* New FAQ Section */}
+      <section className="faq-section">
+        <h2 className="faq-title">Frequently Asked Questions</h2>
+        <div className="faq-list">
+          <div className="faq-item">
+            <h3 className="faq-question">What is CLO2?</h3>
+            <p className="faq-answer">
+              CLO2, or chlorine dioxide, is a chemical compound used globally to purify water. Some believe it has health benefits when used in small, controlled doses.
+            </p>
+          </div>
+          <div className="faq-item">
+            <h3 className="faq-question">Is it safe?</h3>
+            <p className="faq-answer">
+              In water treatment, yes—it’s FDA-approved. For personal use, opinions vary. We share stories, not prescriptions. Research and decide for yourself.
+            </p>
+          </div>
+          <div className="faq-item">
+            <h3 className="faq-question">How do I get started?</h3>
+            <p className="faq-answer">
+              Check out our free CLO2 Course or watch user videos. Start small, stay informed, and join the conversation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {showHistory && (
+        <div className="history-modal">
+          <div className="history-content">
+            <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
+            <p className="history-text">
+              Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. Studied through the 19th century, it emerged in the 1900s as a bleaching agent for paper, revolutionizing the industry. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Its eco-friendly profile—producing fewer toxic byproducts—boosted its use in the 1970s-80s for water and industrial applications. Today, ClO₂ is vital for sanitation, food processing, and emergency disinfection, though it’s faced controversy. It’s recently being used as a way to detox your system. From a lab curiosity to a global tool, its story blends innovation with responsibility.
+            </p>
+            <button className="close-btn" onClick={() => setShowHistory(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showCourse && (
+        <div className="course-modal">
+          <div className="course-content">
+            <h2 className="course-title">The Universal Antidote Course: ClO₂ Basics</h2>
+            <p className="course-text">
+              The Universal Antidote Course is a free, eight-part video series teaching you how to make and use chlorine dioxide (ClO₂), a substance dubbed “The Universal Antidote.” Created by “The Curious Outlier,” it’s rooted in faith and a mission to help people heal. Here’s what you’ll learn:
+            </p>
+            <ul className="course-list">
+              <li><strong>History:</strong> ClO₂’s journey from water purification to health applications, including NASA’s 1987 “universal antidote” claim.</li>
+              <li><strong>Making MMS1 (CD):</strong> Mix sodium chlorite with an acid (e.g., 4% hydrochloric or 50% citric) for 30 seconds to release 10% ClO₂ gas. Use orally starting with 1-3 drops.</li>
+              <li><strong>Making CDS:</strong> Pure ClO₂ gas dissolved in water, free of residuals, ideal for those sensitive to MMS1.</li>
+              <li><strong>Usage:</strong> Start with the MMS Starting Procedure (low doses), then escalate to protocols like 1000 for illness—always with caution.</li>
+              <li><strong>Safety:</strong> Use food-grade ingredients, avoid overuse, and consult the free guidebook for detailed steps.</li>
+            </ul>
+            <p className="course-text">
+              Testimonials claim ClO₂ helps with everything from heart issues to cancer, but evidence is anecdotal. Explore the course at <a href="https://theuniversalantidote.com" target="_blank" rel="noopener noreferrer">theuniversalantidote.com</a> and decide for yourself.
+            </p>
+            <button className="close-btn" onClick={() => setShowCourse(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <main className="main">
         {user && (

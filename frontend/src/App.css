@@ -323,6 +323,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  margin: 10px;
 }
 
 .cta-btn:hover, .cta-btn:active {
@@ -337,6 +338,134 @@ body {
   margin-top: 20px;
 }
 
+/* Why CLO2 Section */
+.why-clo2-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.why-clo2-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.why-clo2-text {
+  font-size: 1.4rem;
+  color: #e6d8a7;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.testimonials-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-text {
+  font-size: 1.2rem;
+  color: #e6d8a7;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-size: 1rem;
+  color: #b8a9d1;
+  font-style: italic;
+}
+
+/* FAQ Section */
+.faq-section {
+  text-align: left;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.faq-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.faq-question {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #d4af37;
+  margin-bottom: 10px;
+}
+
+.faq-answer {
+  font-size: 1.2rem;
+  color: #e6d8a7;
+  line-height: 1.6;
+}
+
 /* Main Content */
 .main {
   padding: 0 20px;
@@ -346,14 +475,13 @@ body {
 .upload-form {
   margin-bottom: 30px;
   display: flex;
+  flex-direction: column;
   gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
   background: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
 
 .upload-form input {
@@ -365,6 +493,8 @@ body {
   font-size: 1rem;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 400px;
 }
 
 .upload-form input:focus {
@@ -389,7 +519,6 @@ body {
   box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
 }
 
-/* Progress Bar */
 .progress-container {
   width: 100%;
   max-width: 300px;
@@ -629,10 +758,10 @@ body {
   .featured-section { margin-bottom: 20px; }
   .featured-title { font-size: 1.6rem; }
   .featured-video { padding: 15px; }
-  .landing-section { padding: 20px 10px; margin-bottom: 20px; }
-  .landing-title { font-size: 1.8rem; }
-  .landing-text { font-size: 1rem; }
-  .cta-btn { width: 80%; margin: 20px auto; display: block; }
+  .landing-section, .why-clo2-section, .testimonials-section, .faq-section { padding: 20px 10px; margin-bottom: 20px; }
+  .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
+  .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 1rem; }
+  .cta-btn { width: 80%; margin: 10px auto; display: block; }
   .landing-disclaimer { font-size: 0.8rem; }
   .main { padding: 0 10px; }
   .upload-form { padding: 15px; margin-bottom: 20px; }
@@ -649,6 +778,8 @@ body {
   .submit-btn { padding: 10px; }
   .progress-container { max-width: 250px; }
   .progress-text { font-size: 0.8rem; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .faq-question { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
@@ -657,8 +788,8 @@ body {
   .auth-btn, .upload-btn, .cta-btn { padding: 8px 16px; }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
-  .landing-title { font-size: 1.5rem; }
-  .landing-text { font-size: 0.9rem; }
+  .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
+  .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { width: 90%; }
   .video-grid { grid-template-columns: 1fr; gap: 10px; }
   .video-title { font-size: 1.2rem; }
@@ -674,4 +805,7 @@ body {
   .tab-btn { padding: 6px 12px; }
   .progress-container { max-width: 200px; }
   .progress-text { font-size: 0.7rem; }
+  .upload-form input { max-width: 100%; }
+  .testimonials-grid { gap: 15px; }
+  .faq-question { font-size: 1.2rem; }
 }

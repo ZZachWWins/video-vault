@@ -109,7 +109,7 @@ function App() {
 
     const title = titleRef.current;
     if (title) {
-      const letters = "God's Detox"
+      const letters = "God’s Detox"
         .split('')
         .map((char) => `<span class="letter">${char}</span>`)
         .join('');
@@ -252,11 +252,11 @@ function App() {
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
-      <div className="rotating-text-background">Gods Detox</div>
+      <div className="rotating-text-background">God’s Detox</div>
 
       <header className="header">
         <h1 ref={titleRef} className="title">
-          God's Detox
+          God’s Detox
         </h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <div className="auth-section">
@@ -354,7 +354,7 @@ function App() {
       )}
 
       <section className="landing-section">
-        <h2 className="landing-title">Welcome to God's Detox</h2>
+        <h2 className="landing-title">Welcome to God’s Detox</h2>
         <p className="landing-text">
           Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
@@ -532,6 +532,32 @@ function App() {
           )}
         </section>
       </main>
+
+      <footer className="footer">
+        <p className="footer-text">
+          Built by Zachary | © 2025 Bob The Plumber. All rights reserved.
+        </p>
+        <div className="social-links">
+          <a
+            href="https://truthsocial.com/@yourusername"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon"
+            title="Truth Social"
+          >
+            <i className="fab fa-tumblr"></i> {/* Placeholder—Truth Social lacks a Font Awesome icon */}
+          </a>
+          <a
+            href="https://x.com/yourusername"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-icon"
+            title="X"
+          >
+            <i className="fab fa-twitter"></i>
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -44,16 +44,14 @@ function App() {
       alpha: Math.random() * 0.5 + 0.5,
     }));
 
-    // Dynamic constellations for mobile scaling
     const getScaledPoints = (basePoints, width, height) => {
       return basePoints.map(([x, y]) => [
-        (x / 1000) * width, // Scale based on 1000px base width
-        (y / 800) * height, // Scale based on 800px base height
+        (x / 1000) * width,
+        (y / 800) * height,
       ]);
     };
 
     const constellations = [
-      // Orion's Belt (gold)
       {
         points: getScaledPoints(
           [[300, 200], [350, 200], [400, 200], [350, 250], [350, 300]],
@@ -62,7 +60,6 @@ function App() {
         ),
         color: '#d4af37',
       },
-      // Big Dipper (white)
       {
         points: getScaledPoints(
           [[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]],
@@ -112,7 +109,7 @@ function App() {
 
     const title = titleRef.current;
     if (title) {
-      const letters = "God's Detox" // Static string with apostrophe
+      const letters = "God's Detox"
         .split('')
         .map((char) => `<span class="letter">${char}</span>`)
         .join('');
@@ -222,16 +219,44 @@ function App() {
     }
   };
 
+  const handleLike = async (id) => {
+    if (!user) {
+      alert('Please log in to like videos!');
+      return;
+    }
+    try {
+      const res = await axios.put('/.netlify/functions/videos', {
+        id,
+        userId: user._id,
+        action: 'like',
+      });
+      setVideos((videos) =>
+        videos.map((video) =>
+          video._id === id ? { ...video, likes: res.data.likes, likedBy: res.data.likedBy } : video
+        )
+      );
+    } catch (err) {
+      if (err.response?.status === 403) {
+        alert('You’ve already liked this video!');
+      } else {
+        console.error('Failed to like video:', err.response?.data || err.message);
+        alert('Failed to like video—try again!');
+      }
+    }
+  };
+
+  const hasLiked = (video) => user && video.likedBy && video.likedBy.includes(user._id);
+
   const featuredVideo = videos.length > 0 ? videos[0] : null;
 
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
-      <div className="rotating-text-background">God&apos;s Detox</div>
+      <div className="rotating-text-background">Gods Detox</div>
 
       <header className="header">
         <h1 ref={titleRef} className="title">
-          God&apos;s Detox {/* Escaped apostrophe */}
+          God's Detox
         </h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <div className="auth-section">
@@ -329,7 +354,7 @@ function App() {
       )}
 
       <section className="landing-section">
-        <h2 className="landing-title">Welcome to God&apos;s Detox</h2>
+        <h2 className="landing-title">Welcome to God's Detox</h2>
         <p className="landing-text">
           Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
@@ -355,7 +380,6 @@ function App() {
         </p>
       </section>
 
-      {/* New Why CLO2 Section */}
       <section className="why-clo2-section">
         <h2 className="why-clo2-title">Why CLO2?</h2>
         <p className="why-clo2-text">
@@ -363,7 +387,6 @@ function App() {
         </p>
       </section>
 
-      {/* New Testimonials Section */}
       <section className="testimonials-section">
         <h2 className="testimonials-title">What People Are Saying</h2>
         <div className="testimonials-grid">
@@ -388,7 +411,6 @@ function App() {
         </div>
       </section>
 
-      {/* New FAQ Section */}
       <section className="faq-section">
         <h2 className="faq-title">Frequently Asked Questions</h2>
         <div className="faq-list">
@@ -495,6 +517,16 @@ function App() {
                 <p className="video-description">{video.description}</p>
                 <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
                 <p className="video-views">Views: {video.views || 0}</p>
+                <div className="like-section">
+                  <button
+                    onClick={() => handleLike(video._id)}
+                    className={`like-btn ${hasLiked(video) ? 'liked' : ''}`}
+                    disabled={hasLiked(video)}
+                  >
+                    👍 Like
+                  </button>
+                  <span className="like-count">Likes: {video.likes || 0}</span>
+                </div>
               </div>
             ))
           )}

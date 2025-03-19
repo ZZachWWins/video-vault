@@ -13,7 +13,7 @@ function App() {
   const [description, setDescription] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [signup strangUsername, setSignupUsername] = useState('');
+  const [signup, signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [showCourse, setShowCourse] = useState(false);

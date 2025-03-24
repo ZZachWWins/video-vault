@@ -837,6 +837,38 @@ body {
   transform: scale(1.2);
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
 }
+.grenon-section {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7); /* Matches starry overlay */
+  color: #fff;
+}
+
+.grenon-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #d4af37; /* Gold like constellations */
+}
+
+.grenon-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+.grenon-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  display: block;
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

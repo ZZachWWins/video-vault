@@ -255,9 +255,7 @@ function App() {
       <div className="rotating-text-background">God’s Detox</div>
 
       <header className="header">
-        <h1 ref={titleRef} className="title">
-          God’s Detox
-        </h1>
+        <h1 ref={titleRef} className="title">God’s Detox</h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <div className="auth-section">
           {user ? (
@@ -385,6 +383,18 @@ function App() {
         <p className="why-clo2-text">
           Chlorine dioxide (CLO2) has been a quiet hero in water purification for decades—safe enough to treat municipal water supplies, yet powerful enough to tackle pathogens. Some call it a “universal antidote,” claiming it detoxes the body from heavy metals, parasites, and more. Science backs its oxidative power; anecdotes fuel its following. At God’s Detox, we’re not here to sell it—we’re here to explore it. Watch our videos, dig into the course, and see why this simple compound’s got people talking.
         </p>
+      </section>
+
+      <section className="grenon-section">
+        <h2 className="grenon-title">God’s Detox: The Grenon Legacy</h2>
+        <p className="grenon-text">
+          Mark Grenon and his sons—Jonathan, Jordan, and Joseph—stood tall as warriors of faith, wielding chlorine dioxide (ClO₂) to heal where others wouldn’t dare. From Haiti’s slums, they crushed MRSA with this simple compound, saving lives Big Pharma left for dead. Mark, a 47-year missionary, detoxed his own family from flesh-eating bacteria; his boys spread the gospel of ClO₂ through Genesis II Church—until the system locked them up. Their testimony? ClO₂ purges toxins, restores God’s Temple, and spits in the face of tyranny. Watch their story, weigh their truth, and join the fight.
+        </p>
+        <img
+          src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1677654321/grenon-family.jpg"
+          alt="Grenon Family with ClO₂"
+          className="grenon-image"
+        />
       </section>
 
       <section className="testimonials-section">
@@ -545,7 +555,7 @@ function App() {
             className="social-icon"
             title="Truth Social"
           >
-            <i className="fab fa-tumblr"></i> {/* Placeholder—Truth Social lacks a Font Awesome icon */}
+            <i className="fab fa-tumblr"></i>
           </a>
           <a
             href="https://x.com/yourusername"

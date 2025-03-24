@@ -390,11 +390,23 @@ function App() {
         <p className="grenon-text">
           Mark Grenon and his sons—Jonathan, Jordan, and Joseph—stood tall as warriors of faith, wielding chlorine dioxide (ClO₂) to heal where others wouldn’t dare. From Haiti’s slums, they crushed MRSA with this simple compound, saving lives Big Pharma left for dead. Mark, a 47-year missionary, detoxed his own family from flesh-eating bacteria; his boys spread the gospel of ClO₂ through Genesis II Church—until the system locked them up. Their testimony? ClO₂ purges toxins, restores God’s Temple, and spits in the face of tyranny. Watch their story, weigh their truth, and join the fight.
         </p>
-        <img
-          src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/g0rpwkyt3poc4lidafas.jpg"
-          alt="Mark Grenon with ClO₂"
-          className="grenon-image"
-        />
+        <div className="grenon-gallery">
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/g0rpwkyt3poc4lidafas.jpg"
+            alt="Mark Grenon - Mission Work"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg"
+            alt="Mark Grenon - Preaching"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zsw5nkpibtrofoqrp66c.jpg"
+            alt="Mark Grenon - ClO₂ Advocacy"
+            className="grenon-gallery-image"
+          />
+        </div>
       </section>
 
       <section className="testimonials-section">
@@ -433,7 +445,7 @@ function App() {
           <div className="faq-item">
             <h3 className="faq-question">Is it safe?</h3>
             <p className="faq-answer">
-              In water treatment, yes—it’s FDA-approved. For personal use, opinions vary. We share stories, not prescriptions. Research and decide for yourself. First hand we have seen it change lives fighting diseases in Uganda. 
+              In water treatment, yes—it’s FDA-approved. For personal use, opinions vary. We share stories, not prescriptions. Research and decide for yourself.
             </p>
           </div>
           <div className="faq-item">

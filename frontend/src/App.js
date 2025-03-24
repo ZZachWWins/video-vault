@@ -406,6 +406,46 @@ function App() {
             alt="Mark Grenon - ClO₂ Advocacy"
             className="grenon-gallery-image"
           />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/xcbtqyov9qkd4b6iklat.jpg"
+            alt="Mark Grenon - Haiti Healing"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/oafu8llaqw4tkdajcjwj.jpg"
+            alt="Mark Grenon - Genesis II Church"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/kkqn5mjpr4lhaljyqrs2.jpg"
+            alt="Mark Grenon - Family Detox"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/eio6hta0whqqukwecxq8.jpg"
+            alt="Mark Grenon - Faith Warrior"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/lybbzaposblc5vkbsm3z.jpg"
+            alt="Mark Grenon - ClO₂ Demonstration"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zqhsklenkzrffgb4e7kc.jpg"
+            alt="Mark Grenon - Defying Tyranny"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/yxteplqekhz833bvdfkp.jpg"
+            alt="Mark Grenon - Missionary Life"
+            className="grenon-gallery-image"
+          />
+          <img
+            src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg"
+            alt="Mark Grenon - Legacy Moment"
+            className="grenon-gallery-image"
+          />
         </div>
       </section>
 

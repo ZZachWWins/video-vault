@@ -902,6 +902,67 @@ body {
   transform: scale(1.2);
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
 }
+/* Grenon Gallery Horizontal Scroll - Enhanced */
+.grenon-section .grenon-gallery {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  overflow-x: auto; /* Enable horizontal scroll */
+  overflow-y: hidden; /* No vertical scroll */
+  scroll-snap-type: x mandatory; /* Snap to images */
+  gap: 15px; /* Space between images */
+  padding: 20px 0; /* Vertical padding */
+  max-width: 100%; /* Fit container */
+  -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+  scrollbar-width: thin; /* Firefox scrollbar */
+  scrollbar-color: rgba(212, 175, 55, 0.5) rgba(255, 255, 255, 0.1); /* Scrollbar style */
+  white-space: nowrap; /* Force single row */
+}
+
+.grenon-section .grenon-gallery::-webkit-scrollbar {
+  height: 8px; /* Chrome/Safari scrollbar height */
+}
+
+.grenon-section .grenon-gallery::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.5); /* Gold thumb */
+  border-radius: 4px;
+}
+
+.grenon-section .grenon-gallery::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Track */
+}
+
+.grenon-section .grenon-gallery-image {
+  flex: 0 0 auto; /* No shrink/grow, fixed width */
+  width: 300px; /* Fixed width */
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Crop to fit */
+  border-radius: 10px;
+  border: 2px solid rgba(212, 175, 55, 0.5); /* Gold border */
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); /* Glow */
+  scroll-snap-align: center; /* Snap center */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grenon-section .grenon-gallery-image:hover,
+.grenon-section .grenon-gallery-image:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.7);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .grenon-section .grenon-gallery-image {
+    width: 250px;
+    height: 166px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grenon-section .grenon-gallery-image {
+    width: 200px;
+    height: 133px;
+  }
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

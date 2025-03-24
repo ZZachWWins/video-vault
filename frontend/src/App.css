@@ -381,6 +381,71 @@ body {
   line-height: 1.6;
 }
 
+/* Grenon Section */
+.grenon-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.grenon-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  animation: glow 8s infinite ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.grenon-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.grenon-text {
+  font-size: 1.4rem;
+  color: #e6d8a7;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.grenon-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  margin: 20px auto;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grenon-image:hover, .grenon-image:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.7);
+}
+
 /* Testimonials Section */
 .testimonials-section {
   text-align: center;
@@ -837,38 +902,6 @@ body {
   transform: scale(1.2);
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
 }
-.grenon-section {
-  padding: 40px 20px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.7); /* Matches starry overlay */
-  color: #fff;
-}
-
-.grenon-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  color: #d4af37; /* Gold like constellations */
-}
-
-.grenon-text {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto 20px;
-}
-
-.grenon-image {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border: 2px solid #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  margin: 20px auto;
-  display: block;
-}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
@@ -892,9 +925,9 @@ body {
   .featured-section { margin-bottom: 20px; }
   .featured-title { font-size: 1.6rem; }
   .featured-video { padding: 15px; }
-  .landing-section, .why-clo2-section, .testimonials-section, .faq-section { padding: 20px 10px; margin-bottom: 20px; }
-  .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
-  .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 1rem; }
+  .landing-section, .why-clo2-section, .grenon-section, .testimonials-section, .faq-section { padding: 20px 10px; margin-bottom: 20px; }
+  .landing-title, .why-clo2-title, .grenon-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .testimonial-text, .faq-answer { font-size: 1rem; }
   .cta-btn { 
     padding: 14px 28px;
     font-size: 1.2rem; 
@@ -903,6 +936,7 @@ body {
     display: block; 
   }
   .landing-disclaimer { font-size: 0.8rem; }
+  .grenon-image { max-width: 400px; }
   .main { padding: 0 10px; }
   .upload-form { padding: 15px; margin-bottom: 20px; }
   .upload-btn { padding: 10px 20px; }
@@ -950,13 +984,15 @@ body {
   }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
-  .landing-title, .why-clo2-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
-  .landing-text, .why-clo2-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
+  .landing-title, .why-clo2-title, .grenon-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { 
     padding: 12px 24px;
     font-size: 1.1rem; 
     width: 90%; 
   }
+  .grenon-section { padding: 15px 8px; }
+  .grenon-image { max-width: 100%; }
   .video-grid { grid-template-columns: 1fr; gap: 10px; }
   .video-title { font-size: 1.2rem; }
   .video-description { font-size: 0.8rem; }

@@ -433,7 +433,7 @@ function App() {
           <div className="faq-item">
             <h3 className="faq-question">Is it safe?</h3>
             <p className="faq-answer">
-              In water treatment, yes—it’s FDA-approved. For personal use, opinions vary. We share stories, not prescriptions. Research and decide for yourself.
+              In water treatment, yes—it’s FDA-approved. For personal use, opinions vary. We share stories, not prescriptions. Research and decide for yourself. First hand we have seen it change lives fighting diseases in Uganda. 
             </p>
           </div>
           <div className="faq-item">

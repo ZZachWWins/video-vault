@@ -20,6 +20,7 @@ function App() {
   const [showAuth, setShowAuth] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
   const [progress, setProgress] = useState(0);
+  const [enlargedImage, setEnlargedImage] = useState(null); // New state for enlarged image
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -247,6 +248,14 @@ function App() {
 
   const hasLiked = (video) => user && video.likedBy && video.likedBy.includes(user._id);
 
+  const handleImageClick = (src, alt) => {
+    setEnlargedImage({ src, alt }); // Set the clicked image to enlarge
+  };
+
+  const closeEnlargedImage = () => {
+    setEnlargedImage(null); // Close the enlarged view
+  };
+
   const featuredVideo = videos.length > 0 ? videos[0] : null;
 
   return (
@@ -395,59 +404,81 @@ function App() {
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/g0rpwkyt3poc4lidafas.jpg"
             alt="Mark Grenon - Mission Work"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/g0rpwkyt3poc4lidafas.jpg", "Mark Grenon - Mission Work")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg"
             alt="Mark Grenon - Preaching"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg", "Mark Grenon - Preaching")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zsw5nkpibtrofoqrp66c.jpg"
             alt="Mark Grenon - ClO₂ Advocacy"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zsw5nkpibtrofoqrp66c.jpg", "Mark Grenon - ClO₂ Advocacy")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/xcbtqyov9qkd4b6iklat.jpg"
             alt="Mark Grenon - Haiti Healing"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/xcbtqyov9qkd4b6iklat.jpg", "Mark Grenon - Haiti Healing")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/oafu8llaqw4tkdajcjwj.jpg"
             alt="Mark Grenon - Genesis II Church"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/oafu8llaqw4tkdajcjwj.jpg", "Mark Grenon - Genesis II Church")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/kkqn5mjpr4lhaljyqrs2.jpg"
             alt="Mark Grenon - Family Detox"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/kkqn5mjpr4lhaljyqrs2.jpg", "Mark Grenon - Family Detox")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/eio6hta0whqqukwecxq8.jpg"
             alt="Mark Grenon - Faith Warrior"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/eio6hta0whqqukwecxq8.jpg", "Mark Grenon - Faith Warrior")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/lybbzaposblc5vkbsm3z.jpg"
             alt="Mark Grenon - ClO₂ Demonstration"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/lybbzaposblc5vkbsm3z.jpg", "Mark Grenon - ClO₂ Demonstration")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zqhsklenkzrffgb4e7kc.jpg"
             alt="Mark Grenon - Defying Tyranny"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/zqhsklenkzrffgb4e7kc.jpg", "Mark Grenon - Defying Tyranny")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/yxteplqekhz833bvdfkp.jpg"
             alt="Mark Grenon - Missionary Life"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/yxteplqekhz833bvdfkp.jpg", "Mark Grenon - Missionary Life")}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg"
             alt="Mark Grenon - Legacy Moment"
             className="grenon-gallery-image"
+            onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg", "Mark Grenon - Legacy Moment")}
           />
         </div>
       </section>
+
+      {enlargedImage && (
+        <div className="enlarged-image-overlay" onClick={closeEnlargedImage}>
+          <img
+            src={enlargedImage.src}
+            alt={enlargedImage.alt}
+            className="enlarged-image"
+          />
+          <button className="close-btn" onClick={closeEnlargedImage}>Close</button>
+        </div>
+      )}
 
       <section className="testimonials-section">
         <h2 className="testimonials-title">What People Are Saying</h2>

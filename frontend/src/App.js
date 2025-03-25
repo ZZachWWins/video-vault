@@ -20,7 +20,7 @@ function App() {
   const [showAuth, setShowAuth] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
   const [progress, setProgress] = useState(0);
-  const [enlargedImage, setEnlargedImage] = useState(null); // New state for enlarged image
+  const [enlargedImage, setEnlargedImage] = useState(null);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -212,8 +212,8 @@ function App() {
   const handleViewIncrement = async (id) => {
     try {
       const res = await axios.put('/.netlify/functions/videos', { id });
-      setVideos((videos) =>
-        videos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
+      setVideos((prevVideos) =>
+        prevVideos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
       );
     } catch (err) {
       console.error('Failed to increment views:', err.response?.data || err.message);
@@ -225,35 +225,46 @@ function App() {
       alert('Please log in to like videos!');
       return;
     }
+
     try {
       const res = await axios.put('/.netlify/functions/videos', {
         id,
         userId: user._id,
         action: 'like',
       });
-      setVideos((videos) =>
-        videos.map((video) =>
-          video._id === id ? { ...video, likes: res.data.likes, likedBy: res.data.likedBy } : video
+
+      // Update local state with the latest video data
+      setVideos((prevVideos) =>
+        prevVideos.map((video) =>
+          video._id === id
+            ? {
+                ...video,
+                likes: res.data.likes || (video.likes || 0) + 1, // Fallback if backend doesn't send likes
+                likedBy: res.data.likedBy || [...(video.likedBy || []), user._id], // Add user to likedBy
+              }
+            : video
         )
       );
     } catch (err) {
+      console.error('Like error:', err.response?.data || err.message);
       if (err.response?.status === 403) {
         alert('You’ve already liked this video!');
       } else {
-        console.error('Failed to like video:', err.response?.data || err.message);
-        alert('Failed to like video—try again!');
+        alert('Failed to like video—try again later!');
       }
     }
   };
 
-  const hasLiked = (video) => user && video.likedBy && video.likedBy.includes(user._id);
+  const hasLiked = (video) => {
+    return user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
+  };
 
   const handleImageClick = (src, alt) => {
-    setEnlargedImage({ src, alt }); // Set the clicked image to enlarge
+    setEnlargedImage({ src, alt });
   };
 
   const closeEnlargedImage = () => {
-    setEnlargedImage(null); // Close the enlarged view
+    setEnlargedImage(null);
   };
 
   const featuredVideo = videos.length > 0 ? videos[0] : null;
@@ -616,7 +627,7 @@ function App() {
                     className={`like-btn ${hasLiked(video) ? 'liked' : ''}`}
                     disabled={hasLiked(video)}
                   >
-                    👍 Like
+                    👍 {hasLiked(video) ? 'Liked' : 'Like'}
                   </button>
                   <span className="like-count">Likes: {video.likes || 0}</span>
                 </div>
@@ -632,7 +643,7 @@ function App() {
         </p>
         <div className="social-links">
           <a
-            href="https://truthsocial.com/@BobThePlumber"
+            href="https://truthsocial.com/@yourusername"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"
@@ -641,7 +652,7 @@ function App() {
             <i className="fab fa-tumblr"></i>
           </a>
           <a
-            href="https://x.com/BobsThePlumber"
+            href="https://x.com/yourusername"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"

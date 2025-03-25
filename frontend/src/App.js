@@ -233,14 +233,13 @@ function App() {
         action: 'like',
       });
 
-      // Update local state with the latest video data
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
           video._id === id
             ? {
                 ...video,
-                likes: res.data.likes || (video.likes || 0) + 1, // Fallback if backend doesn't send likes
-                likedBy: res.data.likedBy || [...(video.likedBy || []), user._id], // Add user to likedBy
+                likes: res.data.likes || (video.likes || 0) + 1,
+                likedBy: res.data.likedBy || [...(video.likedBy || []), user._id],
               }
             : video
         )
@@ -578,7 +577,7 @@ function App() {
       )}
 
       <main className="main">
-        {user && (
+        {user && user.role === 'admin' && (
           <form onSubmit={handleUpload} className="upload-form">
             <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />

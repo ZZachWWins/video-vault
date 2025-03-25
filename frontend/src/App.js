@@ -227,14 +227,14 @@ function App() {
     }
 
     try {
-      console.log('Liking video:', id, 'by user:', user._id); // Debug log
+      console.log('Liking video:', id, 'by user:', user._id);
       const res = await axios.put('/.netlify/functions/videos', {
         id,
         userId: user._id,
         action: 'like',
       });
 
-      console.log('Backend response:', res.data); // Debug log
+      console.log('Backend response:', res.data);
 
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
@@ -253,7 +253,6 @@ function App() {
         alert('You’ve already liked this video!');
       } else {
         alert('Failed to like video—try again later!');
-        // Fallback: Refresh video list to ensure sync
         const videosRes = await axios.get('/.netlify/functions/videos');
         setVideos(videosRes.data || []);
       }
@@ -262,7 +261,7 @@ function App() {
 
   const hasLiked = (video) => {
     const liked = user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
-    console.log(`Has ${user?.username} liked ${video._id}?`, liked); // Debug log
+    console.log(`Has ${user?.username} liked ${video._id}?`, liked);
     return liked;
   };
 
@@ -484,6 +483,12 @@ function App() {
             className="grenon-gallery-image"
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg", "Mark Grenon - Legacy Moment")}
           />
+        </div>
+        <div className="grenon-book">
+          <h3 className="grenon-title">A World Without Dis-Ease by Mark Grenon</h3>
+          <p className="grenon-text">
+            In <em>A World Without Dis-Ease</em>, Mark Grenon lays out a fearless blueprint for a healthier humanity, rooted in faith and the power of chlorine dioxide (ClO₂). This isn’t just a book—it’s a battle cry against a broken system, blending decades of missionary grit with real-world healing stories. Mark unveils how ClO₂ can detox body and soul, offering a path to reclaim God-given vitality. From Haiti to your hands, it’s his testament to a world free of sickness, where truth triumphs over tyranny. Dive in—his words are as bold as his life.
+          </p>
         </div>
       </section>
 

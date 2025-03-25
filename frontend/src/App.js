@@ -101,7 +101,7 @@ function App() {
         const res = await axios.get('/.netlify/functions/videos');
         setVideos(res.data || []);
       } catch (err) {
-        console.error('Fetch error:', err.response?.data || err.message);
+        console.error('Fetch videos error:', err.response?.data || err.message);
       } finally {
         setLoading(false);
       }
@@ -216,7 +216,7 @@ function App() {
         prevVideos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
       );
     } catch (err) {
-      console.error('Failed to increment views:', err.response?.data || err.message);
+      console.error('View increment error:', err.response?.data || err.message);
     }
   };
 
@@ -227,18 +227,21 @@ function App() {
     }
 
     try {
+      console.log('Liking video:', id, 'by user:', user._id); // Debug log
       const res = await axios.put('/.netlify/functions/videos', {
         id,
         userId: user._id,
         action: 'like',
       });
 
+      console.log('Backend response:', res.data); // Debug log
+
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
           video._id === id
             ? {
                 ...video,
-                likes: res.data.likes || (video.likes || 0) + 1,
+                likes: res.data.likes !== undefined ? res.data.likes : (video.likes || 0) + 1,
                 likedBy: res.data.likedBy || [...(video.likedBy || []), user._id],
               }
             : video
@@ -250,12 +253,17 @@ function App() {
         alert('You’ve already liked this video!');
       } else {
         alert('Failed to like video—try again later!');
+        // Fallback: Refresh video list to ensure sync
+        const videosRes = await axios.get('/.netlify/functions/videos');
+        setVideos(videosRes.data || []);
       }
     }
   };
 
   const hasLiked = (video) => {
-    return user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
+    const liked = user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
+    console.log(`Has ${user?.username} liked ${video._id}?`, liked); // Debug log
+    return liked;
   };
 
   const handleImageClick = (src, alt) => {

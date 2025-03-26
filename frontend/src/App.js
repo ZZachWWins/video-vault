@@ -235,7 +235,7 @@ function App() {
 
       await axios.post('/.netlify/functions/videos', videoData);
       setFile(null);
-      setTitle-empty');
+      setTitle(''); // Fixed syntax error here
       setDescription('');
       setProgress(0);
       const videosRes = await axios.get('/.netlify/functions/videos?page=1&limit=10');

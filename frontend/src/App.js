@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { gsap } from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import './App.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,13 +23,9 @@ function App() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
   const [selectedMoment, setSelectedMoment] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
-  const timelineRefs = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,7 +49,10 @@ function App() {
     }));
 
     const getScaledPoints = (basePoints, width, height) => {
-      return basePoints.map(([x, y]) => [(x / 1000) * width, (y / 800) * height]);
+      return basePoints.map(([x, y]) => [
+        (x / 1000) * width,
+        (y / 800) * height,
+      ]);
     };
 
     const constellations = [
@@ -105,11 +101,8 @@ function App() {
 
     const fetchVideos = async () => {
       try {
-        console.log(`Fetching videos for page ${page}`);
-        const res = await axios.get(`/.netlify/functions/videos?page=${page}&limit=10`);
-        console.log('API Response:', res.data);
-        setVideos((prev) => [...prev, ...(res.data.videos || [])]);
-        setHasMore(res.data.hasMore);
+        const res = await axios.get('/.netlify/functions/videos');
+        setVideos(res.data || []);
       } catch (err) {
         console.error('Fetch videos error:', err.response?.data || err.message);
       } finally {
@@ -132,7 +125,9 @@ function App() {
         y: 50,
         stagger: 0.05,
         ease: 'power2.out',
-        onComplete: () => gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' }),
+        onComplete: () => {
+          gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' });
+        },
       });
     }
 
@@ -147,33 +142,11 @@ function App() {
       });
     }
 
-    if (timelineRefs.current.length) {
-      gsap.from(timelineRefs.current, {
-        duration: 1,
-        opacity: 0,
-        y: 20,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.grenon-timeline', start: 'top 80%' },
-      });
-    }
-
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, [page]);
-
-  useEffect(() => {
-    if (isBookMenuOpen) {
-      gsap.from('.book-menu', {
-        duration: 0.5,
-        opacity: 0,
-        y: -20,
-        ease: 'power2.out',
-      });
-    }
-  }, [isBookMenuOpen]);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -240,10 +213,8 @@ function App() {
       setTitle('');
       setDescription('');
       setProgress(0);
-      const videosRes = await axios.get('/.netlify/functions/videos?page=1&limit=10');
-      setVideos(videosRes.data.videos || []);
-      setPage(1);
-      setHasMore(videosRes.data.hasMore);
+      const videosRes = await axios.get('/.netlify/functions/videos');
+      setVideos(videosRes.data || []);
       alert('Video uploaded successfully!');
     } catch (err) {
       console.error('Upload error:', err.response?.data || err.message);
@@ -293,8 +264,8 @@ function App() {
         alert('You’ve already liked this video!');
       } else {
         alert('Failed to like video—try again later!');
-        const videosRes = await axios.get('/.netlify/functions/videos?page=1&limit=10');
-        setVideos(videosRes.data.videos || []);
+        const videosRes = await axios.get('/.netlify/functions/videos');
+        setVideos(videosRes.data || []);
       }
     }
   };
@@ -319,22 +290,6 @@ function App() {
     setSelectedMoment(index === selectedMoment ? null : index);
   };
 
-  const observer = useRef();
-  const lastVideoRef = useCallback(
-    (node) => {
-      if (loading || !hasMore) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          console.log('Last video in view, loading next page');
-          setPage((prev) => prev + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
-
   const grenonTimeline = [
     { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
     { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
@@ -342,12 +297,7 @@ function App() {
     { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
   ];
 
-  const filteredVideos = videos.filter((video) =>
-    (video.title?.toLowerCase().includes(searchTerm.toLowerCase()) || '') ||
-    (video.uploadedBy?.toLowerCase().includes(searchTerm.toLowerCase()) || '')
-  );
-
-  const sortedVideos = [...filteredVideos].sort((a, b) => (b.views || 0) - (a.views || 0));
+  const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
   const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
 
   return (
@@ -581,7 +531,6 @@ function App() {
           {grenonTimeline.map((moment, index) => (
             <div
               key={index}
-              ref={(el) => (timelineRefs.current[index] = el)}
               className={`timeline-moment ${selectedMoment === index ? 'active' : ''}`}
               onClick={() => handleMomentClick(index)}
             >
@@ -605,7 +554,7 @@ function App() {
             {isBookMenuOpen && (
               <div className="book-menu">
                 <h3 className="book-menu-title">Printed Books</h3>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-is-it-possible-volume-one"
                     target="_blank"
@@ -616,7 +565,7 @@ function App() {
                   </a>
                   <p className="book-description">Explores the foundational concepts of CLO2 and a world free from disease.</p>
                 </div>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-the-genesis-of-the-g2church-volume-two"
                     target="_blank"
@@ -627,7 +576,7 @@ function App() {
                   </a>
                   <p className="book-description">Details the Genesis II Church’s journey and CLO2’s role in healing.</p>
                 </div>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://www.printshopcentral.com/bookstore/book/a-world-without-dis-ease-the-persecution-is-increasing-but-so-are-the-blessings-"
                     target="_blank"
@@ -638,7 +587,7 @@ function App() {
                   </a>
                   <p className="book-description">Chronicles increasing challenges and blessings in the mission.</p>
                 </div>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://www.printshopcentral.com/bookstore/book/-imagina-un-mundo-sin-mal-estar-es-posible-"
                     target="_blank"
@@ -650,7 +599,7 @@ function App() {
                   <p className="book-description">Spanish edition of Volume One, introducing CLO2’s potential.</p>
                 </div>
                 <h3 className="book-menu-title">eBooks</h3>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://5187260268767.gumroad.com/l/tsaqy"
                     target="_blank"
@@ -661,7 +610,7 @@ function App() {
                   </a>
                   <p className="book-description">Digital version of the foundational CLO2 exploration.</p>
                 </div>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://5187260268767.gumroad.com/l/gkwoh"
                     target="_blank"
@@ -672,7 +621,7 @@ function App() {
                   </a>
                   <p className="book-description">eBook detailing the Genesis II Church’s story.</p>
                 </div>
-                <div className="book-menu-item">
+                <div className="book-item">
                   <a
                     href="https://5187260268767.gumroad.com/l/dlzpc"
                     target="_blank"
@@ -805,28 +754,14 @@ function App() {
           </form>
         )}
 
-        <div className="search-container">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search videos..."
-            className="search-input"
-          />
-        </div>
-
         <section className="video-grid">
-          {loading && page === 1 ? (
+          {loading ? (
             <div className="loader"></div>
-          ) : filteredVideos.length === 0 ? (
-            <p className="no-videos">No videos match your search.</p>
+          ) : videos.length === 0 ? (
+            <p className="no-videos">No videos yet—upload some!</p>
           ) : (
-            filteredVideos.map((video, index) => (
-              <div
-                key={video._id}
-                ref={index === filteredVideos.length - 1 ? lastVideoRef : null}
-                className="video-card"
-              >
+            videos.map((video) => (
+              <div key={video._id} className="video-card">
                 <ReactPlayer
                   url={video.fileUrl}
                   light={video.thumbnailUrl}
@@ -853,7 +788,6 @@ function App() {
               </div>
             ))
           )}
-          {loading && page > 1 && <div className="loader"></div>}
         </section>
       </main>
 

@@ -105,7 +105,9 @@ function App() {
 
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/.netlify/functions/videos`);
+        console.log(`Fetching videos for page ${page}`);
+        const res = await axios.get(`/.netlify/functions/videos?page=${page}&limit=10`);
+        console.log('API Response:', res.data);
         setVideos((prev) => [...prev, ...(res.data.videos || [])]);
         setHasMore(res.data.hasMore);
       } catch (err) {
@@ -235,7 +237,7 @@ function App() {
 
       await axios.post('/.netlify/functions/videos', videoData);
       setFile(null);
-      setTitle(''); // Fixed syntax error here
+      setTitle('');
       setDescription('');
       setProgress(0);
       const videosRes = await axios.get('/.netlify/functions/videos?page=1&limit=10');
@@ -323,7 +325,10 @@ function App() {
       if (loading || !hasMore) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) setPage((prev) => prev + 1);
+        if (entries[0].isIntersecting) {
+          console.log('Last video in view, loading next page');
+          setPage((prev) => prev + 1);
+        }
       });
       if (node) observer.current.observe(node);
     },
@@ -338,8 +343,8 @@ function App() {
   ];
 
   const filteredVideos = videos.filter((video) =>
-    video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    video.uploadedBy.toLowerCase().includes(searchTerm.toLowerCase())
+    (video.title?.toLowerCase().includes(searchTerm.toLowerCase()) || '') ||
+    (video.uploadedBy?.toLowerCase().includes(searchTerm.toLowerCase()) || '')
   );
 
   const sortedVideos = [...filteredVideos].sort((a, b) => (b.views || 0) - (a.views || 0));

@@ -23,6 +23,7 @@ function App() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
   const [selectedMoment, setSelectedMoment] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(''); // Added state for search term
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
@@ -147,6 +148,18 @@ function App() {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
+  // Added useEffect for book menu animation
+  useEffect(() => {
+    if (isBookMenuOpen) {
+      gsap.from('.book-menu', {
+        duration: 0.5,
+        opacity: 0,
+        y: -20,
+        ease: 'power2.out',
+      });
+    }
+  }, [isBookMenuOpen]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -296,6 +309,12 @@ function App() {
     { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
     { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
   ];
+
+  // Added filtering for videos based on search term
+  const filteredVideos = videos.filter(video =>
+    (video.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (video.description || '').toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
   const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
@@ -754,13 +773,28 @@ function App() {
           </form>
         )}
 
+        {/* Added search bar */}
+        <div className="search-container">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search videos..."
+            className="search-input"
+          />
+        </div>
+
         <section className="video-grid">
           {loading ? (
             <div className="loader"></div>
-          ) : videos.length === 0 ? (
-            <p className="no-videos">No videos yet—upload some!</p>
+          ) : filteredVideos.length === 0 ? (
+            videos.length === 0 ? (
+              <p className="no-videos">No videos yet—upload some!</p>
+            ) : (
+              <p className="no-videos">No videos match your search.</p>
+            )
           ) : (
-            videos.map((video) => (
+            filteredVideos.map((video) => (
               <div key={video._id} className="video-card">
                 <ReactPlayer
                   url={video.fileUrl}

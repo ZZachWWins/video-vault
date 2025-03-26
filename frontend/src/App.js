@@ -105,7 +105,7 @@ function App() {
 
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/.netlify/functions/videos?page=${page}&limit=10`);
+        const res = await axios.get(`/.netlify/functions/videos`);
         setVideos((prev) => [...prev, ...(res.data.videos || [])]);
         setHasMore(res.data.hasMore);
       } catch (err) {

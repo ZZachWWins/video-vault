@@ -23,6 +23,7 @@ function App() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
+  const landingRefs = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -128,6 +129,18 @@ function App() {
       });
     }
 
+    // Animate landing section
+    if (landingRefs.current.length) {
+      gsap.from(landingRefs.current, {
+        duration: 1,
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        ease: 'power2.out',
+        delay: 0.5,
+      });
+    }
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -227,14 +240,11 @@ function App() {
     }
 
     try {
-      console.log('Liking video:', id, 'by user:', user._id);
       const res = await axios.put('/.netlify/functions/videos', {
         id,
         userId: user._id,
         action: 'like',
       });
-
-      console.log('Backend response:', res.data);
 
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
@@ -260,9 +270,7 @@ function App() {
   };
 
   const hasLiked = (video) => {
-    const liked = user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
-    console.log(`Has ${user?.username} liked ${video._id}?`, liked);
-    return liked;
+    return user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
   };
 
   const handleImageClick = (src, alt) => {
@@ -273,7 +281,9 @@ function App() {
     setEnlargedImage(null);
   };
 
-  const featuredVideo = videos.length > 0 ? videos[0] : null;
+  // Sort videos by views for featured carousel (top 3)
+  const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
+  const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
 
   return (
     <div className="app">
@@ -378,28 +388,67 @@ function App() {
       )}
 
       <section className="landing-section">
-        <h2 className="landing-title">Welcome to God’s Detox</h2>
-        <p className="landing-text">
+        <h2
+          className="landing-title"
+          ref={(el) => (landingRefs.current[0] = el)}
+        >
+          Welcome to God’s Detox
+        </h2>
+        <p
+          className="landing-text"
+          ref={(el) => (landingRefs.current[1] = el)}
+        >
           Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
-        <h2 className="landing-title">The CLO2 Movement</h2>
-        <p className="landing-text">
+        <h2
+          className="landing-title"
+          ref={(el) => (landingRefs.current[2] = el)}
+        >
+          The CLO2 Movement
+        </h2>
+        <p
+          className="landing-text"
+          ref={(el) => (landingRefs.current[3] = el)}
+        >
           Chlorine dioxide (CLO2) isn’t just another health fad—it’s a movement. Used for years in water purification, CLO2 is affordable and easy to make, offering an option for those seeking alternatives. Through our videos, hear from people of faith who’ve embraced it and share your own story of detox and renewal.
         </p>
-        <h2 className="landing-title">Your Choice, Your Voice</h2>
-        <p className="landing-text">
+        <h2
+          className="landing-title"
+          ref={(el) => (landingRefs.current[4] = el)}
+        >
+          Your Choice, Your Voice
+        </h2>
+        <p
+          className="landing-text"
+          ref={(el) => (landingRefs.current[5] = el)}
+        >
           At God’s Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
-        <button className="cta-btn" onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')}>
+        <button
+          className="cta-btn"
+          onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')}
+          ref={(el) => (landingRefs.current[6] = el)}
+        >
           Share Your Story
         </button>
-        <button className="cta-btn" onClick={() => setShowHistory(true)}>
+        <button
+          className="cta-btn"
+          onClick={() => setShowHistory(true)}
+          ref={(el) => (landingRefs.current[7] = el)}
+        >
           History of CLO2
         </button>
-        <button className="cta-btn" onClick={() => setShowCourse(true)}>
+        <button
+          className="cta-btn"
+          onClick={() => setShowCourse(true)}
+          ref={(el) => (landingRefs.current[8] = el)}
+        >
           ClO₂ Course
         </button>
-        <p className="landing-disclaimer">
+        <p
+          className="landing-disclaimer"
+          ref={(el) => (landingRefs.current[9] = el)}
+        >
           Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
       </section>
@@ -655,7 +704,7 @@ function App() {
         </p>
         <div className="social-links">
           <a
-            href="https://truthsocial.com/@yourusername"
+            href="https://truthsocial.com/@BobThePlumber"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"
@@ -664,7 +713,7 @@ function App() {
             <i className="fab fa-tumblr"></i>
           </a>
           <a
-            href="https://x.com/yourusername"
+            href="https://x.com/BobsThePlumber"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"

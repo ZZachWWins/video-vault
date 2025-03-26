@@ -988,7 +988,30 @@ body {
 .enlarged-image-overlay .close-btn:hover {
   background: rgba(212, 175, 55, 1);
 }
+/* Grenon Gallery Polish */
+.grenon-section .grenon-gallery {
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
 
+/* Bolder CTAs */
+.cta-btn {
+  padding: 20px 40px; /* Bigger */
+  font-size: 1.6rem;
+  background: linear-gradient(45deg, #d4af37, #8a5db5);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 15px;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); /* Bolder shadow */
+}
+
+.cta-btn:hover, .cta-btn:active {
+  transform: translateY(-5px) scale(1.05); /* 3D lift + slight scale */
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.8); /* Glowier */
+}
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .grenon-section .grenon-gallery-image {

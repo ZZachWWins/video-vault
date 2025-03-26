@@ -21,7 +21,8 @@ function App() {
   const [activeTab, setActiveTab] = useState('login');
   const [progress, setProgress] = useState(0);
   const [enlargedImage, setEnlargedImage] = useState(null);
-  const [isBookMenuOpen, setIsBookMenuOpen] = useState(false); // New state for book menu
+  const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
+  const [selectedMoment, setSelectedMoment] = useState(null);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
@@ -285,6 +286,17 @@ function App() {
     setIsBookMenuOpen(!isBookMenuOpen);
   };
 
+  const handleMomentClick = (index) => {
+    setSelectedMoment(index === selectedMoment ? null : index);
+  };
+
+  const grenonTimeline = [
+    { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
+    { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
+    { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
+    { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
+  ];
+
   const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
   const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
 
@@ -316,7 +328,7 @@ function App() {
               url={featuredVideo.fileUrl}
               light={featuredVideo.thumbnailUrl}
               width="100%"
-              height="300px" // Smaller default for desktop
+              height="300px"
               controls
               onStart={() => handleViewIncrement(featuredVideo._id)}
             />
@@ -391,40 +403,22 @@ function App() {
       )}
 
       <section className="landing-section">
-        <h2
-          className="landing-title"
-          ref={(el) => (landingRefs.current[0] = el)}
-        >
+        <h2 className="landing-title" ref={(el) => (landingRefs.current[0] = el)}>
           Welcome to God’s Detox
         </h2>
-        <p
-          className="landing-text"
-          ref={(el) => (landingRefs.current[1] = el)}
-        >
+        <p className="landing-text" ref={(el) => (landingRefs.current[1] = el)}>
           Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
         </p>
-        <h2
-          className="landing-title"
-          ref={(el) => (landingRefs.current[2] = el)}
-        >
+        <h2 className="landing-title" ref={(el) => (landingRefs.current[2] = el)}>
           The CLO2 Movement
         </h2>
-        <p
-          className="landing-text"
-          ref={(el) => (landingRefs.current[3] = el)}
-        >
+        <p className="landing-text" ref={(el) => (landingRefs.current[3] = el)}>
           Chlorine dioxide (CLO2) isn’t just another health fad—it’s a movement. Used for years in water purification, CLO2 is affordable and easy to make, offering an option for those seeking alternatives. Through our videos, hear from people of faith who’ve embraced it and share your own story of detox and renewal.
         </p>
-        <h2
-          className="landing-title"
-          ref={(el) => (landingRefs.current[4] = el)}
-        >
+        <h2 className="landing-title" ref={(el) => (landingRefs.current[4] = el)}>
           Your Choice, Your Voice
         </h2>
-        <p
-          className="landing-text"
-          ref={(el) => (landingRefs.current[5] = el)}
-        >
+        <p className="landing-text" ref={(el) => (landingRefs.current[5] = el)}>
           At God’s Detox, we believe in your right to choose. CLO2 has sparked debate—praised by some, questioned by others. Our platform cuts through the noise with authentic video testimonies. Watch, learn, and contribute your voice to a community grounded in faith and personal freedom.
         </p>
         <button
@@ -448,10 +442,7 @@ function App() {
         >
           ClO₂ Course
         </button>
-        <p
-          className="landing-disclaimer"
-          ref={(el) => (landingRefs.current[9] = el)}
-        >
+        <p className="landing-disclaimer" ref={(el) => (landingRefs.current[9] = el)}>
           Disclaimer: Views on this site are for opinion-sharing only. We believe in helping bring people closer to God while healing themselves. We don’t sell products, offer medical advice, or diagnose illness. Information about CLO2 is presented for your consideration only—evaluate it carefully and make your own informed decisions.
         </p>
       </section>
@@ -536,6 +527,21 @@ function App() {
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg", "Mark Grenon - Legacy Moment")}
           />
         </div>
+        <div className="grenon-timeline">
+          {grenonTimeline.map((moment, index) => (
+            <div
+              key={index}
+              className={`timeline-moment ${selectedMoment === index ? 'active' : ''}`}
+              onClick={() => handleMomentClick(index)}
+            >
+              <span className="timeline-year">{moment.year}</span>
+              <span className="timeline-title">{moment.title}</span>
+              {selectedMoment === index && (
+                <div className="timeline-tooltip">{moment.desc}</div>
+              )}
+            </div>
+          ))}
+        </div>
         <div className="grenon-book">
           <h3 className="grenon-title">A World Without Dis-Ease by Mark Grenon</h3>
           <p className="grenon-text">
@@ -548,63 +554,84 @@ function App() {
             {isBookMenuOpen && (
               <div className="book-menu">
                 <h3 className="book-menu-title">Printed Books</h3>
-                <a href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-is-it-possible-volume-one" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                <div className="book-item">
+                  <a
+                    href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-is-it-possible-volume-one"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume One
-                  </button>
-                </a>
-                <p className="book-description">
-                  Explores the foundational concepts of CLO2 and a world free from disease.
-                </p>
-                <a href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-the-genesis-of-the-g2church-volume-two" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                  </a>
+                  <p className="book-description">Explores the foundational concepts of CLO2 and a world free from disease.</p>
+                </div>
+                <div className="book-item">
+                  <a
+                    href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-the-genesis-of-the-g2church-volume-two"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume Two
-                  </button>
-                </a>
-                <p className="book-description">
-                  Details the Genesis II Church’s journey and CLO2’s role in healing.
-                </p>
-                <a href="https://www.printshopcentral.com/bookstore/book/a-world-without-dis-ease-the-persecution-is-increasing-but-so-are-the-blessings-" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                  </a>
+                  <p className="book-description">Details the Genesis II Church’s journey and CLO2’s role in healing.</p>
+                </div>
+                <div className="book-item">
+                  <a
+                    href="https://www.printshopcentral.com/bookstore/book/a-world-without-dis-ease-the-persecution-is-increasing-but-so-are-the-blessings-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume Three
-                  </button>
-                </a>
-                <p className="book-description">
-                  Chronicles increasing challenges and blessings in the mission.
-                </p>
-                <a href="https://www.printshopcentral.com/bookstore/book/-imagina-un-mundo-sin-mal-estar-es-posible-" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                  </a>
+                  <p className="book-description">Chronicles increasing challenges and blessings in the mission.</p>
+                </div>
+                <div className="book-item">
+                  <a
+                    href="https://www.printshopcentral.com/bookstore/book/-imagina-un-mundo-sin-mal-estar-es-posible-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Spanish Volume One
-                  </button>
-                </a>
-                <p className="book-description">
-                  Spanish edition of Volume One, introducing CLO2’s potential.
-                </p>
+                  </a>
+                  <p className="book-description">Spanish edition of Volume One, introducing CLO2’s potential.</p>
+                </div>
                 <h3 className="book-menu-title">eBooks</h3>
-                <a href="https://5187260268767.gumroad.com/l/tsaqy" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                <div className="book-item">
+                  <a
+                    href="https://5187260268767.gumroad.com/l/tsaqy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume One (eBook)
-                  </button>
-                </a>
-                <p className="book-description">
-                  Digital version of the foundational CLO2 exploration.
-                </p>
-                <a href="https://5187260268767.gumroad.com/l/gkwoh" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                  </a>
+                  <p className="book-description">Digital version of the foundational CLO2 exploration.</p>
+                </div>
+                <div className="book-item">
+                  <a
+                    href="https://5187260268767.gumroad.com/l/gkwoh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume Two (eBook)
-                  </button>
-                </a>
-                <p className="book-description">
-                  eBook detailing the Genesis II Church’s story.
-                </p>
-                <a href="https://5187260268767.gumroad.com/l/dlzpc" target="_blank" rel="noopener noreferrer">
-                  <button className="cta-btn book-menu-item">
+                  </a>
+                  <p className="book-description">eBook detailing the Genesis II Church’s story.</p>
+                </div>
+                <div className="book-item">
+                  <a
+                    href="https://5187260268767.gumroad.com/l/dlzpc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-link"
+                  >
                     Volume Three (eBook)
-                  </button>
-                </a>
-                <p className="book-description">
-                  Digital edition on persecution and blessings.
-                </p>
+                  </a>
+                  <p className="book-description">Digital edition on persecution and blessings.</p>
+                </div>
               </div>
             )}
           </div>
@@ -613,11 +640,7 @@ function App() {
 
       {enlargedImage && (
         <div className="enlarged-image-overlay" onClick={closeEnlargedImage}>
-          <img
-            src={enlargedImage.src}
-            alt={enlargedImage.alt}
-            className="enlarged-image"
-          />
+          <img src={enlargedImage.src} alt={enlargedImage.alt} className="enlarged-image" />
           <button className="close-btn" onClick={closeEnlargedImage}>Close</button>
         </div>
       )}

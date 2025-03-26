@@ -129,7 +129,6 @@ function App() {
       });
     }
 
-    // Animate landing section
     if (landingRefs.current.length) {
       gsap.from(landingRefs.current, {
         duration: 1,
@@ -281,7 +280,6 @@ function App() {
     setEnlargedImage(null);
   };
 
-  // Sort videos by views for featured carousel (top 3)
   const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
   const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
 
@@ -313,7 +311,7 @@ function App() {
               url={featuredVideo.fileUrl}
               light={featuredVideo.thumbnailUrl}
               width="100%"
-              height="400px"
+              height="300px" // Smaller default for desktop
               controls
               onStart={() => handleViewIncrement(featuredVideo._id)}
             />

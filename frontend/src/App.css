@@ -1177,6 +1177,21 @@ body {
   transform: scale(1.2);
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
 }
+.book-menu-container {
+  position: relative;
+  overflow: visible;
+}
+
+.book-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background-color: #fff;
+  padding: 10px;
+  width: 300px; /* Tweak this as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: makes it pop */
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

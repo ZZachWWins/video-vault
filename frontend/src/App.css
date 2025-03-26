@@ -349,18 +349,18 @@ body {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   margin: 15px;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
   animation: pulseGlow 2s infinite ease-in-out;
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
-  50% { box-shadow: 0 6px 25px rgba(212, 175, 55, 0.7); }
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7); }
 }
 
 .cta-btn:hover, .cta-btn:active {
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
 }
 
 .landing-disclaimer {

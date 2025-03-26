@@ -21,6 +21,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('login');
   const [progress, setProgress] = useState(0);
   const [enlargedImage, setEnlargedImage] = useState(null);
+  const [isBookMenuOpen, setIsBookMenuOpen] = useState(false); // New state for book menu
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
@@ -280,6 +281,10 @@ function App() {
     setEnlargedImage(null);
   };
 
+  const toggleBookMenu = () => {
+    setIsBookMenuOpen(!isBookMenuOpen);
+  };
+
   const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
   const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
 
@@ -536,6 +541,73 @@ function App() {
           <p className="grenon-text">
             In <em>A World Without Dis-Ease</em>, Mark Grenon lays out a fearless blueprint for a healthier humanity, rooted in faith and the power of chlorine dioxide (ClO₂). This isn’t just a book—it’s a battle cry against a broken system, blending decades of missionary grit with real-world healing stories. Mark unveils how ClO₂ can detox body and soul, offering a path to reclaim God-given vitality. From Haiti to your hands, it’s his testament to a world free of sickness, where truth triumphs over tyranny. Dive in—his words are as bold as his life.
           </p>
+          <div className="book-menu-container">
+            <button className="cta-btn book-menu-btn" onClick={toggleBookMenu}>
+              Get The Book Now
+            </button>
+            {isBookMenuOpen && (
+              <div className="book-menu">
+                <h3 className="book-menu-title">Printed Books</h3>
+                <a href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-is-it-possible-volume-one" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume One
+                  </button>
+                </a>
+                <p className="book-description">
+                  Explores the foundational concepts of CLO2 and a world free from disease.
+                </p>
+                <a href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-the-genesis-of-the-g2church-volume-two" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume Two
+                  </button>
+                </a>
+                <p className="book-description">
+                  Details the Genesis II Church’s journey and CLO2’s role in healing.
+                </p>
+                <a href="https://www.printshopcentral.com/bookstore/book/a-world-without-dis-ease-the-persecution-is-increasing-but-so-are-the-blessings-" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume Three
+                  </button>
+                </a>
+                <p className="book-description">
+                  Chronicles increasing challenges and blessings in the mission.
+                </p>
+                <a href="https://www.printshopcentral.com/bookstore/book/-imagina-un-mundo-sin-mal-estar-es-posible-" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Spanish Volume One
+                  </button>
+                </a>
+                <p className="book-description">
+                  Spanish edition of Volume One, introducing CLO2’s potential.
+                </p>
+                <h3 className="book-menu-title">eBooks</h3>
+                <a href="https://5187260268767.gumroad.com/l/tsaqy" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume One (eBook)
+                  </button>
+                </a>
+                <p className="book-description">
+                  Digital version of the foundational CLO2 exploration.
+                </p>
+                <a href="https://5187260268767.gumroad.com/l/gkwoh" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume Two (eBook)
+                  </button>
+                </a>
+                <p className="book-description">
+                  eBook detailing the Genesis II Church’s story.
+                </p>
+                <a href="https://5187260268767.gumroad.com/l/dlzpc" target="_blank" rel="noopener noreferrer">
+                  <button className="cta-btn book-menu-item">
+                    Volume Three (eBook)
+                  </button>
+                </a>
+                <p className="book-description">
+                  Digital edition on persecution and blessings.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

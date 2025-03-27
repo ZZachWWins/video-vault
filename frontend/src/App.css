@@ -419,7 +419,6 @@ body {
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
-  /* Removed overflow: hidden to allow book menu to extend */
 }
 
 .grenon-section::before {
@@ -575,7 +574,7 @@ body {
 
 /* Book Menu Styles */
 .book-menu-container {
-  position: relative; /* Changed to relative to anchor the absolute .book-menu */
+  position: relative;
   display: inline-block;
   text-align: center;
 }
@@ -601,7 +600,7 @@ body {
 
 .book-menu {
   position: absolute;
-  top: 100%; /* Position directly below the button */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.05);
@@ -615,7 +614,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 100;
   text-align: center;
-  margin-top: 10px; /* Added small margin for spacing */
+  margin-top: 10px;
 }
 
 .book-menu-title {
@@ -684,6 +683,53 @@ body {
   border-radius: 10px;
   border: 3px solid rgba(212, 175, 55, 0.7);
   box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+}
+
+/* A Message from Bob The Plumber Section */
+.bob-message-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  z-index: 2;
+  position: relative;
+}
+
+.bob-message-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  animation: glow 8s infinite ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bob-message-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.bob-message-text {
+  font-size: 1.4rem;
+  color: #e6d8a7;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  max-width: 800px;
 }
 
 /* Testimonials Section */
@@ -1227,9 +1273,9 @@ body {
   .featured-title { font-size: 1.6rem; }
   .featured-video { padding: 15px; }
   .featured-video > div { height: 25vh !important; }
-  .landing-section, .why-clo2-section, .grenon-section, .testimonials-section, .faq-section { padding: 20px 10px; margin-bottom: 20px; }
-  .landing-title, .why-clo2-title, .grenon-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
-  .landing-text, .why-clo2-text, .grenon-text, .testimonial-text, .faq-answer { font-size: 1rem; }
+  .landing-section, .why-clo2-section, .grenon-section, .bob-message-section, .testimonials-section, .faq-section { padding: 20px 10px; margin-bottom: 20px; }
+  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { font-size: 1.8rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font-size: 1rem; }
   .cta-btn { 
     padding: 14px 28px;
     font-size: 1.2rem; 
@@ -1301,14 +1347,14 @@ body {
   .search-input { max-width: 250px; }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
-  .landing-title, .why-clo2-title, .grenon-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
-  .landing-text, .why-clo2-text, .grenon-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
+  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { 
     padding: 12px 24px;
     font-size: 1.1rem; 
     width: 90%; 
   }
-  .grenon-section { padding: 15px 8px; }
+  .grenon-section, .bob-message-section { padding: 15px 8px; }
   .grenon-gallery-image { width: 200px; height: 133px; }
   .grenon-timeline { padding: 10px 0; }
   .timeline-moment { min-width: 80px; }

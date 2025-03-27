@@ -24,7 +24,7 @@ function App() {
   const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
   const [selectedMoment, setSelectedMoment] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showBackToTop, setShowBackToTop] = useState(false); // New state for back-to-top button
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
@@ -144,7 +144,6 @@ function App() {
       });
     }
 
-    // Scroll listener for back-to-top button
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 200);
     };
@@ -152,7 +151,7 @@ function App() {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('scroll', handleScroll); // Cleanup scroll listener
+      window.removeEventListener('scroll', handleScroll);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -477,6 +476,26 @@ function App() {
         <p className="why-clo2-text">
           Chlorine dioxide (CLO2) has been a quiet hero in water purification for decades—safe enough to treat municipal water supplies, yet powerful enough to tackle pathogens. Some call it a “universal antidote,” claiming it detoxes the body from heavy metals, parasites, and more. Science backs its oxidative power; anecdotes fuel its following. At God’s Detox, we’re not here to sell it—we’re here to explore it. Watch our videos, dig into the course, and see why this simple compound’s got people talking.
         </p>
+      </section>
+
+      {/* New Article Section */}
+      <section className="article-section">
+        <h2 className="article-title">A Message from Bob The Plumber</h2>
+        <div className="article-content">
+          <p className="article-text">
+            Thank you for coming to our website. We pray that you will share it with your friends because we intend to bless you in two distinct ways. God has a detox for both your body and your soul. Physically speaking, chlorine dioxide will kill all the bacteria, toxins, viruses, and fungi in your body and you will enjoy great health, but you will still die and apart from the other detox that God offers you will spend your eternity away from God. So the second detox is far superior to the first because it is eternal.
+          </p>
+          <p className="article-text">
+            So we know that when God created man he created him without sin and for the purpose of having fellowship with God, but Man quickly turned away and chose to go his own way. It seems God had made a covenant with man that as long as man remained sinless he could exist with God forever. Once man sinned, now we have a massive problem on our hands because we have to get rid of our sin in order to be back in God's presence because sin cannot exist in the presence of God. This is a problem that only God could solve.
+          </p>
+          <p className="article-text">
+            So in his mercy, God sent his Son, a member of the godhead, to become a man and live the perfect life that we cannot live. So Jesus came and lived a sinless life and therefore fulfilled the covenant of works on our behalf. He is now willing to exchange his perfection for our sin if we are willing to surrender our lives to him.
+          </p>
+          <p className="article-text">
+            Therefore the second detox that we talk about is the blood of the Lord Jesus Christ shed on Calvary to bring redemption from sin for everyone who will put their faith in him. Cry out to God for mercy and get you a Bible (I recommend the John MacArthur Study Bible) and read it like your life depends on it because it does!
+          </p>
+          <p className="article-author">— Bob The Plumber</p>
+        </div>
       </section>
 
       <section className="grenon-section">
@@ -856,7 +875,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Back to Top Button */}
       {showBackToTop && (
         <button
           className="back-to-top-btn"

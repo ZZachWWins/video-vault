@@ -575,9 +575,9 @@ body {
 
 /* Book Menu Styles */
 .book-menu-container {
-  position: relative;
+  position: static;
   display: inline-block;
-  overflow: visible; /* Ensures the menu isn’t clipped */
+  text-align: center;
 }
 
 .book-menu-btn {
@@ -601,9 +601,9 @@ body {
 
 .book-menu {
   position: absolute;
-  top: calc(100% + 10px); /* Positions it below the button with a small gap */
+  top: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%); /* Centers it under the button */
+  transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   padding: 20px;
@@ -613,7 +613,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 100; /* Higher z-index to ensure it’s above other content */
+  z-index: 100;
   text-align: center;
 }
 
@@ -1179,6 +1179,29 @@ body {
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
 }
 
+/* Back to Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
+  z-index: 1000; /* Ensures it stays above everything */
+}
+
+.back-to-top-btn:hover, .back-to-top-btn:active {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
+}
+
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
   .app { padding: 15px; }
@@ -1251,6 +1274,10 @@ body {
   .book-menu-item { padding: 12px 24px; font-size: 1rem; }
   .book-menu-title { font-size: 1.4rem; }
   .book-description { font-size: 0.9rem; }
+  .back-to-top-btn { 
+    padding: 10px 18px; 
+    font-size: 0.9rem; 
+  }
 }
 
 @media (max-width: 480px) {
@@ -1318,4 +1345,8 @@ body {
   .book-menu-item { padding: 10px 20px; font-size: 0.9rem; }
   .book-menu-title { font-size: 1.2rem; }
   .book-description { font-size: 0.8rem; }
+  .back-to-top-btn { 
+    padding: 8px 16px; 
+    font-size: 0.8rem; 
+  }
 }

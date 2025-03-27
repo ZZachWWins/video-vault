@@ -23,7 +23,8 @@ function App() {
   const [enlargedImage, setEnlargedImage] = useState(null);
   const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
   const [selectedMoment, setSelectedMoment] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // Added state for search term
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showBackToTop, setShowBackToTop] = useState(false); // New state for back-to-top button
   const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
@@ -143,13 +144,19 @@ function App() {
       });
     }
 
+    // Scroll listener for back-to-top button
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('scroll', handleScroll); // Cleanup scroll listener
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  // Added useEffect for book menu animation
   useEffect(() => {
     if (isBookMenuOpen) {
       gsap.from('.book-menu', {
@@ -310,7 +317,6 @@ function App() {
     { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
   ];
 
-  // Added filtering for videos based on search term
   const filteredVideos = videos.filter(video =>
     (video.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
     (video.description || '').toLowerCase().includes(searchTerm.toLowerCase())
@@ -773,7 +779,6 @@ function App() {
           </form>
         )}
 
-        {/* Added search bar */}
         <div className="search-container">
           <input
             type="text"
@@ -850,6 +855,16 @@ function App() {
           </a>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          className="back-to-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          ↑ Top
+        </button>
+      )}
     </div>
   );
 }

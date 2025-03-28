@@ -1,4 +1,3 @@
-// src/AboutPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
@@ -12,9 +11,9 @@ function AboutPage() {
         <h1 className="title">About God’s Detox</h1>
         <p className="subtitle">Our Mission</p>
         <nav className="navbar">
-          <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
-          <button className="nav-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
-          <button className="nav-btn" onClick={() => navigate('/about')}>About</button>
+          <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
+          <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+          <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
         </nav>
       </header>
 

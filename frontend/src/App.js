@@ -19,9 +19,9 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         <h1 ref={titleRef} className="title">God’s Detox</h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <nav className="navbar">
-          <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
-          <button className="nav-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
-          <button className="nav-btn" onClick={() => navigate('/about')}>About</button>
+  <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
+  <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+  <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
         </nav>
         <div className="auth-section">
           {user ? (

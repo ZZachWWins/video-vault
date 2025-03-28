@@ -1,7 +1,6 @@
-// src/DrKoryPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css'; // Reuse your existing styles
+import './App.css';
 
 function DrKoryPage() {
   const navigate = useNavigate();
@@ -12,9 +11,9 @@ function DrKoryPage() {
         <h1 className="title">Dr. Kory’s Corner</h1>
         <p className="subtitle">Health, Faith, and Freedom</p>
         <nav className="navbar">
-          <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
-          <button className="nav-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
-          <button className="nav-btn" onClick={() => navigate('/about')}>About</button>
+          <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
+          <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+          <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
         </nav>
       </header>
 

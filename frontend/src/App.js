@@ -2,317 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { gsap } from 'gsap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import DrKoryPage from './DrKoryPage';
+import AboutPage from './AboutPage';
 import './App.css';
 
-function App() {
-  const [user, setUser] = useState(null);
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [file, setFile] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [signupUsername, setSignupUsername] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [showHistory, setShowHistory] = useState(false);
-  const [showCourse, setShowCourse] = useState(false);
-  const [showAuth, setShowAuth] = useState(false);
-  const [activeTab, setActiveTab] = useState('login');
-  const [progress, setProgress] = useState(0);
-  const [enlargedImage, setEnlargedImage] = useState(null);
-  const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
-  const [selectedMoment, setSelectedMoment] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const canvasRef = useRef(null);
-  const titleRef = useRef(null);
-  const landingRefs = useRef([]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    let animationFrameId;
-
-    const resizeCanvas = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const stars = Array.from({ length: 50 }, () => ({
-      x: Math.random() * (canvas?.width || window.innerWidth),
-      y: Math.random() * (canvas?.height || window.innerHeight),
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.5,
-    }));
-
-    const getScaledPoints = (basePoints, width, height) => {
-      return basePoints.map(([x, y]) => [
-        (x / 1000) * width,
-        (y / 800) * height,
-      ]);
-    };
-
-    const constellations = [
-      {
-        points: getScaledPoints(
-          [[300, 200], [350, 200], [400, 200], [350, 250], [350, 300]],
-          canvas?.width || window.innerWidth,
-          canvas?.height || window.innerHeight
-        ),
-        color: '#d4af37',
-      },
-      {
-        points: getScaledPoints(
-          [[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]],
-          canvas?.width || window.innerWidth,
-          canvas?.height || window.innerHeight
-        ),
-        color: '#ffffff',
-      },
-    ];
-
-    const animate = () => {
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach((star) => {
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-          ctx.fill();
-          star.alpha += Math.random() * 0.05 - 0.025;
-          star.alpha = Math.max(0.5, Math.min(1, star.alpha));
-        });
-
-        constellations.forEach((constellation) => {
-          ctx.beginPath();
-          ctx.strokeStyle = constellation.color;
-          ctx.lineWidth = 1;
-          constellation.points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
-          ctx.stroke();
-        });
-
-        animationFrameId = requestAnimationFrame(animate);
-      }
-    };
-    animate();
-
-    const fetchVideos = async () => {
-      try {
-        const res = await axios.get('/.netlify/functions/videos');
-        setVideos(res.data || []);
-      } catch (err) {
-        console.error('Fetch videos error:', err.response?.data || err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchVideos();
-
-    const title = titleRef.current;
-    if (title) {
-      const letters = "God’s Detox"
-        .split('')
-        .map((char) => `<span class="letter">${char}</span>`)
-        .join('');
-      title.innerHTML = letters;
-
-      gsap.from('.letter', {
-        duration: 1,
-        opacity: 0,
-        y: 50,
-        stagger: 0.05,
-        ease: 'power2.out',
-        onComplete: () => {
-          gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' });
-        },
-      });
-    }
-
-    if (landingRefs.current.length) {
-      gsap.from(landingRefs.current, {
-        duration: 1,
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        ease: 'power2.out',
-        delay: 0.5,
-      });
-    }
-
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 200);
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('scroll', handleScroll);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post('/.netlify/functions/login', { username, password });
-      setUser(res.data.user);
-      setUsername('');
-      setPassword('');
-      setShowAuth(false);
-    } catch (err) {
-      alert('Login failed—check your credentials!');
-    }
-  };
-
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('/.netlify/functions/signup', { username: signupUsername, password: signupPassword });
-      alert('Signup successful! Please log in.');
-      setSignupUsername('');
-      setSignupPassword('');
-      setActiveTab('login');
-    } catch (err) {
-      alert('Signup failed—username might be taken!');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axios.get('/.netlify/functions/logout');
-      setUser(null);
-    } catch (err) {
-      alert('Logout failed—try again!');
-    }
-  };
-
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    if (!user) return alert('Please log in to upload videos!');
-    if (!file) return alert('Please select a video file!');
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'video-vault-preset');
-
-    try {
-      const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData, {
-        onUploadProgress: (progressEvent) => {
-          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setProgress(percent);
-        },
-      });
-
-      const videoData = {
-        title,
-        description,
-        fileUrl: res.data.secure_url,
-        thumbnailUrl: res.data.secure_url.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_240/'),
-        uploadedBy: user.username,
-      };
-
-      await axios.post('/.netlify/functions/videos', videoData);
-      setFile(null);
-      setTitle('');
-      setDescription('');
-      setProgress(0);
-      const videosRes = await axios.get('/.netlify/functions/videos');
-      setVideos(videosRes.data || []);
-      alert('Video uploaded successfully!');
-    } catch (err) {
-      console.error('Upload error:', err.response?.data || err.message);
-      alert('Upload failed—check your file or permissions!');
-      setProgress(0);
-    }
-  };
-
-  const handleViewIncrement = async (id) => {
-    try {
-      const res = await axios.put('/.netlify/functions/videos', { id });
-      setVideos((prevVideos) =>
-        prevVideos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
-      );
-    } catch (err) {
-      console.error('View increment error:', err.response?.data || err.message);
-    }
-  };
-
-  const handleLike = async (id) => {
-    if (!user) {
-      alert('Please log in to like videos!');
-      return;
-    }
-
-    try {
-      const res = await axios.put('/.netlify/functions/videos', {
-        id,
-        userId: user._id,
-        action: 'like',
-      });
-
-      setVideos((prevVideos) =>
-        prevVideos.map((video) =>
-          video._id === id
-            ? {
-                ...video,
-                likes: res.data.likes !== undefined ? res.data.likes : (video.likes || 0) + 1,
-                likedBy: res.data.likedBy || [...(video.likedBy || []), user._id],
-              }
-            : video
-        )
-      );
-    } catch (err) {
-      console.error('Like error:', err.response?.data || err.message);
-      if (err.response?.status === 403) {
-        alert('You’ve already liked this video!');
-      } else {
-        alert('Failed to like video—try again later!');
-        const videosRes = await axios.get('/.netlify/functions/videos');
-        setVideos(videosRes.data || []);
-      }
-    }
-  };
-
-  const hasLiked = (video) => {
-    return user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
-  };
-
-  const handleImageClick = (src, alt) => {
-    setEnlargedImage({ src, alt });
-  };
-
-  const closeEnlargedImage = () => {
-    setEnlargedImage(null);
-  };
-
-  const toggleBookMenu = () => {
-    setIsBookMenuOpen(!isBookMenuOpen);
-  };
-
-  const handleMomentClick = (index) => {
-    setSelectedMoment(index === selectedMoment ? null : index);
-  };
-
-  const grenonTimeline = [
-    { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
-    { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
-    { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
-    { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
-  ];
-
-  const filteredVideos = videos.filter(video =>
-    (video.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (video.description || '').toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
-  const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
-
+function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, canvasRef, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, filteredVideos, sortedVideos, featuredVideo }) {
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
@@ -321,6 +16,11 @@ function App() {
       <header className="header">
         <h1 ref={titleRef} className="title">God’s Detox</h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
+        <nav className="navbar">
+          <button className="nav-btn" onClick={() => window.location.href = '/'}>Home</button>
+          <button className="nav-btn" onClick={() => window.location.href = '/drkory'}>Dr. Kory</button>
+          <button className="nav-btn" onClick={() => window.location.href = '/about'}>About</button>
+        </nav>
         <div className="auth-section">
           {user ? (
             <>
@@ -872,6 +572,389 @@ function App() {
         </button>
       )}
     </div>
+  );
+}
+
+function App() {
+  const [user, setUser] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const [showHistory, setShowHistory] = useState(false);
+  const [showCourse, setShowCourse] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [activeTab, setActiveTab] = useState('login');
+  const [progress, setProgress] = useState(0);
+  const [enlargedImage, setEnlargedImage] = useState(null);
+  const [isBookMenuOpen, setIsBookMenuOpen] = useState(false);
+  const [selectedMoment, setSelectedMoment] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const canvasRef = useRef(null);
+  const titleRef = useRef(null);
+  const landingRefs = useRef([]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    let animationFrameId;
+
+    const resizeCanvas = () => {
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const stars = Array.from({ length: 50 }, () => ({
+      x: Math.random() * (canvas?.width || window.innerWidth),
+      y: Math.random() * (canvas?.height || window.innerHeight),
+      radius: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.5 + 0.5,
+    }));
+
+    const getScaledPoints = (basePoints, width, height) => {
+      return basePoints.map(([x, y]) => [
+        (x / 1000) * width,
+        (y / 800) * height,
+      ]);
+    };
+
+    const constellations = [
+      {
+        points: getScaledPoints(
+          [[300, 200], [350, 200], [400, 200], [350, 250], [350, 300]],
+          canvas?.width || window.innerWidth,
+          canvas?.height || window.innerHeight
+        ),
+        color: '#d4af37',
+      },
+      {
+        points: getScaledPoints(
+          [[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]],
+          canvas?.width || window.innerWidth,
+          canvas?.height || window.innerHeight
+        ),
+        color: '#ffffff',
+      },
+    ];
+
+    const animate = () => {
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star) => {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+          ctx.fill();
+          star.alpha += Math.random() * 0.05 - 0.025;
+          star.alpha = Math.max(0.5, Math.min(1, star.alpha));
+        });
+
+        constellations.forEach((constellation) => {
+          ctx.beginPath();
+          ctx.strokeStyle = constellation.color;
+          ctx.lineWidth = 1;
+          constellation.points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
+          ctx.stroke();
+        });
+
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+    animate();
+
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get('/.netlify/functions/videos');
+        setVideos(res.data || []);
+      } catch (err) {
+        console.error('Fetch videos error:', err.response?.data || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideos();
+
+    const title = titleRef.current;
+    if (title) {
+      const letters = "God’s Detox"
+        .split('')
+        .map((char) => `<span class="letter">${char}</span>`)
+        .join('');
+      title.innerHTML = letters;
+
+      gsap.from('.letter', {
+        duration: 1,
+        opacity: 0,
+        y: 50,
+        stagger: 0.05,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' });
+        },
+      });
+    }
+
+    if (landingRefs.current.length) {
+      gsap.from(landingRefs.current, {
+        duration: 1,
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        ease: 'power2.out',
+        delay: 0.5,
+      });
+    }
+
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/.netlify/functions/login', { username, password });
+      setUser(res.data.user);
+      setUsername('');
+      setPassword('');
+      setShowAuth(false);
+    } catch (err) {
+      alert('Login failed—check your credentials!');
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/.netlify/functions/signup', { username: signupUsername, password: signupPassword });
+      alert('Signup successful! Please log in.');
+      setSignupUsername('');
+      setSignupPassword('');
+      setActiveTab('login');
+    } catch (err) {
+      alert('Signup failed—username might be taken!');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.get('/.netlify/functions/logout');
+      setUser(null);
+    } catch (err) {
+      alert('Logout failed—try again!');
+    }
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (!user) return alert('Please log in to upload videos!');
+    if (!file) return alert('Please select a video file!');
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'video-vault-preset');
+
+    try {
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dwmnbrjtu/video/upload', formData, {
+        onUploadProgress: (progressEvent) => {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setProgress(percent);
+        },
+      });
+
+      const videoData = {
+        title,
+        description,
+        fileUrl: res.data.secure_url,
+        thumbnailUrl: res.data.secure_url.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_240/'),
+        uploadedBy: user.username,
+      };
+
+      await axios.post('/.netlify/functions/videos', videoData);
+      setFile(null);
+      setTitle('');
+      setDescription('');
+      setProgress(0);
+      const videosRes = await axios.get('/.netlify/functions/videos');
+      setVideos(videosRes.data || []);
+      alert('Video uploaded successfully!');
+    } catch (err) {
+      console.error('Upload error:', err.response?.data || err.message);
+      alert('Upload failed—check your file or permissions!');
+      setProgress(0);
+    }
+  };
+
+  const handleViewIncrement = async (id) => {
+    try {
+      const res = await axios.put('/.netlify/functions/videos', { id });
+      setVideos((prevVideos) =>
+        prevVideos.map((video) => (video._id === id ? { ...video, views: res.data.views } : video))
+      );
+    } catch (err) {
+      console.error('View increment error:', err.response?.data || err.message);
+    }
+  };
+
+  const handleLike = async (id) => {
+    if (!user) {
+      alert('Please log in to like videos!');
+      return;
+    }
+
+    try {
+      const res = await axios.put('/.netlify/functions/videos', {
+        id,
+        userId: user._id,
+        action: 'like',
+      });
+
+      setVideos((prevVideos) =>
+        prevVideos.map((video) =>
+          video._id === id
+            ? {
+                ...video,
+                likes: res.data.likes !== undefined ? res.data.likes : (video.likes || 0) + 1,
+                likedBy: res.data.likedBy || [...(video.likedBy || []), user._id],
+              }
+            : video
+        )
+      );
+    } catch (err) {
+      console.error('Like error:', err.response?.data || err.message);
+      if (err.response?.status === 403) {
+        alert('You’ve already liked this video!');
+      } else {
+        alert('Failed to like video—try again later!');
+        const videosRes = await axios.get('/.netlify/functions/videos');
+        setVideos(videosRes.data || []);
+      }
+    }
+  };
+
+  const hasLiked = (video) => {
+    return user && video.likedBy && Array.isArray(video.likedBy) && video.likedBy.includes(user._id);
+  };
+
+  const handleImageClick = (src, alt) => {
+    setEnlargedImage({ src, alt });
+  };
+
+  const closeEnlargedImage = () => {
+    setEnlargedImage(null);
+  };
+
+  const toggleBookMenu = () => {
+    setIsBookMenuOpen(!isBookMenuOpen);
+  };
+
+  const handleMomentClick = (index) => {
+    setSelectedMoment(index === selectedMoment ? null : index);
+  };
+
+  const grenonTimeline = [
+    { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
+    { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
+    { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
+    { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
+  ];
+
+  const filteredVideos = videos.filter(video =>
+    (video.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (video.description || '').toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
+  const featuredVideo = sortedVideos.length > 0 ? sortedVideos[0] : null;
+
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              user={user}
+              videos={videos}
+              loading={loading}
+              file={file}
+              title={title}
+              description={description}
+              username={username}
+              password={password}
+              signupUsername={signupUsername}
+              signupPassword={signupPassword}
+              showHistory={showHistory}
+              showCourse={showCourse}
+              showAuth={showAuth}
+              activeTab={activeTab}
+              progress={progress}
+              enlargedImage={enlargedImage}
+              isBookMenuOpen={isBookMenuOpen}
+              selectedMoment={selectedMoment}
+              searchTerm={searchTerm}
+              showBackToTop={showBackToTop}
+              setUser={setUser}
+              setVideos={setVideos}
+              setLoading={setLoading}
+              setFile={setFile}
+              setTitle={setTitle}
+              setDescription={setDescription}
+              setUsername={setUsername}
+              setPassword={setPassword}
+              setSignupUsername={setSignupUsername}
+              setSignupPassword={setSignupPassword}
+              setShowHistory={setShowHistory}
+              setShowCourse={setShowCourse}
+              setShowAuth={setShowAuth}
+              setActiveTab={setActiveTab}
+              setProgress={setProgress}
+              setEnlargedImage={setEnlargedImage}
+              setIsBookMenuOpen={setIsBookMenuOpen}
+              setSelectedMoment={setSelectedMoment}
+              setSearchTerm={setSearchTerm}
+              setShowBackToTop={setShowBackToTop}
+              canvasRef={canvasRef}
+              titleRef={titleRef}
+              landingRefs={landingRefs}
+              handleLogin={handleLogin}
+              handleSignup={handleSignup}
+              handleLogout={handleLogout}
+              handleUpload={handleUpload}
+              handleViewIncrement={handleViewIncrement}
+              handleLike={handleLike}
+              hasLiked={hasLiked}
+              handleImageClick={handleImageClick}
+              closeEnlargedImage={closeEnlargedImage}
+              toggleBookMenu={toggleBookMenu}
+              handleMomentClick={handleMomentClick}
+              filteredVideos={filteredVideos}
+              sortedVideos={sortedVideos}
+              featuredVideo={featuredVideo}
+            />
+          }
+        />
+        <Route path="/drkory" element={<DrKoryPage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </Router>
   );
 }
 

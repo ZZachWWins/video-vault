@@ -478,7 +478,6 @@ function App() {
         </p>
       </section>
 
-      {/* New Article Section */}
       <section className="article-section">
         <h2 className="article-title">A Message from Bob The Plumber</h2>
         <div className="article-content">
@@ -571,20 +570,22 @@ function App() {
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg", "Mark Grenon - Legacy Moment")}
           />
         </div>
-        <div className="grenon-timeline">
-          {grenonTimeline.map((moment, index) => (
-            <div
-              key={index}
-              className={`timeline-moment ${selectedMoment === index ? 'active' : ''}`}
-              onClick={() => handleMomentClick(index)}
-            >
-              <span className="timeline-year">{moment.year}</span>
-              <span className="timeline-title">{moment.title}</span>
-              {selectedMoment === index && (
-                <div className="timeline-tooltip">{moment.desc}</div>
-              )}
-            </div>
-          ))}
+        <div className="grenon-timeline-container">
+          <div className="grenon-timeline">
+            {grenonTimeline.map((moment, index) => (
+              <div
+                key={index}
+                className={`timeline-moment ${selectedMoment === index ? 'active' : ''}`}
+                onClick={() => handleMomentClick(index)}
+              >
+                <span className="timeline-year">{moment.year}</span>
+                <span className="timeline-title">{moment.title}</span>
+                {selectedMoment === index && (
+                  <div className="timeline-tooltip">{moment.desc}</div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
         <div className="grenon-book">
           <h3 className="grenon-title">A World Without Dis-Ease by Mark Grenon</h3>

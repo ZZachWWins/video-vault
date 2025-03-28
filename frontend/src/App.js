@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { gsap } from 'gsap';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import './App.css';
 
-function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, canvasRef, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, filteredVideos, sortedVideos, featuredVideo }) {
+function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, canvasRef, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, filteredVideos, sortedVideos, featuredVideo, grenonTimeline }) {
+  const navigate = useNavigate();
+
   return (
     <div className="app">
       <canvas ref={canvasRef} className="starry-background" />
@@ -17,9 +19,9 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         <h1 ref={titleRef} className="title">God’s Detox</h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <nav className="navbar">
-          <button className="nav-btn" onClick={() => window.location.href = '/'}>Home</button>
-          <button className="nav-btn" onClick={() => window.location.href = '/drkory'}>Dr. Kory</button>
-          <button className="nav-btn" onClick={() => window.location.href = '/about'}>About</button>
+          <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
+          <button className="nav-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+          <button className="nav-btn" onClick={() => navigate('/about')}>About</button>
         </nav>
         <div className="auth-section">
           {user ? (
@@ -600,6 +602,13 @@ function App() {
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
 
+  const grenonTimeline = [
+    { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
+    { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
+    { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
+    { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
+  ];
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
@@ -869,13 +878,6 @@ function App() {
     setSelectedMoment(index === selectedMoment ? null : index);
   };
 
-  const grenonTimeline = [
-    { year: "1980s", title: "Haiti Mission Begins", desc: "Mark steps into the slums, healing with faith and grit." },
-    { year: "2010", title: "Genesis II Church Founded", desc: "The Grenons launch a ClO₂ revolution." },
-    { year: "2015", title: "Haiti MRSA Victory", desc: "ClO₂ crushes flesh-eaters—lives saved." },
-    { year: "2020", title: "Facing Tyranny", desc: "System strikes back; Grenons stand firm." },
-  ];
-
   const filteredVideos = videos.filter(video =>
     (video.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
     (video.description || '').toLowerCase().includes(searchTerm.toLowerCase())
@@ -948,6 +950,7 @@ function App() {
               filteredVideos={filteredVideos}
               sortedVideos={sortedVideos}
               featuredVideo={featuredVideo}
+              grenonTimeline={grenonTimeline} // Pass grenonTimeline to HomePage
             />
           }
         />

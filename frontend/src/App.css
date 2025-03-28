@@ -1305,11 +1305,7 @@ body {
   font-style: italic;
   margin-top: 20px;
 }
-.navbar {
-  display: flex;
-  gap: 15px;
-  margin: 10px 0;
-}
+
 
 .nav-btn {
   background: #d4af37;
@@ -1324,6 +1320,77 @@ body {
 
 .nav-btn:hover {
   background: #b8932e;
+}
+/* Navbar */
+.navbar {
+  display: flex;
+  gap: 10px; /* Reduced from 15px for tighter spacing */
+  margin: 10px 0;
+  justify-content: center; /* Center buttons */
+  flex-wrap: wrap; /* Allow wrapping naturally */
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .app { padding: 15px; }
+  .header { 
+    padding: 10px 8px; /* Slightly tighter padding */
+    margin-bottom: 15px; 
+    max-width: 100%; /* Full width on mobile */
+  }
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+  .navbar {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center-align vertically */
+    gap: 8px; /* Smaller gap for mobile */
+  }
+  .auth-btn { 
+    padding: 10px 20px; /* Smaller padding */
+    font-size: 0.95rem; /* Slightly smaller font */
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7), 0 0 18px rgba(138, 93, 181, 0.5); 
+    width: 80%; /* Consistent width for buttons */
+    max-width: 200px; /* Cap width to avoid stretching */
+  }
+  .auth-btn:hover, .auth-btn:active {
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.9), 0 0 25px rgba(138, 93, 181, 0.7);
+  }
+  .auth-section { 
+    margin-top: 10px; 
+    padding: 5px; 
+    gap: 8px; 
+    flex-direction: column; /* Stack auth items vertically */
+    align-items: center; 
+  }
+}
+
+@media (max-width: 480px) {
+  .app { padding: 10px; }
+  .header { 
+    padding: 8px 5px; /* Even tighter for smallest screens */
+    max-width: 100%; 
+  }
+  .title { font-size: 1.6rem; } /* Smaller title */
+  .subtitle { font-size: 0.85rem; } /* Smaller subtitle */
+  .navbar {
+    flex-direction: column; /* Keep vertical stacking */
+    gap: 6px; /* Tighter gap */
+  }
+  .auth-btn { 
+    padding: 8px 16px; /* Even smaller padding */
+    font-size: 0.85rem; /* Smaller font */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7), 0 0 15px rgba(138, 93, 181, 0.5); 
+    width: 90%; /* Slightly wider for smallest screens */
+    max-width: 180px; /* Adjusted cap */
+  }
+  .auth-btn:hover, .auth-btn:active {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
+  }
+  .auth-section { 
+    margin-top: 8px; 
+    gap: 5px; 
+    flex-direction: column; 
+  }
 }
 
 /* Media Queries for Mobile */

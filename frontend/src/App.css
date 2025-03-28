@@ -565,11 +565,11 @@ body {
   border-radius: 8px;
   font-size: 0.9rem;
   margin-top: 10px;
-  z-index: 10;
+  z-index: 20; /* Increased to ensure it’s above carousel */
   white-space: nowrap;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 100%;
+  bottom: calc(100% + 10px); /* Add spacing to lift it above carousel */
 }
 
 /* Book Menu Styles */

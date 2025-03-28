@@ -7,14 +7,15 @@ import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
+import StarryBackground from './StarryBackground';
 import './App.css';
 
-function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, canvasRef, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
+function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
   const navigate = useNavigate();
 
   return (
     <div className="app">
-      <canvas ref={canvasRef} className="starry-background" />
+      <StarryBackground />
       <div className="rotating-text-background">God’s Detox</div>
 
       <header className="header">
@@ -124,7 +125,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
             <p className="testimonial-text">“I started using CLO2 after watching a video here. It’s changed how I feel every day—more energy, clearer mind. Thank God for this community!”</p>
             <p className="testimonial-author">- Sarah M., Texas</p>
           </div>
-          {/* Keep one or two testimonials; move rest to /about if desired */}
         </div>
       </section>
 
@@ -206,65 +206,10 @@ function App() {
   const [selectedMoment, setSelectedMoment] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const canvasRef = useRef(null);
   const titleRef = useRef(null);
   const landingRefs = useRef([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    let animationFrameId;
-
-    const resizeCanvas = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const stars = Array.from({ length: 50 }, () => ({
-      x: Math.random() * (canvas?.width || window.innerWidth),
-      y: Math.random() * (canvas?.height || window.innerHeight),
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.5,
-    }));
-
-    const getScaledPoints = (basePoints, width, height) => {
-      return basePoints.map(([x, y]) => [(x / 1000) * width, (y / 800) * height]);
-    };
-
-    const constellations = [
-      { points: getScaledPoints([[300, 200], [350, 200], [400, 200], [350, 250], [350, 300]], canvas?.width || window.innerWidth, canvas?.height || window.innerHeight), color: '#d4af37' },
-      { points: getScaledPoints([[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]], canvas?.width || window.innerWidth, canvas?.height || window.innerHeight), color: '#ffffff' },
-    ];
-
-    const animate = () => {
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach((star) => {
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-          ctx.fill();
-          star.alpha += Math.random() * 0.05 - 0.025;
-          star.alpha = Math.max(0.5, Math.min(1, star.alpha));
-        });
-
-        constellations.forEach((constellation) => {
-          ctx.beginPath();
-          ctx.strokeStyle = constellation.color;
-          ctx.lineWidth = 1;
-          constellation.points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
-          ctx.stroke();
-        });
-
-        animationFrameId = requestAnimationFrame(animate);
-      }
-    };
-    animate();
-
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
@@ -292,9 +237,7 @@ function App() {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('scroll', handleScroll);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -469,7 +412,6 @@ function App() {
               setSelectedMoment={setSelectedMoment}
               setSearchTerm={setSearchTerm}
               setShowBackToTop={setShowBackToTop}
-              canvasRef={canvasRef}
               titleRef={titleRef}
               landingRefs={landingRefs}
               handleLogin={handleLogin}

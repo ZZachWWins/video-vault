@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import StarryBackground from './StarryBackground';
 import './App.css';
 
 function GrenonPage({ enlargedImage, selectedMoment, setEnlargedImage, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, isBookMenuOpen }) {
@@ -14,6 +15,7 @@ function GrenonPage({ enlargedImage, selectedMoment, setEnlargedImage, handleIma
 
   return (
     <div className="app">
+      <StarryBackground />
       <header className="header">
         <h1 className="title">The Grenon Legacy</h1>
         <p className="subtitle">Warriors of Faith and ClO₂</p>
@@ -44,7 +46,7 @@ function GrenonPage({ enlargedImage, selectedMoment, setEnlargedImage, handleIma
             className="grenon-gallery-image"
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg", "Mark Grenon - Preaching")}
           />
-          {/* Add the rest of the images as in the original */}
+          {/* Add remaining images */}
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg"
             alt="Mark Grenon - Legacy Moment"
@@ -70,12 +72,10 @@ function GrenonPage({ enlargedImage, selectedMoment, setEnlargedImage, handleIma
         <div className="grenon-book">
           <h3 className="grenon-title">A World Without Dis-Ease by Mark Grenon</h3>
           <p className="grenon-text">
-            In <em>A World Without Dis-Ease</em>, Mark Grenon lays out a fearless blueprint for a healthier humanity, rooted in faith and the power of chlorine dioxide (ClO₂). This isn’t just a book—it’s a battle cry against a broken system, blending decades of missionary grit with real-world healing stories. Mark unveils how ClO₂ can detox body and soul, offering a path to reclaim God-given vitality. From Haiti to your hands, it’s his testament to a world free of sickness, where truth triumphs over tyranny. Dive in—his words are as bold as his life.
+            In <em>A World Without Dis-Ease</em>, Mark Grenon lays out a fearless blueprint for a healthier humanity, rooted in faith and the power of chlorine dioxide (ClO₂). This isn’t just a book—it’s a battle cry against a broken system, blending decades of missionary grit with real-world healing stories.
           </p>
           <div className="book-menu-container">
-            <button className="cta-btn book-menu-btn" onClick={toggleBookMenu}>
-              Get The Book Now
-            </button>
+            <button className="cta-btn book-menu-btn" onClick={toggleBookMenu}>Get The Book Now</button>
             {isBookMenuOpen && (
               <div className="book-menu">
                 <h3 className="book-menu-title">Printed Books</h3>
@@ -83,7 +83,7 @@ function GrenonPage({ enlargedImage, selectedMoment, setEnlargedImage, handleIma
                   <a href="https://www.printshopcentral.com/bookstore/book/-imagine-a-world-without-dis-ease-is-it-possible-volume-one" target="_blank" rel="noopener noreferrer" className="book-link">Volume One</a>
                   <p className="book-description">Explores the foundational concepts of CLO2 and a world free from disease.</p>
                 </div>
-                {/* Add remaining book links as in original */}
+                {/* Add remaining book links */}
               </div>
             )}
           </div>

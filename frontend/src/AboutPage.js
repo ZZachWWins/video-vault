@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import StarryBackground from './StarryBackground';
 import './App.css';
 
 function AboutPage() {
@@ -7,6 +8,7 @@ function AboutPage() {
 
   return (
     <div className="app">
+      <StarryBackground />
       <header className="header">
         <h1 className="title">About God’s Detox</h1>
         <p className="subtitle">Our Mission</p>
@@ -14,6 +16,8 @@ function AboutPage() {
           <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
           <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
           <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
+          <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
+          <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
         </nav>
       </header>
 
@@ -32,9 +36,7 @@ function AboutPage() {
       </section>
 
       <footer className="footer">
-        <p className="footer-text">
-          Built by Zachary | © 2025 Bob The Plumber
-        </p>
+        <p className="footer-text">Built by Zachary | © 2025 Bob The Plumber</p>
       </footer>
     </div>
   );

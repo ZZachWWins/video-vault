@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
+import StarryBackground from './StarryBackground';
 import './App.css';
 
 function VideosPage({ user, videos, loading, filteredVideos, searchTerm, setSearchTerm, handleViewIncrement, handleLike, hasLiked }) {
@@ -8,6 +9,7 @@ function VideosPage({ user, videos, loading, filteredVideos, searchTerm, setSear
 
   return (
     <div className="app">
+      <StarryBackground />
       <header className="header">
         <h1 className="title">Video Gallery</h1>
         <p className="subtitle">Explore All Videos</p>

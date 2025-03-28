@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import StarryBackground from './StarryBackground';
 import './App.css';
 
 function DrKoryPage() {
@@ -7,6 +8,7 @@ function DrKoryPage() {
 
   return (
     <div className="app">
+      <StarryBackground />
       <header className="header">
         <h1 className="title">Dr. Kory’s Corner</h1>
         <p className="subtitle">Health, Faith, and Freedom</p>
@@ -14,6 +16,8 @@ function DrKoryPage() {
           <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
           <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
           <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
+          <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
+          <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
         </nav>
       </header>
 
@@ -29,10 +33,7 @@ function DrKoryPage() {
         <p className="why-clo2-text">
           Dr. Kory has spoken about the potential of overlooked therapies like ClO₂. While not a replacement for medical advice, he champions open discussion and patient empowerment. Watch his talks, read his thoughts, and join the conversation about detoxifying body and soul.
         </p>
-        <button
-          className="cta-btn"
-          onClick={() => window.open('https://flccc.net', '_blank')}
-        >
+        <button className="cta-btn" onClick={() => window.open('https://flccc.net', '_blank')}>
           Visit FLCCC
         </button>
       </section>
@@ -50,9 +51,7 @@ function DrKoryPage() {
       </section>
 
       <footer className="footer">
-        <p className="footer-text">
-          Built by Zachary | © 2025 Bob The Plumber
-        </p>
+        <p className="footer-text">Built by Zachary | © 2025 Bob The Plumber</p>
       </footer>
     </div>
   );

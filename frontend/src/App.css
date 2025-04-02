@@ -1335,6 +1335,29 @@ body {
   max-height: 400px; /* Adjust as needed */
   overflow-y: auto; /* Scroll if content exceeds height */
 }
+/* Add to App.css */
+.video-container {
+  margin: 20px 0; /* Space above and below the video */
+  display: flex;
+  justify-content: center; /* Center the video horizontally */
+}
+
+.rumble-video {
+  width: 100%;
+  max-width: 640px; /* Standard video width, adjust as needed */
+  height: 360px; /* 16:9 aspect ratio */
+  border: 2px solid #fff; /* White border to match starry theme */
+  border-radius: 8px; /* Slight rounding for polish */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Glow effect */
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .rumble-video {
+    max-width: 100%;
+    height: 200px; /* Smaller height on mobile */
+  }
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

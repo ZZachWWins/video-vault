@@ -33,6 +33,15 @@ function DrKoryPage() {
         <p className="why-clo2-text">
           Dr. Kory has spoken about the potential of overlooked therapies like ClO₂. While not a replacement for medical advice, he champions open discussion and patient empowerment. Watch his talks, read his thoughts, and join the conversation about detoxifying body and soul.
         </p>
+        <div className="video-container">
+          <iframe
+            className="rumble-video"
+            src="https://rumble.com/embed/v6otfzg/?pub=4"
+            title="Dr. Pierre Kory Video"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        </div>
         <button className="cta-btn" onClick={() => window.open('https://flccc.net', '_blank')}>
           Visit FLCCC
         </button>

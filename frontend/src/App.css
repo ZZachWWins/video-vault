@@ -1329,6 +1329,12 @@ body {
   justify-content: center; /* Center buttons */
   flex-wrap: wrap; /* Allow wrapping naturally */
 }
+.article {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto; /* Scroll if content exceeds height */
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

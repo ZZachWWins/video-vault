@@ -6,6 +6,44 @@ import './App.css';
 function DrKoryPage() {
   const navigate = useNavigate();
 
+  // Articles about Dr. Kory
+  const koryArticles = [
+    {
+      id: 1,
+      title: "The FLCCC Journey",
+      content:
+        "Dr. Pierre Kory co-founded the Front Line COVID-19 Critical Care Alliance (FLCCC) to challenge mainstream narratives and save lives. From advocating ivermectin to exploring ClO₂, his work reflects a relentless pursuit of truth in medicine.",
+    },
+    {
+      id: 2,
+      title: "Faith and Healing",
+      content:
+        "Beyond science, Dr. Kory’s approach integrates a deep respect for faith-based healing. He believes true health encompasses body and soul—a message that resonates with God’s Detox.",
+    },
+    {
+      id: 3,
+      title: "Standing Against Censorship",
+      content:
+        "Dr. Kory has faced Big Tech and Big Pharma head-on, testifying before Congress and speaking out on platforms like Rumble. His courage inspires millions to question the status quo.",
+    },
+  ];
+
+  // Expanded testimonials
+  const testimonials = [
+    {
+      text: "“Dr. Kory’s courage inspired me to research ClO₂. It’s been a game-changer for my family.”",
+      author: "- James R., Florida",
+    },
+    {
+      text: "“His talks on ivermectin opened my eyes. Now I’m exploring ClO₂ thanks to this site.”",
+      author: "- Sarah M., Texas",
+    },
+    {
+      text: "“A doctor who fights for us, not the system. That’s why I trust Dr. Kory.”",
+      author: "- Michael T., Ohio",
+    },
+  ];
+
   return (
     <div className="app">
       <StarryBackground />
@@ -42,20 +80,43 @@ function DrKoryPage() {
             allowFullScreen
           ></iframe>
         </div>
-        <button className="cta-btn" onClick={() => window.open('https://flccc.net', '_blank')}>
-          Visit FLCCC
-        </button>
+        <div className="button-group">
+          <button className="cta-btn" onClick={() => window.open('https://flccc.net', '_blank')}>
+            Visit FLCCC
+          </button>
+          <button
+            className="cta-btn"
+            onClick={() =>
+              window.open(
+                'https://pierrekorymedicalmusings.com/p/the-existing-evidence-base-for-chlorine?utm_campaign=post',
+                '_blank'
+              )
+            }
+          >
+            Read ClO₂ Article
+          </button>
+        </div>
+      </section>
+
+      <section className="articles-section">
+        <h2 className="articles-title">Insights from Dr. Kory</h2>
+        {koryArticles.map((article) => (
+          <div key={article.id} className="article">
+            <h3 className="article-title">{article.title}</h3>
+            <p className="article-text">{article.content}</p>
+          </div>
+        ))}
       </section>
 
       <section className="testimonials-section">
         <h2 className="testimonials-title">Inspired by Dr. Kory</h2>
         <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <p className="testimonial-text">
-              “Dr. Kory’s courage inspired me to research ClO₂. It’s been a game-changer for my family.”
-            </p>
-            <p className="testimonial-author">- James R., Florida</p>
-          </div>
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="testimonial-card">
+              <p className="testimonial-text">{testimonial.text}</p>
+              <p className="testimonial-author">{testimonial.author}</p>
+            </div>
+          ))}
         </div>
       </section>
 

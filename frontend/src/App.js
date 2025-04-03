@@ -7,6 +7,7 @@ import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
+import ArticlesPage from './ArticlesPage'; // Add this import
 import StarryBackground from './StarryBackground';
 import './App.css';
 
@@ -27,6 +28,7 @@ function HomePage({ user, videos, loading, file, title, description, username, p
           <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
           <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
           <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
+          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button> {/* Add this */}
         </nav>
         <div className="auth-section">
           {user ? (
@@ -463,6 +465,7 @@ function App() {
             />
           }
         />
+        <Route path="/articles" element={<ArticlesPage />} /> {/* Add this */}
       </Routes>
     </Router>
   );

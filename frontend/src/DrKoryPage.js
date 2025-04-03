@@ -56,6 +56,7 @@ function DrKoryPage() {
           <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
           <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
           <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
+          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
         </nav>
       </header>
 

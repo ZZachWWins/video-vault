@@ -34,9 +34,32 @@ function StarryBackground() {
       { points: getScaledPoints([[600, 400], [650, 350], [700, 350], [750, 400], [800, 450], [850, 500], [900, 550]], canvas?.width || window.innerWidth, canvas?.height || window.innerHeight), color: '#ffffff' },
     ];
 
+    // Shooting stars array
+    const shootingStars = [];
+    const createShootingStar = () => {
+      return {
+        x: Math.random() * canvas.width, // Start anywhere horizontally
+        y: Math.random() * canvas.height * 0.3, // Start in top 30% of canvas
+        length: Math.random() * 50 + 30, // Tail length between 30-80px
+        speedX: Math.random() * -3 - 2, // Move left and down (negative X, positive Y)
+        speedY: Math.random() * 3 + 2,
+        alpha: 1, // Start fully opaque
+        life: Math.random() * 60 + 30, // Frames to live (30-90 frames)
+      };
+    };
+
+    // Spawn shooting stars randomly
+    const spawnShootingStar = () => {
+      if (Math.random() < 0.02) { // ~2% chance per frame to spawn
+        shootingStars.push(createShootingStar());
+      }
+    };
+
     const animate = () => {
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw regular stars
         stars.forEach((star) => {
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -46,12 +69,47 @@ function StarryBackground() {
           star.alpha = Math.max(0.5, Math.min(1, star.alpha));
         });
 
+        // Draw constellations
         constellations.forEach((constellation) => {
           ctx.beginPath();
           ctx.strokeStyle = constellation.color;
           ctx.lineWidth = 1;
           constellation.points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
           ctx.stroke();
+        });
+
+        // Spawn and update shooting stars
+        spawnShootingStar();
+        shootingStars.forEach((meteor, index) => {
+          // Draw meteor with gradient tail
+          const gradient = ctx.createLinearGradient(
+            meteor.x, meteor.y,
+            meteor.x + meteor.length * Math.cos(Math.atan2(meteor.speedY, meteor.speedX)),
+            meteor.y + meteor.length * Math.sin(Math.atan2(meteor.speedY, meteor.speedX))
+          );
+          gradient.addColorStop(0, `rgba(212, 175, 55, ${meteor.alpha})`); // Gold head
+          gradient.addColorStop(1, `rgba(255, 255, 255, 0)`); // Fade to transparent
+
+          ctx.beginPath();
+          ctx.moveTo(meteor.x, meteor.y);
+          ctx.lineTo(
+            meteor.x + meteor.length * Math.cos(Math.atan2(meteor.speedY, meteor.speedX)),
+            meteor.y + meteor.length * Math.sin(Math.atan2(meteor.speedY, meteor.speedX))
+          );
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Update position and alpha
+          meteor.x += meteor.speedX;
+          meteor.y += meteor.speedY;
+          meteor.life -= 1;
+          meteor.alpha = meteor.life / 90; // Fade based on remaining life (max 90 frames)
+
+          // Remove if off-screen or life depleted
+          if (meteor.life <= 0 || meteor.x < 0 || meteor.y > canvas.height) {
+            shootingStars.splice(index, 1);
+          }
         });
 
         animationFrameId = requestAnimationFrame(animate);

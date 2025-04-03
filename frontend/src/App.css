@@ -1417,22 +1417,6 @@ body {
   }
 }
 
-/* Ensure cta-btn is styled (if not already) */
-.cta-btn {
-  background-color: #fff; /* Example, adjust to your theme */
-  color: #333;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.cta-btn:hover {
-  background-color: #ddd; /* Example hover effect */
-}
-
 /* Responsive adjustment */
 @media (max-width: 768px) {
   .rumble-video {

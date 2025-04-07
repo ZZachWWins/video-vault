@@ -1476,6 +1476,95 @@ body {
   line-height: 1.6;
   margin: 0;
 }
+/* Quadrant Layout */
+.quadrants-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns for quadrants */
+  grid-template-rows: auto auto; /* Flexible rows */
+  gap: 20px; /* Space between quadrants */
+  padding: 20px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Ensure each quadrant inherits glassmorphism styles */
+.quadrant {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden; /* Contain content */
+}
+
+/* Adjust padding and margins for quadrant sections */
+.quadrant.featured-section,
+.quadrant.landing-section,
+.quadrant.why-clo2-section,
+.quadrant.article-section,
+.quadrant.testimonials-section {
+  margin-bottom: 0; /* Remove old margins */
+}
+
+/* Specific tweaks for quadrants */
+.quadrant .featured-video {
+  max-width: 100%; /* Fit within quadrant */
+  padding: 10px;
+}
+
+.quadrant .button-group {
+  flex-wrap: wrap; /* Allow buttons to wrap if needed */
+  gap: 10px;
+}
+
+.quadrant .cta-btn {
+  padding: 12px 24px; /* Slightly smaller for fit */
+  font-size: 1.2rem;
+  margin: 5px;
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+  .quadrants-container {
+    grid-template-columns: 1fr; /* Stack on mobile */
+    grid-template-rows: auto; /* Auto rows */
+    padding: 15px 0;
+  }
+
+  .quadrant {
+    padding: 15px;
+  }
+
+  .quadrant .cta-btn {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+  }
+
+  .quadrant .featured-video > div {
+    height: 25vh !important; /* Maintain mobile height */
+  }
+}
+
+@media (max-width: 480px) {
+  .quadrants-container {
+    padding: 10px 0;
+  }
+
+  .quadrant {
+    padding: 10px;
+  }
+
+  .quadrant .cta-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

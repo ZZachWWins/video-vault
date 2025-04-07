@@ -7,11 +7,11 @@ import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
-import ArticlesPage from './ArticlesPage'; // Add this import
+import ArticlesPage from './ArticlesPage';
 import StarryBackground from './StarryBackground';
 import './App.css';
 
-function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
+function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImage isbnClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
   const navigate = useNavigate();
 
   return (
@@ -28,7 +28,7 @@ function HomePage({ user, videos, loading, file, title, description, username, p
           <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
           <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
           <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
-          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button> {/* Add this */}
+          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
         </nav>
         <div className="auth-section">
           {user ? (
@@ -42,25 +42,71 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         </div>
       </header>
 
-      {featuredVideo && (
-        <section className="featured-section">
-          <h2 className="featured-title">Featured Video</h2>
-          <div className="featured-video">
-            <ReactPlayer
-              url={featuredVideo.fileUrl}
-              light={featuredVideo.thumbnailUrl}
-              width="100%"
-              height="300px"
-              controls
-              onStart={() => handleViewIncrement(featuredVideo._id)}
-            />
-            <h3 className="video-title">{featuredVideo.title}</h3>
-            <p className="video-description">{featuredVideo.description}</p>
-            <p className="video-uploader">Uploaded by: {featuredVideo.uploadedBy}</p>
-            <p className="video-views">Views: {featuredVideo.views || 0}</p>
+      <main className="quadrants-container">
+        {featuredVideo && (
+          <section className="quadrant featured-section">
+            <h2 className="featured-title">Featured Video</h2>
+            <div className="featured-video">
+              <ReactPlayer
+                url={featuredVideo.fileUrl}
+                light={featuredVideo.thumbnailUrl}
+                width="100%"
+                height="200px"
+                controls
+                onStart={() => handleViewIncrement(featuredVideo._id)}
+              />
+              <h3 className="video-title">{featuredVideo.title}</h3>
+              <p className="video-description">{featuredVideo.description}</p>
+              <p className="video-uploader">Uploaded by: {featuredVideo.uploadedBy}</p>
+              <p className="video-views">Views: {featuredVideo.views || 0}</p>
+            </div>
+          </section>
+        )}
+
+        <section className="quadrant landing-section">
+          <h2 className="landing-title" ref={(el) => (landingRefs.current[0] = el)}>Welcome to God’s Detox</h2>
+          <p className="landing-text" ref={(el) => (landingRefs.current[1] = el)}>
+            Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2.
+          </p>
+          <h2 className="landing-title" ref={(el) => (landingRefs.current[2] = el)}>The CLO2 Movement</h2>
+          <p className="landing-text" ref={(el) => (landingRefs.current[3] = el)}>
+            Chlorine dioxide (CLO2) isn’t just another health fad—it’s a movement. Used for years in water purification, CLO2 is affordable and easy to make.
+          </p>
+          <div className="button-group">
+            <button className="cta-btn" onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')} ref={(el) => (landingRefs.current[4] = el)}>Share Your Story</button>
+            <button className="cta-btn" onClick={() => setShowHistory(true)} ref={(el) => (landingRefs.current[5] = el)}>History of CLO2</button>
+            <button className="cta-btn" onClick={() => setShowCourse(true)} ref={(el) => (landingRefs.current[6] = el)}>ClO₂ Course</button>
           </div>
         </section>
-      )}
+
+        <section className="quadrant why-clo2-section">
+          <h2 className="why-clo2-title">Why CLO2?</h2>
+          <p className="why-clo2-text">
+            Chlorine dioxide (CLO2) has been a quiet hero in water purification for decades—safe enough to treat municipal water supplies, yet powerful enough to tackle pathogens.
+          </p>
+        </section>
+
+        <section className="quadrant article-section">
+          <h2 className="article-title">A Message from Bob The Plumber</h2>
+          <div className="article-content">
+            <p className="article-text">
+              Thank you for coming to our website. God has a detox for both your body and your soul. Physically, chlorine dioxide kills bacteria; spiritually, Jesus Christ offers eternal redemption.
+            </p>
+            <p className="article-author">— Bob The Plumber</p>
+            <button className="cta-btn" onClick={() => navigate('/about')}>Read More</button>
+          </div>
+        </section>
+
+        <section className="quadrant testimonials-section">
+          <h2 className="testimonials-title">What People Are Saying</h2>
+          <div className="testimonials-grid">
+            <div className="testimonial-card">
+              <p className="testimonial-text">“I started using CLO2 after watching a video here. It’s changed how I feel every day—more energy!”</p>
+              <p className="testimonial-author">- Sarah M., Texas</p>
+            </div>
+          </div>
+        </section>
+      </main>
 
       {showAuth && (
         <div className="auth-modal">
@@ -88,54 +134,12 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         </div>
       )}
 
-      <section className="landing-section">
-        <h2 className="landing-title" ref={(el) => (landingRefs.current[0] = el)}>Welcome to God’s Detox</h2>
-        <p className="landing-text" ref={(el) => (landingRefs.current[1] = el)}>
-          Welcome to God’s Detox, where faith meets transformation. We’re sharing powerful stories of grace, hope, and inspiration through video, spotlighting the potential of CLO2—a simple, accessible tool used worldwide to purify water and, some believe, enhance well-being. Join us to explore real experiences and decide for yourself.
-        </p>
-        <h2 className="landing-title" ref={(el) => (landingRefs.current[2] = el)}>The CLO2 Movement</h2>
-        <p className="landing-text" ref={(el) => (landingRefs.current[3] = el)}>
-          Chlorine dioxide (CLO2) isn’t just another health fad—it’s a movement. Used for years in water purification, CLO2 is affordable and easy to make, offering an option for those seeking alternatives. Through our videos, hear from people of faith who’ve embraced it and share your own story of detox and renewal.
-        </p>
-        <button className="cta-btn" onClick={() => (window.location.href = 'mailto:zacharystreamingdba@gmail.com')} ref={(el) => (landingRefs.current[4] = el)}>Share Your Story</button>
-        <button className="cta-btn" onClick={() => setShowHistory(true)} ref={(el) => (landingRefs.current[5] = el)}>History of CLO2</button>
-        <button className="cta-btn" onClick={() => setShowCourse(true)} ref={(el) => (landingRefs.current[6] = el)}>ClO₂ Course</button>
-      </section>
-
-      <section className="why-clo2-section">
-        <h2 className="why-clo2-title">Why CLO2?</h2>
-        <p className="why-clo2-text">
-          Chlorine dioxide (CLO2) has been a quiet hero in water purification for decades—safe enough to treat municipal water supplies, yet powerful enough to tackle pathogens. Some call it a “universal antidote,” claiming it detoxes the body from heavy metals, parasites, and more. Science backs its oxidative power; anecdotes fuel its following.
-        </p>
-      </section>
-
-      <section className="article-section">
-        <h2 className="article-title">A Message from Bob The Plumber</h2>
-        <div className="article-content">
-          <p className="article-text">
-            Thank you for coming to our website. God has a detox for both your body and your soul. Physically, chlorine dioxide kills bacteria, toxins, and viruses; spiritually, Jesus Christ offers eternal redemption. Cry out to God and join us!
-          </p>
-          <p className="article-author">— Bob The Plumber</p>
-          <button className="cta-btn" onClick={() => navigate('/about')}>Read More</button>
-        </div>
-      </section>
-
-      <section className="testimonials-section">
-        <h2 className="testimonials-title">What People Are Saying</h2>
-        <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <p className="testimonial-text">“I started using CLO2 after watching a video here. It’s changed how I feel every day—more energy, clearer mind. Thank God for this community!”</p>
-            <p className="testimonial-author">- Sarah M., Texas</p>
-          </div>
-        </div>
-      </section>
-
       {showHistory && (
         <div className="history-modal">
           <div className="history-content">
             <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
             <p className="history-text">
-              Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties. By the 1940s, it became a breakthrough in water treatment, disinfecting Niagara Falls’ drinking water. Today, it’s vital for sanitation and emergency disinfection.
+              Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties.
             </p>
             <button className="close-btn" onClick={() => setShowHistory(false)}>Close</button>
           </div>
@@ -465,7 +469,7 @@ function App() {
             />
           }
         />
-        <Route path="/articles" element={<ArticlesPage />} /> {/* Add this */}
+        <Route path="/articles" element={<ArticlesPage />} />
       </Routes>
     </Router>
   );

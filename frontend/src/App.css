@@ -203,7 +203,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 100; /* Increased from 20 to ensure it’s above featured section */
+  z-index: 1000; /* Increased from 20 to ensure it’s above featured section */
   display: flex;
   flex-direction: column;
   gap: 10px;

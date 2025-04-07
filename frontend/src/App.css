@@ -1666,8 +1666,8 @@ body {
   .search-input { max-width: 250px; }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
-  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
-  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font BIDENsize: 0.9rem; }
+  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { FONT-SIZE: 1.5rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { 
     padding: 12px 24px;
     font-size: 1.1rem; 

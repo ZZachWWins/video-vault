@@ -49,7 +49,7 @@ body {
 /* Header */
 .header {
   text-align: center;
-  padding: 20px 15px;
+  padding: 20px 15px 40px 15px; /* Increased bottom padding for menu space */
   background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
@@ -58,7 +58,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   margin-bottom: 20px;
   position: relative;
-  overflow: hidden;
   z-index: 2;
   max-width: 900px;
   margin-left: auto;
@@ -76,6 +75,7 @@ body {
   animation: glow 8s infinite ease-in-out;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden; /* Contain glow effect */
 }
 
 @keyframes glow {
@@ -142,6 +142,90 @@ body {
 .auth-btn:hover, .auth-btn:active {
   transform: translateY(-3px);
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10; /* Raised to ensure it’s above header */
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  display: none; /* Hidden by default */
+}
+
+.nav-menu-btn {
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.nav-menu-btn:hover,
+.nav-menu-btn:active {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
+}
+
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 15px;
+  width: 90%;
+  max-width: 250px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 20; /* Raised to ensure it’s above header */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.nav-menu-item {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e6d8a7;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  text-align: center;
+}
+
+.nav-menu-item:hover,
+.nav-menu-item.active {
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
 }
 
 /* Auth Modal */
@@ -347,10 +431,10 @@ body {
   border-radius: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s; /* Removed box-shadow from transition */
+  transition: transform 0.2s;
   margin: 15px;
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
-  animation: pulseGlow 2s infinite ease-in-out !important; /* Added !important to ensure it runs */
+  animation: pulseGlow 2s infinite ease-in-out !important;
 }
 
 @keyframes pulseGlow {
@@ -565,11 +649,11 @@ body {
   border-radius: 8px;
   font-size: 0.9rem;
   margin-top: 10px;
-  z-index: 20; /* Increased to ensure it’s above carousel */
+  z-index: 20;
   white-space: nowrap;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(100% + 10px); /* Add spacing to lift it above carousel */
+  bottom: calc(100% + 10px);
 }
 
 /* Book Menu Styles */
@@ -757,28 +841,25 @@ body {
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
 .testimonial-card {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
 }
 
 .testimonial-text {
-  font-size: 1.2rem;
-  color: #e6d8a7;
-  line-height: 1.6;
-  margin-bottom: 10px;
+  color: #ddd;
+  font-style: italic;
 }
 
 .testimonial-author {
-  font-size: 1rem;
-  color: #b8a9d1;
-  font-style: italic;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 0.5rem;
 }
 
 /* FAQ Section */
@@ -1248,6 +1329,7 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
 }
+
 /* Article Section (A Message from Bob The Plumber) */
 .article-section {
   text-align: center;
@@ -1306,7 +1388,6 @@ body {
   margin-top: 20px;
 }
 
-
 .nav-btn {
   background: #d4af37;
   color: #1a1a1a;
@@ -1321,94 +1402,23 @@ body {
 .nav-btn:hover {
   background: #b8932e;
 }
-/* Navbar */
-.navbar {
-  display: flex;
-  gap: 10px; /* Reduced from 15px for tighter spacing */
-  margin: 10px 0;
-  justify-content: center; /* Center buttons */
-  flex-wrap: wrap; /* Allow wrapping naturally */
-}
-.article {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  max-height: 400px; /* Adjust as needed */
-  overflow-y: auto; /* Scroll if content exceeds height */
-}
+
 /* Add to App.css */
 .video-container {
-  margin: 20px 0; /* Space above and below the video */
+  margin: 20px 0;
   display: flex;
-  justify-content: center; /* Center the video horizontally */
+  justify-content: center;
 }
 
 .rumble-video {
   width: 100%;
-  max-width: 640px; /* Standard video width, adjust as needed */
-  height: 360px; /* 16:9 aspect ratio */
-  border: 2px solid #fff; /* White border to match starry theme */
-  border-radius: 8px; /* Slight rounding for polish */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Glow effect */
-}
-/* Add to App.css */
-.articles-section {
-  padding: 20px;
-}
-
-.article {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1); /* Slight transparency for starry effect */
+  max-width: 640px;
+  height: 360px;
+  border: 2px solid #fff;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-.articles-title {
-  color: #fff;
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.article-title {
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-.article-text {
-  color: #ddd;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-.testimonial-text {
-  color: #ddd;
-  font-style: italic;
-}
-
-.testimonial-author {
-  color: #fff;
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
-/* Add to App.css */
-.button-group {
-  display: flex;
-  gap: 15px; /* Space between buttons */
-  justify-content: center; /* Center them horizontally */
-  margin-top: 20px; /* Space above the button group */
-}
 /* Update existing article styles in App.css */
 .articles-section {
   text-align: center;
@@ -1470,24 +1480,17 @@ body {
   max-width: 100%;
 }
 
-.article-text {
-  font-size: 1.2rem;
-  color: #e6d8a7;
-  line-height: 1.6;
-  margin: 0;
-}
 /* Quadrant Layout */
 .quadrants-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns for quadrants */
-  grid-template-rows: auto auto; /* Flexible rows */
-  gap: 20px; /* Space between quadrants */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
   padding: 20px 0;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Ensure each quadrant inherits glassmorphism styles */
 .quadrant {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
@@ -1499,206 +1502,39 @@ body {
   text-align: center;
   position: relative;
   z-index: 2;
-  overflow: hidden; /* Contain content */
+  overflow: hidden;
 }
 
-/* Adjust padding and margins for quadrant sections */
 .quadrant.featured-section,
 .quadrant.landing-section,
 .quadrant.why-clo2-section,
 .quadrant.article-section,
 .quadrant.testimonials-section {
-  margin-bottom: 0; /* Remove old margins */
+  margin-bottom: 0;
 }
 
-/* Specific tweaks for quadrants */
 .quadrant .featured-video {
-  max-width: 100%; /* Fit within quadrant */
+  max-width: 100%;
   padding: 10px;
 }
 
 .quadrant .button-group {
-  flex-wrap: wrap; /* Allow buttons to wrap if needed */
+  flex-wrap: wrap;
   gap: 10px;
 }
 
 .quadrant .cta-btn {
-  padding: 12px 24px; /* Slightly smaller for fit */
+  padding: 12px 24px;
   font-size: 1.2rem;
   margin: 5px;
 }
 
-/* Mobile stacking */
-@media (max-width: 768px) {
-  .quadrants-container {
-    grid-template-columns: 1fr; /* Stack on mobile */
-    grid-template-rows: auto; /* Auto rows */
-    padding: 15px 0;
-  }
-
-  .quadrant {
-    padding: 15px;
-  }
-
-  .quadrant .cta-btn {
-    width: 80%;
-    margin: 10px auto;
-    display: block;
-  }
-
-  .quadrant .featured-video > div {
-    height: 25vh !important; /* Maintain mobile height */
-  }
-}
-
-@media (max-width: 480px) {
-  .quadrants-container {
-    padding: 10px 0;
-  }
-
-  .quadrant {
-    padding: 10px;
-  }
-
-  .quadrant .cta-btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-}
-
-/* Media Queries for Mobile */
-@media (max-width: 768px) {
-  .articles-section {
-    padding: 20px 10px;
-    margin-bottom: 20px;
-  }
-  .article {
-    padding: 15px;
-    margin-bottom: 1.5rem;
-  }
-  .article-title {
-    font-size: 1.6rem;
-  }
-  .article-author {
-    font-size: 1rem;
-  }
-  .article-text {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .articles-section {
-    padding: 15px 8px;
-  }
-  .article {
-    padding: 10px;
-  }
-  .article-title {
-    font-size: 1.4rem;
-  }
-  .article-author {
-    font-size: 0.9rem;
-  }
-  .article-text {
-    font-size: 0.9rem;
-  }
-}
-@media (max-width: 768px) {
-  .button-group {
-    flex-direction: column; /* Stack buttons on smaller screens */
-    align-items: center;
-  }
-}
-
-/* Responsive adjustment */
-@media (max-width: 768px) {
-  .rumble-video {
-    max-width: 100%;
-    height: 200px; /* Smaller height on mobile */
-  }
-}
-/* Navbar Adjustments */
-.navbar {
+/* Add to App.css */
+.button-group {
   display: flex;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 15px;
   justify-content: center;
-  flex-wrap: wrap;
-  position: relative; /* For positioning mobile menu */
-}
-
-/* Desktop Navigation */
-.desktop-nav {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Mobile Navigation */
-.mobile-nav {
-  display: none; /* Hidden by default */
-}
-
-.nav-menu-btn {
-  padding: 12px 24px;
-  background: linear-gradient(45deg, #8a5db5, #d4af37);
-  color: #2b1d4a;
-  border: none;
-  border-radius: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
-  font-size: 1.1rem;
-  width: 100%;
-  max-width: 200px;
-}
-
-.nav-menu-btn:hover,
-.nav-menu-btn:active {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
-}
-
-.nav-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 15px;
-  width: 90%;
-  max-width: 250px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-.nav-menu-item {
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #e6d8a7;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-  text-align: center;
-}
-
-.nav-menu-item:hover,
-.nav-menu-item.active {
-  background: linear-gradient(45deg, #8a5db5, #d4af37);
-  color: #2b1d4a;
+  margin-top: 20px;
 }
 
 /* Mobile Adjustments */
@@ -1716,117 +1552,12 @@ body {
   .navbar {
     flex-direction: column;
     align-items: center;
-    gap: 0; /* Remove gap since we’re using a single button */
+    gap: 0;
   }
-}
 
-/* Keep desktop styles intact */
-@media (min-width: 769px) {
-  .mobile-nav {
-    display: none; /* Hide mobile menu on desktop */
-  }
-}
-
-/* Media Queries for Mobile */
-@media (max-width: 768px) {
   .app { padding: 15px; }
   .header { 
-    padding: 10px 8px; /* Slightly tighter padding */
-    margin-bottom: 15px; 
-    max-width: 100%; /* Full width on mobile */
-  }
-  .title { font-size: 2rem; }
-  .subtitle { font-size: 1rem; }
-  .navbar {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center; /* Center-align vertically */
-    gap: 8px; /* Smaller gap for mobile */
-  }
-  .auth-btn { 
-    padding: 10px 20px; /* Smaller padding */
-    font-size: 0.95rem; /* Slightly smaller font */
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7), 0 0 18px rgba(138, 93, 181, 0.5); 
-    width: 80%; /* Consistent width for buttons */
-    max-width: 200px; /* Cap width to avoid stretching */
-  }
-  .auth-btn:hover, .auth-btn:active {
-    box-shadow: 0 0 18px rgba(212, 175, 55, 0.9), 0 0 25px rgba(138, 93, 181, 0.7);
-  }
-  .auth-section { 
-    margin-top: 10px; 
-    padding: 5px; 
-    gap: 8px; 
-    flex-direction: column; /* Stack auth items vertically */
-    align-items: center; 
-  }
-}
-
-@media (max-width: 480px) {
-  .app { padding: 10px; }
-  .header { 
-    padding: 8px 5px; /* Even tighter for smallest screens */
-    max-width: 100%; 
-  }
-  .title { font-size: 1.6rem; } /* Smaller title */
-  .subtitle { font-size: 0.85rem; } /* Smaller subtitle */
-  .navbar {
-    flex-direction: column; /* Keep vertical stacking */
-    gap: 6px; /* Tighter gap */
-  }
-  .auth-btn { 
-    padding: 8px 16px; /* Even smaller padding */
-    font-size: 0.85rem; /* Smaller font */
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7), 0 0 15px rgba(138, 93, 181, 0.5); 
-    width: 90%; /* Slightly wider for smallest screens */
-    max-width: 180px; /* Adjusted cap */
-  }
-  .auth-btn:hover, .auth-btn:active {
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 20px rgba(138, 93, 181, 0.7);
-  }
-  .auth-section { 
-    margin-top: 8px; 
-    gap: 5px; 
-    flex-direction: column; 
-  }
-}
-
-/* Media Queries for Mobile */
-@media (max-width: 768px) {
-  .article-section {
-    padding: 20px 10px;
-    margin-bottom: 20px;
-  }
-  .article-title {
-    font-size: 1.8rem;
-  }
-  .article-text {
-    font-size: 1rem;
-  }
-  .article-author {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .article-section {
-    padding: 15px 8px;
-  }
-  .article-title {
-    font-size: 1.5rem;
-  }
-  .article-text {
-    font-size: 0.9rem;
-  }
-  .article-author {
-    font-size: 0.9rem;
-  }
-}
-
-/* Media Queries for Mobile */
-@media (max-width: 768px) {
-  .app { padding: 15px; }
-  .header { 
-    padding: 15px 10px;
+    padding: 15px 10px 30px 10px; /* Adjusted bottom padding for mobile */
     margin-bottom: 15px; 
     max-width: 700px;
   }
@@ -1898,12 +1629,27 @@ body {
     padding: 10px 18px; 
     font-size: 0.9rem; 
   }
+  .articles-section { padding: 20px 10px; margin-bottom: 20px; }
+  .article { padding: 15px; margin-bottom: 1.5rem; }
+  .article-title { font-size: 1.6rem; }
+  .article-author { font-size: 1rem; }
+  .article-text { font-size: 1rem; }
+  .quadrants-container { 
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto; 
+    padding: 15px 0; 
+  }
+  .quadrant { padding: 15px; }
+  .quadrant .cta-btn { width: 80%; margin: 10px auto; display: block; }
+  .quadrant .featured-video > div { height: 25vh !important; }
+  .button-group { flex-direction: column; align-items: center; }
+  .rumble-video { max-width: 100%; height: 200px; }
 }
 
 @media (max-width: 480px) {
   .app { padding: 10px; }
   .header { 
-    padding: 10px 8px;
+    padding: 10px 8px 25px 8px; /* Adjusted for smallest screens */
     max-width: 90%;
   }
   .title { font-size: 1.8rem; }
@@ -1921,7 +1667,7 @@ body {
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
   .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
-  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
+  .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font BIDENsize: 0.9rem; }
   .cta-btn { 
     padding: 12px 24px;
     font-size: 1.1rem; 
@@ -1968,5 +1714,20 @@ body {
   .back-to-top-btn { 
     padding: 8px 16px; 
     font-size: 0.8rem; 
+  }
+  .articles-section { padding: 15px 8px; }
+  .article { padding: 10px; }
+  .article-title { font-size: 1.4rem; }
+  .article-author { font-size: 0.9rem; }
+  .article-text { font-size: 0.9rem; }
+  .quadrants-container { padding: 10px 0; }
+  .quadrant { padding: 10px; }
+  .quadrant .cta-btn { padding: 10px 20px; font-size: 1rem; }
+}
+
+/* Keep desktop styles intact */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none; /* Hide mobile menu on desktop */
   }
 }

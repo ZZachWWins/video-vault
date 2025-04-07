@@ -152,7 +152,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  z-index: 10; /* Raised to ensure it’s above header */
+  z-index: 50; /* Increased from 10 to ensure it’s above all content */
 }
 
 /* Desktop Navigation */
@@ -203,7 +203,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 20; /* Raised to ensure it’s above header */
+  z-index: 100; /* Increased from 20 to ensure it’s above featured section */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -366,7 +366,7 @@ body {
 }
 
 .featured-video {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(43, 29, 74, 0.1); /* Adjusted from rgba(255, 255, 255, 0.1) */
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -1557,7 +1557,7 @@ body {
 
   .app { padding: 15px; }
   .header { 
-    padding: 15px 10px 30px 10px; /* Adjusted bottom padding for mobile */
+    padding: 15px 10px 40px 10px; /* Increased bottom padding from 30px */
     margin-bottom: 15px; 
     max-width: 700px;
   }
@@ -1649,7 +1649,7 @@ body {
 @media (max-width: 480px) {
   .app { padding: 10px; }
   .header { 
-    padding: 10px 8px 25px 8px; /* Adjusted for smallest screens */
+    padding: 10px 8px 35px 8px; /* Increased bottom padding from 25px */
     max-width: 90%;
   }
   .title { font-size: 1.8rem; }
@@ -1666,7 +1666,7 @@ body {
   .search-input { max-width: 250px; }
   .featured-title { font-size: 1.4rem; }
   .featured-video > div { height: 25vh !important; }
-  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { FONT-SIZE: 1.5rem; }
+  .landing-title, .why-clo2-title, .grenon-title, .bob-message-title, .testimonials-title, .faq-title { font-size: 1.5rem; }
   .landing-text, .why-clo2-text, .grenon-text, .bob-message-text, .testimonial-text, .faq-answer { font-size: 0.9rem; }
   .cta-btn { 
     padding: 12px 24px;

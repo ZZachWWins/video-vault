@@ -1618,6 +1618,114 @@ body {
     height: 200px; /* Smaller height on mobile */
   }
 }
+/* Navbar Adjustments */
+.navbar {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative; /* For positioning mobile menu */
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  display: none; /* Hidden by default */
+}
+
+.nav-menu-btn {
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.nav-menu-btn:hover,
+.nav-menu-btn:active {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
+}
+
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 15px;
+  width: 90%;
+  max-width: 250px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.nav-menu-item {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e6d8a7;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  text-align: center;
+}
+
+.nav-menu-item:hover,
+.nav-menu-item.active {
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none; /* Hide desktop buttons */
+  }
+
+  .mobile-nav {
+    display: block; /* Show mobile menu */
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 0; /* Remove gap since we’re using a single button */
+  }
+}
+
+/* Keep desktop styles intact */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none; /* Hide mobile menu on desktop */
+  }
+}
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {

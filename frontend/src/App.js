@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { gsap } from 'gsap';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom'; // Added useLocation
 import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import GrenonPage from './GrenonPage';
@@ -13,6 +13,21 @@ import './App.css';
 
 function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
   const navigate = useNavigate();
+  const location = useLocation(); // Track current route
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false); // Toggle mobile menu
+
+  // Map routes to display names for the button
+  const pageNames = {
+    '/': 'Home',
+    '/drkory': 'Dr. Kory',
+    '/about': 'About',
+    '/videos': 'Videos',
+    '/grenon': 'Grenon',
+    '/articles': 'Articles',
+  };
+  const currentPage = pageNames[location.pathname] || 'Menu';
+
+  const toggleNavMenu = () => setIsNavMenuOpen(!isNavMenuOpen);
 
   return (
     <div className="app">
@@ -23,12 +38,38 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         <h1 ref={titleRef} className="title">God’s Detox</h1>
         <p className="subtitle">Presented by Bob The Plumber</p>
         <nav className="navbar">
-          <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
-          <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
-          <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
-          <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
-          <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
-          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
+          {/* Desktop Navigation */}
+          <div className="desktop-nav">
+            <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
+            <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+            <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
+            <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
+            <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
+            <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="mobile-nav">
+            <button className="nav-menu-btn" onClick={toggleNavMenu}>
+              Menu: {currentPage}
+            </button>
+            {isNavMenuOpen && (
+              <div className="nav-menu">
+                {Object.entries(pageNames).map(([path, name]) => (
+                  <button
+                    key={path}
+                    className={`nav-menu-item ${location.pathname === path ? 'active' : ''}`}
+                    onClick={() => {
+                      navigate(path);
+                      setIsNavMenuOpen(false); // Close menu after selection
+                    }}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
         <div className="auth-section">
           {user ? (
@@ -52,7 +93,7 @@ function HomePage({ user, videos, loading, file, title, description, username, p
                 url={featuredVideo.fileUrl}
                 light={featuredVideo.thumbnailUrl}
                 width="100%"
-                height="150px" /* Smaller for teaser */
+                height="150px"
                 controls
                 onStart={() => handleViewIncrement(featuredVideo._id)}
               />
@@ -135,7 +176,7 @@ function HomePage({ user, videos, loading, file, title, description, username, p
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
                 <button type="submit" className="submit-btn">Login</button>
- U             </form>
+              </form>
             ) : (
               <form onSubmit={handleSignup} className="auth-form">
                 <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />

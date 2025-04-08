@@ -6,7 +6,7 @@ import './App.css';
 function DrKoryPage() {
   const navigate = useNavigate();
 
-  // Articles about Dr. Kory
+  // Articles about Dr. Kory (Updated with the new article)
   const koryArticles = [
     {
       id: 1,
@@ -25,6 +25,14 @@ function DrKoryPage() {
       title: "Standing Against Censorship",
       content:
         "Dr. Kory has faced Big Tech and Big Pharma head-on, testifying before Congress and speaking out on platforms like Rumble. His courage inspires millions to question the status quo.",
+    },
+    // New article added
+    {
+      id: 4,
+      title: "The Existing Evidence Base for Chlorine Dioxide",
+      content:
+        "In this article, Dr. Kory explores the scientific evidence surrounding chlorine dioxide (ClO₂) as a potential therapeutic agent. He discusses its historical use, current research, and the controversies surrounding its application in medicine. ",
+      link: "https://pierrekorymedicalmusings.com/p/the-existing-evidence-base-for-chlorine?utm_campaign=post",
     },
   ];
 
@@ -105,6 +113,18 @@ function DrKoryPage() {
           <div key={article.id} className="article">
             <h3 className="article-title">{article.title}</h3>
             <p className="article-text">{article.content}</p>
+            {/* Conditionally render a "Read More" link if the article has a link */}
+            {article.link && (
+              <a
+                href={article.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-btn"
+                style={{ display: 'inline-block', marginTop: '10px' }}
+              >
+                Read More
+              </a>
+            )}
           </div>
         ))}
       </section>

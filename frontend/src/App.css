@@ -1605,6 +1605,171 @@ body {
   }
 }
 
+/* Glowing Button */
+.glowing-btn {
+  position: relative;
+  animation: glow 2s infinite ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+  }
+  50% {
+    box-shadow: 0 0 10px #ff9f61, 0 0 20px #ff9f61, 0 0 30px #ff9f61;
+  }
+  100% {
+    box-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+  }
+}
+
+/* Eternal Modal */
+.eternal-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.eternal-content {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255, 111, 97, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.eternal-scrollable {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #ff6f61 #333;
+}
+
+.eternal-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.eternal-scrollable::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.eternal-scrollable::-webkit-scrollbar-thumb {
+  background: #ff6f61;
+  border-radius: 4px;
+}
+
+.eternal-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #ff9f61;
+}
+
+.eternal-title {
+  font-size: 2rem;
+  color: #ff6f61;
+  margin-bottom: 20px;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+}
+
+.eternal-text {
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.eternal-subtitle {
+  font-size: 1.5rem;
+  color: #ff6f61;
+  margin: 20px 0 10px;
+  font-family: 'Cinzel', serif;
+}
+
+/* Scripture quotes */
+.scripture {
+  font-style: italic;
+  color: #d4d4d4;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-left: 4px solid #ff6f61;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+/* Scripture lists */
+.scripture-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.scripture-list li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  color: #e0e0e0;
+}
+
+.scripture-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff6f61;
+}
+
+/* Contact link */
+.contact-link {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #ff9f61;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .eternal-content {
+    padding: 20px;
+    max-height: 90vh;
+  }
+
+  .eternal-scrollable {
+    max-height: 70vh;
+  }
+
+  .eternal-title {
+    font-size: 1.5rem;
+  }
+
+  .eternal-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .eternal-text {
+    font-size: 0.9rem;
+  }
+
+  .scripture {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .desktop-nav {

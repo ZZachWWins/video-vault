@@ -1537,6 +1537,74 @@ body {
   margin-top: 20px;
 }
 
+/* Scripture quotes */
+.scripture {
+  font-style: italic;
+  color: #d4d4d4;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-left: 4px solid #ff6f61;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+/* Scripture lists */
+.scripture-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.scripture-list li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  color: #e0e0e0;
+}
+
+.scripture-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff6f61;
+}
+
+/* Subheadings */
+.landing-subtitle {
+  font-size: 1.5rem;
+  color: #ff6f61;
+  margin: 20px 0 10px;
+  font-family: 'Cinzel', serif;
+}
+
+/* Contact link */
+.contact-link {
+  color: #ff6f61;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #ff9f61;
+}
+
+/* Ensure the new section fits well on mobile */
+@media (max-width: 768px) {
+  .eternal-picture-section {
+    padding: 20px;
+  }
+
+  .landing-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .scripture {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .desktop-nav {

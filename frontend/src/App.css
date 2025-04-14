@@ -1334,9 +1334,7 @@ body {
 .article-section {
   text-align: center;
   padding: 40px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255,  cox-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1543,7 +1541,7 @@ body {
   color: #d4d4d4;
   background: rgba(0, 0, 0, 0.5);
   padding: 15px;
-  border-left: 4px solid #ff6f61;
+  border-left: 4px solid #d4af37;
   margin: 15px 0;
   border-radius: 5px;
 }
@@ -1566,27 +1564,27 @@ body {
   content: "•";
   position: absolute;
   left: 0;
-  color: #ff6f61;
+  color: #d4af37;
 }
 
 /* Subheadings */
 .landing-subtitle {
   font-size: 1.5rem;
-  color: #ff6f61;
+  color: #d4af37;
   margin: 20px 0 10px;
   font-family: 'Cinzel', serif;
 }
 
 /* Contact link */
 .contact-link {
-  color: #ff6f61;
+  color: #d4af37;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 .contact-link:hover {
-  color: #ff9f61;
+  color: #e6d8a7;
 }
 
 /* Ensure the new section fits well on mobile */
@@ -1613,13 +1611,13 @@ body {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+    box-shadow: 0 0 5px #d4af37, 0 0 10px #d4af37, 0 0 15px #d4af37;
   }
   50% {
-    box-shadow: 0 0 10px #ff9f61, 0 0 20px #ff9f61, 0 0 30px #ff9f61;
+    box-shadow: 0 0 10px #e6d8a7, 0 0 20px #e6d8a7, 0 0 30px #e6d8a7;
   }
   100% {
-    box-shadow: 0 0 5px #ff6f61, 0 0 10px #ff6f61, 0 0 15px #ff6f61;
+    box-shadow: 0 0 5px #d4af37, 0 0 10px #d4af37, 0 0 15px #d4af37;
   }
 }
 
@@ -1646,7 +1644,7 @@ body {
   width: 90%;
   max-height: 80vh;
   position: relative;
-  box-shadow: 0 0 20px rgba(255, 111, 97, 0.5);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
   display: flex;
   flex-direction: column;
 }
@@ -1656,7 +1654,7 @@ body {
   overflow-y: auto;
   padding-right: 10px;
   scrollbar-width: thin;
-  scrollbar-color: #ff6f61 #333;
+  scrollbar-color: #d4af37 #333;
 }
 
 .eternal-scrollable::-webkit-scrollbar {
@@ -1668,17 +1666,17 @@ body {
 }
 
 .eternal-scrollable::-webkit-scrollbar-thumb {
-  background: #ff6f61;
+  background: #d4af37;
   border-radius: 4px;
 }
 
 .eternal-scrollable::-webkit-scrollbar-thumb:hover {
-  background: #ff9f61;
+  background: #e6d8a7;
 }
 
 .eternal-title {
   font-size: 2rem;
-  color: #ff6f61;
+  color: #d4af37;
   margin-bottom: 20px;
   font-family: 'Cinzel', serif;
   text-align: center;
@@ -1692,53 +1690,9 @@ body {
 
 .eternal-subtitle {
   font-size: 1.5rem;
-  color: #ff6f61;
+  color: #d4af37;
   margin: 20px 0 10px;
   font-family: 'Cinzel', serif;
-}
-
-/* Scripture quotes */
-.scripture {
-  font-style: italic;
-  color: #d4d4d4;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 15px;
-  border-left: 4px solid #ff6f61;
-  margin: 15px 0;
-  border-radius: 5px;
-}
-
-/* Scripture lists */
-.scripture-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 15px 0;
-}
-
-.scripture-list li {
-  margin-bottom: 10px;
-  padding-left: 20px;
-  position: relative;
-  color: #e0e0e0;
-}
-
-.scripture-list li:before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #ff6f61;
-}
-
-/* Contact link */
-.contact-link {
-  color: #ff6f61;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.contact-link:hover {
-  color: #ff9f61;
 }
 
 /* Responsive adjustments */
@@ -1769,6 +1723,7 @@ body {
     font-size: 0.85rem;
   }
 }
+
 /* Menu Container */
 .menu-container {
   padding: 20px;

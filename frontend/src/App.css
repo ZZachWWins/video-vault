@@ -1769,7 +1769,67 @@ body {
     font-size: 0.85rem;
   }
 }
+/* Menu Container */
+.menu-container {
+  padding: 20px;
+}
 
+/* Featured Section */
+.featured-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Menu Grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Menu Tile */
+.menu-tile {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 200px;
+}
+
+.menu-tile i {
+  font-size: 3rem;
+  color: #d4af37; /* Gold color for icons */
+  margin-bottom: 10px;
+}
+
+.menu-tile h2 {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+/* Adjust cta-btn for arrow inclusion */
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .desktop-nav {

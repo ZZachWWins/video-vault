@@ -34,220 +34,243 @@ function HomePage({ user, videos, loading, file, title, description, username, p
       <StarryBackground />
       <div className="rotating-text-background">God’s Detox</div>
 
-      <header className="header">
-        <h1 ref={titleRef} className="title">God’s Detox</h1>
-        <p className="subtitle">Presented by Bob The Plumber</p>
-        <nav className="navbar">
-          <div className="desktop-nav">
-            <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
-            <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
-            <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
-            <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
-            <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
-            <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
-          </div>
+      {/* Sidebar */}
+      <div className="sidebar">
+        <h2 className="sidebar-title">Explore More</h2>
+        <button className="sidebar-btn" onClick={() => setShowCourse(true)}>
+          Buy a Course
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/about')}>
+          Learn More
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/articles')}>
+          Why CLO2?
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/videos')}>
+          Testimonials
+        </button>
+        <button className="sidebar-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          Back to Top
+        </button>
+      </div>
 
-          <div className="mobile-nav">
-            <button className="nav-menu-btn" onClick={toggleNavMenu}>
-              Menu: {currentPage}
-            </button>
-            {isNavMenuOpen && (
-              <div className="nav-menu">
-                {Object.entries(pageNames).map(([path, name]) => (
-                  <button
-                    key={path}
-                    className={`nav-menu-item ${location.pathname === path ? 'active' : ''}`}
-                    onClick={() => {
-                      navigate(path);
-                      setIsNavMenuOpen(false);
-                    }}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
+      {/* Main Content */}
+      <div className="main-content">
+        <header className="header">
+          <h1 ref={titleRef} className="title">God’s Detox</h1>
+          <p className="subtitle">Presented by Bob The Plumber</p>
+          <nav className="navbar">
+            <div className="desktop-nav">
+              <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
+              <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
+              <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
+              <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
+              <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
+              <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
+            </div>
+
+            <div className="mobile-nav">
+              <button className="nav-menu-btn" onClick={toggleNavMenu}>
+                Menu: {currentPage}
+              </button>
+              {isNavMenuOpen && (
+                <div className="nav-menu">
+                  {Object.entries(pageNames).map(([path, name]) => (
+                    <button
+                      key={path}
+                      className={`nav-menu-item ${location.pathname === path ? 'active' : ''}`}
+                      onClick={() => {
+                        navigate(path);
+                        setIsNavMenuOpen(false);
+                      }}
+                    >
+                      {name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+          <div className="auth-section">
+            {user ? (
+              <>
+                <span>Welcome, {user.username}</span>
+                <button onClick={handleLogout} className="auth-btn">Logout</button>
+              </>
+            ) : (
+              <button onClick={() => setShowAuth(true)} className="auth-btn">Sign up or Log in</button>
             )}
           </div>
-        </nav>
-        <div className="auth-section">
-          {user ? (
-            <>
-              <span>Welcome, {user.username}</span>
-              <button onClick={handleLogout} className="auth-btn">Logout</button>
-            </>
-          ) : (
-            <button onClick={() => setShowAuth(true)} className="auth-btn">Sign up or Log in</button>
-          )}
-        </div>
-      </header>
+        </header>
 
-      <main className="menu-container">
-        {featuredVideo && (
-          <section className="featured-section">
-            <h2 className="featured-title">Featured Video</h2>
-            <div className="featured-video">
-              <ReactPlayer
-                url={featuredVideo.fileUrl}
-                light={featuredVideo.thumbnailUrl}
-                width="100%"
-                height="150px"
-                controls
-                onStart={() => handleViewIncrement(featuredVideo._id)}
-              />
-              <h3 className="video-title">{featuredVideo.title}</h3>
-              <button className="cta-btn" onClick={() => navigate('/videos')}>
-                <span>▶</span> Watch More
+        <main className="menu-container">
+          {featuredVideo && (
+            <section className="featured-section">
+              <h2 className="featured-title">Featured Video</h2>
+              <div className="featured-video">
+                <ReactPlayer
+                  url={featuredVideo.fileUrl}
+                  light={featuredVideo.thumbnailUrl}
+                  width="100%"
+                  height="150px"
+                  controls
+                  onStart={() => handleViewIncrement(featuredVideo._id)}
+                />
+                <h3 className="video-title">{featuredVideo.title}</h3>
+                <button className="cta-btn" onClick={() => navigate('/videos')}>
+                  <span>▶</span> Watch More
+                </button>
+              </div>
+            </section>
+          )}
+          <div className="menu-grid">
+            <section className="menu-tile landing-section">
+              <i className="fas fa-handshake"></i>
+              <h2 className="landing-title" ref={(el) => (landingRefs.current[0] = el)}>Welcome</h2>
+              <button className="cta-btn" onClick={() => navigate('/about')}>
+                <span>▶</span> Learn More
               </button>
+            </section>
+            <section className="menu-tile why-clo2-section">
+              <i className="fas fa-question-circle"></i>
+              <h2 className="why-clo2-title">Why CLO2?</h2>
+              <button className="cta-btn" onClick={() => navigate('/articles')}>
+                <span>▶</span> Dive Deeper
+              </button>
+            </section>
+            <section className="menu-tile article-section">
+              <i className="fas fa-quote-left"></i>
+              <h2 className="article-title">Bob’s Message</h2>
+              <button className="cta-btn" onClick={() => navigate('/about')}>
+                <span>▶</span> Read More
+              </button>
+            </section>
+            <section className="menu-tile testimonials-section">
+              <i className="fas fa-comments"></i>
+              <h2 className="testimonials-title">Testimonials</h2>
+              <button className="cta-btn" onClick={() => navigate('/videos')}>
+                <span>▶</span> See Stories
+              </button>
+            </section>
+            <section className="menu-tile history-section">
+              <i className="fas fa-history"></i>
+              <h2 className="history-title">CLO2 History</h2>
+              <button className="cta-btn" onClick={() => setShowHistory(true)}>
+                <span>▶</span> Explore History
+              </button>
+            </section>
+            <section className="menu-tile course-section">
+              <i className="fas fa-graduation-cap"></i>
+              <h2 className="course-title">ClO₂ Course</h2>
+              <button className="cta-btn" onClick={() => setShowCourse(true)}>
+                <span>▶</span> Start Learning
+              </button>
+            </section>
+            <section className="menu-tile eternal-picture-section">
+              <i className="fas fa-cross"></i>
+              <h2 className="eternal-title">The Eternal Big Picture</h2>
+              <button className="cta-btn glowing-btn" onClick={() => setShowEternalModal(true)}>
+                <span>▶</span> Explore Eternity
+              </button>
+            </section>
+          </div>
+        </main>
+
+        {showEternalModal && (
+          <div className="eternal-modal">
+            <div className="eternal-content">
+              <h2 className="eternal-title">The Eternal Big Picture</h2>
+              <div className="eternal-scrollable">
+                <p className="eternal-text">
+                  The foundational TRUTH of “God’s Detox.com” is that man needs to be Spiritually cleansed (detoxed) by the Word of God. And that can ONLY happen by repenting and believing the Gospel of Jesus, which allows ANY man or woman to enter into His Kingdom for eternity through the blood sacrifice of the Christ!
+                </p>
+                {/* ... Remaining eternal modal content unchanged ... */}
+              </div>
+              <button className="close-btn" onClick={() => setShowEternalModal(false)}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {showAuth && (
+          <div className="auth-modal">
+            <div className="auth-content">
+              <h2 className="auth-title">Authentication</h2>
+              <div className="auth-tabs">
+                <button className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>Login</button>
+                <button className={`tab-btn ${activeTab === 'signup' ? 'active' : ''}`} onClick={() => setActiveTab('signup')}>Signup</button>
+              </div>
+              {activeTab === 'login' ? (
+                <div className="auth-form">
+                  <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+                  <button onClick={handleLogin} className="submit-btn">Login</button>
+                </div>
+              ) : (
+                <div className="auth-form">
+                  <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />
+                  <input type="password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="Choose Password" required />
+                  <button onClick={handleSignup} className="submit-btn">Signup</button>
+                </div>
+              )}
+              <button className="close-btn" onClick={() => setShowAuth(false)}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {showHistory && (
+          <div className="history-modal">
+            <div className="history-content">
+              <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
+              <p className="history-text">
+                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties.
+              </p>
+              <button className="close-btn" onClick={() => setShowHistory(false)}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {showCourse && (
+          <div className="course-modal">
+            <div className="course-content">
+              <h2 className="course-title">The Universal Antidote Course: ClO₂ Basics</h2>
+              <p className="course-text">
+                A free, eight-part video series teaching you how to make and use chlorine dioxide (ClO₂). Explore it at <a href="https://theuniversalantidote.com" target="_blank" rel="noopener noreferrer">theuniversalantidote.com</a>.
+              </p>
+              <button className="close-btn" onClick={() => setShowCourse(false)}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {user && user.role === 'admin' && (
+          <section className="upload-section">
+            <div className="upload-form">
+              <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
+              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+              <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
+              <button onClick={handleUpload} className="upload-btn">Upload Video</button>
+              {progress > 0 && progress < 100 && (
+                <div className="progress-container">
+                  <div className="progress-bar" style={{ width: `${progress}%` }}>
+                    <span className="progress-text">{progress}%</span>
+                  </div>
+                </div>
+              )}
             </div>
           </section>
         )}
-        <div className="menu-grid">
-          <section className="menu-tile landing-section">
-            <i className="fas fa-handshake"></i>
-            <h2 className="landing-title" ref={(el) => (landingRefs.current[0] = el)}>Welcome</h2>
-            <button className="cta-btn" onClick={() => navigate('/about')}>
-              <span>▶</span> Learn More
-            </button>
-          </section>
-          <section className="menu-tile why-clo2-section">
-            <i className="fas fa-question-circle"></i>
-            <h2 className="why-clo2-title">Why CLO2?</h2>
-            <button className="cta-btn" onClick={() => navigate('/articles')}>
-              <span>▶</span> Dive Deeper
-            </button>
-          </section>
-          <section className="menu-tile article-section">
-            <i className="fas fa-quote-left"></i>
-            <h2 className="article-title">Bob’s Message</h2>
-            <button className="cta-btn" onClick={() => navigate('/about')}>
-              <span>▶</span> Read More
-            </button>
-          </section>
-          <section className="menu-tile testimonials-section">
-            <i className="fas fa-comments"></i>
-            <h2 className="testimonials-title">Testimonials</h2>
-            <button className="cta-btn" onClick={() => navigate('/videos')}>
-              <span>▶</span> See Stories
-            </button>
-          </section>
-          <section className="menu-tile history-section">
-            <i className="fas fa-history"></i>
-            <h2 className="history-title">CLO2 History</h2>
-            <button className="cta-btn" onClick={() => setShowHistory(true)}>
-              <span>▶</span> Explore History
-            </button>
-          </section>
-          <section className="menu-tile course-section">
-            <i className="fas fa-graduation-cap"></i>
-            <h2 className="course-title">ClO₂ Course</h2>
-            <button className="cta-btn" onClick={() => setShowCourse(true)}>
-              <span>▶</span> Start Learning
-            </button>
-          </section>
-          <section className="menu-tile eternal-picture-section">
-            <i className="fas fa-cross"></i>
-            <h2 className="eternal-title">The Eternal Big Picture</h2>
-            <button className="cta-btn glowing-btn" onClick={() => setShowEternalModal(true)}>
-              <span>▶</span> Explore Eternity
-            </button>
-          </section>
-        </div>
-      </main>
 
-      {showEternalModal && (
-        <div className="eternal-modal">
-          <div className="eternal-content">
-            <h2 className="eternal-title">The Eternal Big Picture</h2>
-            <div className="eternal-scrollable">
-              <p className="eternal-text">
-                The foundational TRUTH of “God’s Detox.com” is that man needs to be Spiritually cleansed (detoxed) by the Word of God. And that can ONLY happen by repenting and believing the Gospel of Jesus, which allows ANY man or woman to enter into His Kingdom for eternity through the blood sacrifice of the Christ!
-              </p>
-              {/* ... Remaining eternal modal content unchanged ... */}
-            </div>
-            <button className="close-btn" onClick={() => setShowEternalModal(false)}>Close</button>
+        <footer className="footer">
+          <p className="footer-text">Built by Zachary | © 2025 Bob The Plumber. All rights reserved.</p>
+          <div className="social-links">
+            <a href="https://truthsocial.com/@BobThePlumber" target="_blank" rel="noopener noreferrer" className="social-icon" title="Truth Social"><i className="fab fa-tumblr"></i></a>
+            <a href="https://x.com/BobsThePlumber" target="_blank" rel="noopener noreferrer" className="social-icon" title="X"><i className="fab fa-twitter"></i></a>
           </div>
-        </div>
-      )}
+        </footer>
 
-      {showAuth && (
-        <div className="auth-modal">
-          <div className="auth-content">
-            <h2 className="auth-title">Authentication</h2>
-            <div className="auth-tabs">
-              <button className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>Login</button>
-              <button className={`tab-btn ${activeTab === 'signup' ? 'active' : ''}`} onClick={() => setActiveTab('signup')}>Signup</button>
-            </div>
-            {activeTab === 'login' ? (
-              <div className="auth-form">
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-                <button onClick={handleLogin} className="submit-btn">Login</button>
-              </div>
-            ) : (
-              <div className="auth-form">
-                <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />
-                <input type="password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="Choose Password" required />
-                <button onClick={handleSignup} className="submit-btn">Signup</button>
-              </div>
-            )}
-            <button className="close-btn" onClick={() => setShowAuth(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {showHistory && (
-        <div className="history-modal">
-          <div className="history-content">
-            <h2 className="history-title">Chlorine Dioxide: A Brief History</h2>
-            <p className="history-text">
-              Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties.
-            </p>
-            <button className="close-btn" onClick={() => setShowHistory(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {showCourse && (
-        <div className="course-modal">
-          <div className="course-content">
-            <h2 className="course-title">The Universal Antidote Course: ClO₂ Basics</h2>
-            <p className="course-text">
-              A free, eight-part video series teaching you how to make and use chlorine dioxide (ClO₂). Explore it at <a href="https://theuniversalantidote.com" target="_blank" rel="noopener noreferrer">theuniversalantidote.com</a>.
-            </p>
-            <button className="close-btn" onClick={() => setShowCourse(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {user && user.role === 'admin' && (
-        <section className="upload-section">
-          <div className="upload-form">
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
-            <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
-            <button onClick={handleUpload} className="upload-btn">Upload Video</button>
-            {progress > 0 && progress < 100 && (
-              <div className="progress-container">
-                <div className="progress-bar" style={{ width: `${progress}%` }}>
-                  <span className="progress-text">{progress}%</span>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      <footer className="footer">
-        <p className="footer-text">Built by Zachary | © 2025 Bob The Plumber. All rights reserved.</p>
-        <div className="social-links">
-          <a href="https://truthsocial.com/@BobThePlumber" target="_blank" rel="noopener noreferrer" className="social-icon" title="Truth Social"><i className="fab fa-tumblr"></i></a>
-          <a href="https://x.com/BobsThePlumber" target="_blank" rel="noopener noreferrer" className="social-icon" title="X"><i className="fab fa-twitter"></i></a>
-        </div>
-      </footer>
-
-      {showBackToTop && (
-        <button className="back-to-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>↑ Top</button>
-      )}
+        {showBackToTop && (
+          <button className="back-to-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>↑ Top</button>
+        )}
+      </div>
     </div>
   );
 }

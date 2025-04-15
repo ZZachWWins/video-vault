@@ -14,6 +14,8 @@ body {
   padding: 30px;
   position: relative;
   z-index: 1;
+  display: flex; /* Add flexbox to layout sidebar and main content */
+  gap: 20px; /* Space between sidebar and main content */
 }
 
 .starry-background {
@@ -46,10 +48,65 @@ body {
   100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.2; }
 }
 
+/* Sidebar (Vertical Glassmorphism Menu) */
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 60px); /* Full height minus padding */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 20px;
+  position: sticky;
+  top: 30px; /* Align with the padding of .app */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 10;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #d4af37, #8a5db5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.sidebar-btn {
+  padding: 12px 20px;
+  background: linear-gradient(45deg, #8a5db5, #d4af37);
+  color: #2b1d4a;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 20px rgba(138, 93, 181, 0.5);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.sidebar-btn:hover, .sidebar-btn:active {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
+}
+
+/* Main Content Wrapper */
+.main-content {
+  flex: 1; /* Take remaining space */
+  width: 100%;
+}
+
 /* Header */
 .header {
   text-align: center;
-  padding: 20px 15px 40px 15px; /* Increased bottom padding for menu space */
+  padding: 20px 15px 40px 15px;
   background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
@@ -75,7 +132,7 @@ body {
   animation: glow 8s infinite ease-in-out;
   pointer-events: none;
   z-index: 0;
-  overflow: hidden; /* Contain glow effect */
+  overflow: hidden;
 }
 
 @keyframes glow {
@@ -152,7 +209,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  z-index: 5000; /* Increased from 10 to ensure it’s above all content */
+  z-index: 5000;
 }
 
 /* Desktop Navigation */
@@ -165,7 +222,7 @@ body {
 
 /* Mobile Navigation */
 .mobile-nav {
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 .nav-menu-btn {
@@ -203,7 +260,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 6000; /* Increased from 20 to ensure it’s above featured section */
+  z-index: 6000;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -366,7 +423,7 @@ body {
 }
 
 .featured-video {
-  background: rgba(43, 29, 74, 0.1); /* Adjusted from rgba(255, 255, 255, 0.1) */
+  background: rgba(43, 29, 74, 0.1);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -494,7 +551,7 @@ body {
 .grenon-section {
   text-align: center;
   padding: 40px 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 1255, 255, 0.05);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
@@ -1497,7 +1554,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   padding: 20px;
   text-align: center;
   position: relative;
@@ -1602,6 +1659,21 @@ body {
   .scripture {
     padding: 10px;
     font-size: 0.9rem;
+  }
+
+  /* Hide sidebar on mobile */
+  .sidebar {
+    display: none;
+  }
+
+  /* Reset .app layout for mobile */
+  .app {
+    display: block;
+  }
+
+  /* Ensure main content takes full width on mobile */
+  .main-content {
+    width: 100%;
   }
 }
 

@@ -32,15 +32,15 @@ body {
   pointer-events: none;
 }
 
-/* Left Sidebar - Positioned at the left edge */
+/* Left Sidebar - Reduced width */
 .sidebar {
-  width: 200px; /* Fixed width for left sidebar */
+  width: 100px; /* Reduced from 200px to 100px */
   background: #2b1d4a;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px; /* Reduced padding to fit smaller width */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px; /* Reduced gap */
   border: none !important;
   position: sticky; /* Keep sidebar in view while scrolling */
   top: 20px; /* Align with padding of .app */
@@ -49,40 +49,42 @@ body {
 }
 
 .sidebar-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem; /* Reduced from 1.5rem to fit smaller width */
   font-weight: 700;
   color: #d4af37;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
   text-transform: uppercase;
+  line-height: 1.2; /* Ensure text wraps if needed */
 }
 
 .sidebar-btn {
-  padding: 12px 20px;
+  padding: 8px 10px; /* Reduced padding to fit smaller width */
   background: #8a5db5;
   color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px; /* Slightly smaller border-radius */
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Reduced font size */
+  line-height: 1.2; /* Ensure text wraps if needed */
 }
 
 .sidebar-btn:hover, .sidebar-btn:active {
   background: #6a3d95;
 }
 
-/* Right Sidebar - Positioned at the right edge */
+/* Right Sidebar - Reduced width */
 .right-sidebar {
-  width: 200px; /* Fixed width, matches left sidebar */
+  width: 100px; /* Reduced from 200px to 100px */
   background: #2b1d4a;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px; /* Reduced padding to fit smaller width */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px; /* Reduced gap */
   border: none !important;
   position: sticky; /* Keep sidebar in view while scrolling */
   top: 20px; /* Align with padding of .app */
@@ -91,26 +93,28 @@ body {
 }
 
 .right-sidebar-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem; /* Reduced from 1.5rem to fit smaller width */
   font-weight: 700;
   color: #d4af37;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
   text-transform: uppercase;
+  line-height: 1.2; /* Ensure text wraps if needed */
 }
 
 .right-sidebar-item {
-  font-size: 1rem;
+  font-size: 0.9rem; /* Reduced font size */
   color: #ffffff;
   background: #3d2e6b;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 8px; /* Reduced padding */
+  border-radius: 6px; /* Slightly smaller border-radius */
   text-align: center;
+  line-height: 1.2; /* Ensure text wraps if needed */
 }
 
-/* Main Content - Stretch to full width between sidebars */
+/* Main Content - Automatically larger due to smaller sidebars */
 .main-content {
-  flex: 1; /* Take up all available space between sidebars */
+  flex: 1; /* Takes up all available space between sidebars */
   min-width: 0; /* Prevent overflow issues with flex */
   border: none !important;
 }
@@ -1008,7 +1012,7 @@ body {
 
 .progress-container {
   width: 100%;
-  max-width: 300px; /* Added semicolon to fix syntax error */
+  max-width: 300px;
   height: 20px;
   background: #3d2e6b;
   border-radius: 10px;
@@ -1341,7 +1345,7 @@ body {
 }
 
 .quadrant {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 250, 250, 0.1);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(3px);

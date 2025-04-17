@@ -18,9 +18,15 @@ body {
   gap: 20px;
 }
 
-/* Remove starry background and spinning text */
+/* Starry Background */
 .starry-background {
-  display: none; /* Removed as requested */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Behind all content */
+  pointer-events: none; /* Prevent interaction with background */
 }
 
 .rotating-text-background {

@@ -8,17 +8,17 @@ body {
   overflow-x: hidden;
 }
 
-/* Main container - Three-column layout */
+/* Main container - Full-width layout on desktop */
 .app {
-  max-width: 1000px; /* Total container width */
-  margin: 0 auto; /* Center the container */
+  width: 100%; /* Stretch to full viewport width */
+  margin: 0; /* Remove centering margin */
   padding: 20px;
   display: flex;
   flex-direction: row;
-  gap: 20px; /* 20px gap between columns, total 40px (2 gaps) */
+  gap: 20px; /* Keep gaps between columns */
   position: relative;
   z-index: 1;
-  box-sizing: border-box; /* Ensure padding doesn't add to width */
+  box-sizing: border-box;
 }
 
 /* Starry Background */
@@ -32,7 +32,7 @@ body {
   pointer-events: none;
 }
 
-/* Left Sidebar */
+/* Left Sidebar - Positioned at the left edge */
 .sidebar {
   width: 200px; /* Fixed width for left sidebar */
   background: #2b1d4a;
@@ -42,6 +42,10 @@ body {
   flex-direction: column;
   gap: 15px;
   border: none !important;
+  position: sticky; /* Keep sidebar in view while scrolling */
+  top: 20px; /* Align with padding of .app */
+  height: calc(100vh - 40px); /* Fit viewport height minus padding */
+  overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .sidebar-title {
@@ -70,7 +74,7 @@ body {
   background: #6a3d95;
 }
 
-/* Right Sidebar */
+/* Right Sidebar - Positioned at the right edge */
 .right-sidebar {
   width: 200px; /* Fixed width, matches left sidebar */
   background: #2b1d4a;
@@ -80,6 +84,10 @@ body {
   flex-direction: column;
   gap: 15px;
   border: none !important;
+  position: sticky; /* Keep sidebar in view while scrolling */
+  top: 20px; /* Align with padding of .app */
+  height: calc(100vh - 40px); /* Fit viewport height minus padding */
+  overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .right-sidebar-title {
@@ -100,15 +108,16 @@ body {
   text-align: center;
 }
 
-/* Main Content - Adjusted for equal spacing */
+/* Main Content - Stretch to full width between sidebars */
 .main-content {
-  width: 560px; /* Adjusted width: 200px (left) + 20px (gap) + 560px (center) + 20px (gap) + 200px (right) = 1000px */
+  flex: 1; /* Take up all available space between sidebars */
+  min-width: 0; /* Prevent overflow issues with flex */
   border: none !important;
 }
 
-/* Header */
+/* Header - Stretch to full width */
 .header {
-  width: 100%;
+  width: 100%; /* Stretch to full width of .main-content */
   text-align: center;
   padding: 20px 15px;
   background: linear-gradient(135deg, #8a5db5, #d4af37);
@@ -160,9 +169,9 @@ body {
   background: #b8932e;
 }
 
-/* Navbar */
+/* Navbar - Stretch to full width */
 .navbar {
-  width: 100%;
+  width: 100%; /* Stretch to full width of .main-content */
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -350,7 +359,7 @@ body {
   background: #6a3d95;
 }
 
-/* Featured Section */
+/* Featured Section - Stretch to full width */
 .featured-section {
   margin-bottom: 40px;
   text-align: center;
@@ -371,7 +380,7 @@ body {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
-  max-width: 100%;
+  width: 100%; /* Stretch to full width */
 }
 
 .featured-video h3 {
@@ -387,7 +396,7 @@ body {
   line-height: 1.6;
 }
 
-/* Landing Section */
+/* Landing Section - Stretch to full width */
 .landing-section {
   text-align: center;
   padding: 40px 20px;
@@ -398,6 +407,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .landing-title {
@@ -440,7 +450,7 @@ body {
   max-width: 100%;
 }
 
-/* Why CLO2 Section */
+/* Why CLO2 Section - Stretch to full width */
 .why-clo2-section {
   text-align: center;
   padding: 40px 20px;
@@ -451,6 +461,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .why-clo2-title {
@@ -468,7 +479,7 @@ body {
   max-width: 100%;
 }
 
-/* Grenon Section */
+/* Grenon Section - Stretch to full width */
 .grenon-section {
   text-align: center;
   padding: 40px 20px;
@@ -479,6 +490,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .grenon-title {
@@ -714,7 +726,7 @@ body {
   border: 1px solid #8a5db5;
 }
 
-/* A Message from Bob The Plumber Section */
+/* A Message from Bob The Plumber Section - Stretch to full width */
 .bob-message-section {
   text-align: center;
   padding: 40px 20px;
@@ -725,6 +737,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .bob-message-title {
@@ -743,7 +756,7 @@ body {
   max-width: 100%;
 }
 
-/* Testimonials Section */
+/* Testimonials Section - Stretch to full width */
 .testimonials-section {
   text-align: center;
   padding: 40px 20px;
@@ -754,6 +767,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .testimonials-title {
@@ -788,7 +802,7 @@ body {
   margin-top: 0.5rem;
 }
 
-/* FAQ Section */
+/* FAQ Section - Stretch to full width */
 .faq-section {
   text-align: left;
   padding: 40px 20px;
@@ -799,6 +813,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .faq-title {
@@ -993,7 +1008,7 @@ body {
 
 .progress-container {
   width: 100%;
-  max-width: 300px;
+  max-width: 300龟
   height: 20px;
   background: #3d2e6b;
   border-radius: 10px;
@@ -1141,9 +1156,9 @@ body {
   color: #d4af37;
 }
 
-/* Footer */
+/* Footer - Stretch to full width */
 .footer {
-  width: 100%;
+  width: 100%; /* Stretch to full width of .main-content */
   text-align: center;
   padding: 20px 15px;
   background: #2b1d4a;
@@ -1197,7 +1212,7 @@ body {
   background: #6a3d95;
 }
 
-/* Article Section */
+/* Article Section - Stretch to full width */
 .article-section {
   text-align: center;
   padding: 40px 20px;
@@ -1208,6 +1223,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .article-title {
@@ -1267,7 +1283,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Articles Section */
+/* Articles Section - Stretch to full width */
 .articles-section {
   text-align: center;
   padding: 40px 20px;
@@ -1278,6 +1294,7 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
   margin-bottom: 40px;
+  width: 100%; /* Stretch to full width */
 }
 
 .article {

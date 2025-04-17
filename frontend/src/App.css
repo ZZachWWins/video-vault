@@ -10,14 +10,15 @@ body {
 
 /* Main container - Three-column layout */
 .app {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px; /* Total container width */
+  margin: 0 auto; /* Center the container */
   padding: 20px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 20px; /* 20px gap between columns, total 40px (2 gaps) */
   position: relative;
   z-index: 1;
+  box-sizing: border-box; /* Ensure padding doesn't add to width */
 }
 
 /* Starry Background */
@@ -33,7 +34,7 @@ body {
 
 /* Left Sidebar */
 .sidebar {
-  width: 200px;
+  width: 200px; /* Fixed width for left sidebar */
   background: #2b1d4a;
   border-radius: 10px;
   padding: 20px;
@@ -69,9 +70,9 @@ body {
   background: #6a3d95;
 }
 
-/* Right Sidebar - New */
+/* Right Sidebar */
 .right-sidebar {
-  width: 200px;
+  width: 200px; /* Fixed width, matches left sidebar */
   background: #2b1d4a;
   border-radius: 10px;
   padding: 20px;
@@ -99,10 +100,9 @@ body {
   text-align: center;
 }
 
-/* Main Content - Wider for readability */
+/* Main Content - Adjusted for equal spacing */
 .main-content {
-  flex: 1;
-  width: 600px; /* Fixed width for optimal readability */
+  width: 560px; /* Adjusted width: 200px (left) + 20px (gap) + 560px (center) + 20px (gap) + 200px (right) = 1000px */
   border: none !important;
 }
 
@@ -371,7 +371,7 @@ body {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
-  max-width: 100%; /* Adjusted to fit wider center */
+  max-width: 100%;
 }
 
 .featured-video h3 {
@@ -384,7 +384,7 @@ body {
   font-size: 1rem;
   color: #ffffff;
   margin: 5px 0;
-  line-height: 1.6; /* Improved readability */
+  line-height: 1.6;
 }
 
 /* Landing Section */
@@ -408,10 +408,10 @@ body {
 }
 
 .landing-text {
-  font-size: 1.2rem; /* Slightly smaller for better line length */
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 0 20px;
-  line-height: 1.8; /* Increased for readability */
+  line-height: 1.8;
   max-width: 100%;
 }
 

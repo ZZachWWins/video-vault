@@ -14,8 +14,8 @@ body {
   padding: 30px;
   position: relative;
   z-index: 1;
-  display: flex; /* Add flexbox to layout sidebar and main content */
-  gap: 20px; /* Space between sidebar and main content */
+  display: flex;
+  gap: 20px;
 }
 
 .starry-background {
@@ -51,16 +51,16 @@ body {
 /* Sidebar (Vertical Glassmorphism Menu) */
 .sidebar {
   width: 250px;
-  height: calc(100vh - 60px); /* Full height minus padding */
+  height: calc(100vh - 60px);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   padding: 20px;
   position: sticky;
-  top: 30px; /* Align with the padding of .app */
+  top: 30px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -99,9 +99,9 @@ body {
 
 /* Main Content Wrapper */
 .main-content {
-  flex: 1; /* Take remaining space */
+  flex: 1;
   width: 100%;
-  border: none; /* Ensure no border on main content */
+  border: none;
 }
 
 /* Header */
@@ -113,7 +113,7 @@ body {
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
@@ -260,7 +260,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   z-index: 6000;
   display: flex;
   flex-direction: column;
@@ -309,7 +309,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   position: relative;
 }
 
@@ -430,7 +430,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -456,7 +456,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -524,7 +524,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -557,7 +557,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -753,7 +753,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   z-index: 100;
   text-align: center;
   margin-top: 10px;
@@ -836,7 +836,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -883,7 +883,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -929,7 +929,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -992,7 +992,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   position: relative;
   max-height: 80vh;
   overflow-y: auto;
@@ -1038,7 +1038,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   position: relative;
   max-height: 80vh;
   overflow-y: auto;
@@ -1099,9 +1099,10 @@ body {
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   padding: 20px;
+  *:not(.upload-form) {
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  border: none; /* Ensure no border */
+  border: none;
 }
 
 .upload-form input {
@@ -1207,7 +1208,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
   cursor: pointer;
@@ -1331,7 +1332,7 @@ body {
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-top: 30px;
   position: relative;
   z-index: 2;
@@ -1398,7 +1399,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -1487,7 +1488,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -1516,6 +1517,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+  border: none !important;
 }
 
 .article-title {
@@ -1548,6 +1550,7 @@ body {
   padding: 20px 0;
   max-width: 1400px;
   margin: 0 auto;
+  border: none !important;
 }
 
 .quadrant {
@@ -1556,7 +1559,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   padding: 20px;
   text-align: center;
   position: relative;
@@ -1605,6 +1608,7 @@ body {
   border-left: 4px solid #d4af37;
   margin: 15px 0;
   border-radius: 5px;
+  border: none !important;
 }
 
 /* Scripture lists */
@@ -1612,6 +1616,7 @@ body {
   list-style-type: none;
   padding: 0;
   margin: 15px 0;
+  border: none !important;
 }
 
 .scripture-list li {
@@ -1619,6 +1624,7 @@ body {
   padding-left: 20px;
   position: relative;
   color: #e0e0e0;
+  border: none !important;
 }
 
 .scripture-list li:before {
@@ -1650,15 +1656,19 @@ body {
 
 /* About Page Content */
 .about-content {
-  background: rgba(255, 255, 255, 0.1); /* Slightly more opaque for better readability */
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(15px); /* Increase blur for better contrast */
+  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: none; /* Remove border to eliminate gold lines */
+  border: none !important;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.about-content * {
+  border: none !important;
 }
 
 .about-content h2 {
@@ -1671,7 +1681,7 @@ body {
 }
 
 .about-content p {
-  color: #ffffff; /* Pure white for better readability */
+  color: #ffffff;
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -1751,7 +1761,7 @@ body {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
   display: flex;
   flex-direction: column;
-  border: none; /* Remove border to eliminate gold lines */
+  border: none;
 }
 
 .eternal-scrollable {

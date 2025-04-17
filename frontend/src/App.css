@@ -1008,7 +1008,7 @@ body {
 
 .progress-container {
   width: 100%;
-  max-width: 300px
+  max-width: 300px; /* Added semicolon to fix syntax error */
   height: 20px;
   background: #3d2e6b;
   border-radius: 10px;

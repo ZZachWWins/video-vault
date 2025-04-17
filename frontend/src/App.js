@@ -3,7 +3,6 @@ import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { gsap } from 'gsap';
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import DrKoryPage from './DrKoryPage';
 import AboutPage from './AboutPage';
 import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
@@ -19,7 +18,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
 
   const pageNames = {
     '/': 'Home',
-    '/drkory': 'Dr. Kory',
     '/about': 'About',
     '/videos': 'Videos',
     '/grenon': 'Grenon',
@@ -62,7 +60,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
           <nav className="navbar">
             <div className="desktop-nav">
               <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
-              <button className="auth-btn" onClick={() => navigate('/drkory')}>Dr. Kory</button>
               <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
               <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
               <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
@@ -184,7 +181,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
                 <p className="eternal-text">
                   The foundational TRUTH of “God’s Detox.com” is that man needs to be Spiritually cleansed (detoxed) by the Word of God. And that can ONLY happen by repenting and believing the Gospel of Jesus, which allows ANY man or woman to enter into His Kingdom for eternity through the blood sacrifice of the Christ!
                 </p>
-                {/* ... Remaining eternal modal content unchanged ... */}
               </div>
               <button className="close-btn" onClick={() => setShowEternalModal(false)}>Close</button>
             </div>
@@ -520,7 +516,6 @@ function App() {
             />
           }
         />
-        <Route path="/drkory" element={<DrKoryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route
           path="/grenon"

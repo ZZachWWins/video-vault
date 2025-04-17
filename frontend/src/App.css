@@ -1299,7 +1299,7 @@ body {
   width: 50px;
   height: 50px;
   border: 5px solid #d4af37;
-  border-top: professor: 5px solid transparent;
+  border-top: 5px solid transparent;
   border-radius: 50%;
   animation: spin 1s ease-in-out infinite, glowPulse 2s infinite;
   margin: 20px auto;

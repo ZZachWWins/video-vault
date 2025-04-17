@@ -8,16 +8,17 @@ body {
   overflow-x: hidden;
 }
 
+/* Main container - Fixed width, centered like Genesis II */
 .app {
-  max-width: 1400px;
+  max-width: 1000px; /* Fixed width to match Genesis II */
   margin: 0 auto;
-  padding: 30px;
-  position: relative;
-  z-index: 1;
+  padding: 10px; /* Reduced padding for a tighter layout */
   display: flex;
+  flex-direction: row; /* Sidebar and main content side by side */
   gap: 20px;
 }
 
+/* Starry Background - Keep the modern feel */
 .starry-background {
   position: fixed;
   top: 0;
@@ -48,23 +49,20 @@ body {
   100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.2; }
 }
 
-/* Sidebar (Vertical Glassmorphism Menu) */
+/* Sidebar (Vertical Glassmorphism Menu) - Keep style, remove sticky */
 .sidebar {
-  width: 250px;
-  height: calc(100vh - 60px);
+  width: 200px; /* Slightly narrower to match Genesis II proportions */
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none;
+  border: none !important; /* Ensure no gold lines */
   padding: 20px;
-  position: sticky;
-  top: 30px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  z-index: 10;
+  /* Removed position: sticky and top to match Genesis II scrolling behavior */
 }
 
 .sidebar-title {
@@ -97,29 +95,20 @@ body {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
 }
 
-/* Main Content Wrapper */
-.main-content {
-  flex: 1;
-  width: 100%;
-  border: none;
-}
-
-/* Header */
+/* Header - Full width within the fixed container */
 .header {
+  width: 100%; /* Full width within the .app container */
   text-align: center;
-  padding: 20px 15px 40px 15px;
-  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
+  padding: 20px 15px;
+  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37); /* Keep your gradient */
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none;
-  margin-bottom: 20px;
+  border: none !important; /* Ensure no gold lines */
+  margin-bottom: 10px; /* Space for the nav bar below */
   position: relative;
   z-index: 2;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .header::before {
@@ -202,13 +191,21 @@ body {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), 0 0 30px rgba(138, 93, 181, 0.7);
 }
 
-/* Navbar */
+/* Navbar - Horizontal bar below header, full width */
 .navbar {
+  width: 100%; /* Full width within the .app container */
   display: flex;
   gap: 10px;
-  margin: 10px 0;
   justify-content: center;
   flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05); /* Glassmorphism effect */
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none !important; /* Ensure no gold lines */
+  padding: 10px;
+  margin-bottom: 20px; /* Space below the nav bar */
   position: relative;
   z-index: 5000;
 }
@@ -260,7 +257,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   z-index: 6000;
   display: flex;
   flex-direction: column;
@@ -286,6 +283,13 @@ body {
   color: #2b1d4a;
 }
 
+/* Main Content Wrapper - Takes up remaining space */
+.main-content {
+  flex: 1;
+  width: 100%;
+  border: none !important; /* Ensure no gold lines */
+}
+
 /* Auth Modal */
 .auth-modal {
   position: fixed;
@@ -309,7 +313,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   position: relative;
 }
 
@@ -430,7 +434,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -456,7 +460,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -524,7 +528,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -557,7 +561,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -753,7 +757,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   z-index: 100;
   text-align: center;
   margin-top: 10px;
@@ -836,7 +840,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -883,7 +887,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -929,7 +933,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
 }
@@ -992,7 +996,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   position: relative;
   max-height: 80vh;
   overflow-y: auto;
@@ -1038,7 +1042,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   position: relative;
   max-height: 80vh;
   overflow-y: auto;
@@ -1099,10 +1103,9 @@ body {
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   padding: 20px;
-  *:not(.upload-form) {
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  border: none;
+  border: none !important;
 }
 
 .upload-form input {
@@ -1208,7 +1211,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
   cursor: pointer;
@@ -1325,6 +1328,7 @@ body {
 
 /* Footer */
 .footer {
+  width: 100%; /* Full width within the .app container */
   text-align: center;
   padding: 20px 15px;
   background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37);
@@ -1332,13 +1336,10 @@ body {
   box-shadow: 0 6px 20px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: none;
+  border: none !important;
   margin-top: 30px;
   position: relative;
   z-index: 2;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .footer-text {
@@ -1399,7 +1400,7 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: none;
+  border: none !important;
   margin-bottom: 30px;
   z-index: 2;
   position: relative;
@@ -1663,8 +1664,8 @@ body {
   -webkit-backdrop-filter: blur(15px);
   border: none !important;
   padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%; /* Full width within main-content */
+  margin: 0;
 }
 
 .about-content * {
@@ -1715,6 +1716,17 @@ body {
   .main-content {
     width: 100%;
   }
+
+  /* Adjust header and navbar for mobile */
+  .header {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .navbar {
+    width: 100%;
+    padding: 10px;
+  }
 }
 
 /* Glowing Button */
@@ -1761,7 +1773,7 @@ body {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
   display: flex;
   flex-direction: column;
-  border: none;
+  border: none !important;
 }
 
 .eternal-scrollable {

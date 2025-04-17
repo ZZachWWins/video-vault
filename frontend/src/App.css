@@ -2,20 +2,22 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #1a1d2b; /* Darker background for better contrast */
-  color: #ffffff; /* White text for readability */
+  background: #1a1d2b;
+  color: #ffffff;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Main container - Fixed width, centered */
+/* Main container - Three-column layout */
 .app {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px; /* Increased padding for breathing room */
+  padding: 20px;
   display: flex;
   flex-direction: row;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Starry Background */
@@ -25,30 +27,26 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Behind all content */
-  pointer-events: none; /* Prevent interaction with background */
+  z-index: 0;
+  pointer-events: none;
 }
 
-.rotating-text-background {
-  display: none; /* Removed spinning background */
-}
-
-/* Sidebar - Simplified, no glassmorphism */
+/* Left Sidebar */
 .sidebar {
   width: 200px;
-  background: #2b1d4a; /* Solid dark purple */
+  background: #2b1d4a;
   border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border: none !important; /* Ensure no gold lines */
+  border: none !important;
 }
 
 .sidebar-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #d4af37; /* Gold text */
+  color: #d4af37;
   text-align: center;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -56,38 +54,69 @@ body {
 
 .sidebar-btn {
   padding: 12px 20px;
-  background: #8a5db5; /* Solid purple */
+  background: #8a5db5;
   color: #ffffff;
   border: none;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s; /* Subtle transition */
+  transition: background 0.3s;
   text-align: center;
   font-size: 1rem;
 }
 
 .sidebar-btn:hover, .sidebar-btn:active {
-  background: #6a3d95; /* Darker purple on hover */
+  background: #6a3d95;
 }
 
-/* Header - Full width, simplified */
+/* Right Sidebar - New */
+.right-sidebar {
+  width: 200px;
+  background: #2b1d4a;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: none !important;
+}
+
+.right-sidebar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #d4af37;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.right-sidebar-item {
+  font-size: 1rem;
+  color: #ffffff;
+  background: #3d2e6b;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Main Content - Wider for readability */
+.main-content {
+  flex: 1;
+  width: 600px; /* Fixed width for optimal readability */
+  border: none !important;
+}
+
+/* Header */
 .header {
   width: 100%;
   text-align: center;
   padding: 20px 15px;
-  background: linear-gradient(135deg, #8a5db5, #d4af37); /* Simplified gradient */
+  background: linear-gradient(135deg, #8a5db5, #d4af37);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: none !important;
   margin-bottom: 10px;
 }
-
-/* Removed glowing animation
-.header::before {
-  Removed as part of animation cleanup
-}
-*/
 
 .title {
   font-size: 2.5rem;
@@ -117,7 +146,7 @@ body {
 
 .auth-btn {
   padding: 14px 28px;
-  background: #d4af37; /* Solid gold */
+  background: #d4af37;
   color: #2b1d4a;
   border: none;
   border-radius: 10px;
@@ -128,17 +157,17 @@ body {
 }
 
 .auth-btn:hover, .auth-btn:active {
-  background: #b8932e; /* Darker gold on hover */
+  background: #b8932e;
 }
 
-/* Navbar - Horizontal, simplified */
+/* Navbar */
 .navbar {
   width: 100%;
   display: flex;
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  background: rgba(138, 93, 181, 0.8); /* Semi-transparent purple */
+  background: rgba(138, 93, 181, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -146,7 +175,6 @@ body {
   border: none !important;
 }
 
-/* Desktop Navigation */
 .desktop-nav {
   display: flex;
   gap: 10px;
@@ -154,7 +182,6 @@ body {
   justify-content: center;
 }
 
-/* Mobile Navigation */
 .mobile-nav {
   display: none;
 }
@@ -209,13 +236,6 @@ body {
 
 .nav-menu-item:hover, .nav-menu-item.active {
   background: #6a3d95;
-}
-
-/* Main Content Wrapper */
-.main-content {
-  flex: 1;
-  width: 100%;
-  border: none !important;
 }
 
 /* Auth Modal */
@@ -332,7 +352,7 @@ body {
 
 /* Featured Section */
 .featured-section {
-  margin-bottom: 40px; /* Increased spacing */
+  margin-bottom: 40px;
   text-align: center;
 }
 
@@ -348,11 +368,10 @@ body {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(3px); /* Subtle blur */
+  backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   border: none !important;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%; /* Adjusted to fit wider center */
 }
 
 .featured-video h3 {
@@ -365,6 +384,7 @@ body {
   font-size: 1rem;
   color: #ffffff;
   margin: 5px 0;
+  line-height: 1.6; /* Improved readability */
 }
 
 /* Landing Section */
@@ -388,13 +408,11 @@ body {
 }
 
 .landing-text {
-  font-size: 1.4rem;
+  font-size: 1.2rem; /* Slightly smaller for better line length */
   color: #ffffff;
   margin: 0 0 20px;
-  line-height: 1.6;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.8; /* Increased for readability */
+  max-width: 100%;
 }
 
 .cta-btn {
@@ -410,12 +428,6 @@ body {
   margin: 15px;
 }
 
-/* Removed pulseGlow animation
-@keyframes pulseGlow {
-  Removed as part of animation cleanup
-}
-*/
-
 .cta-btn:hover, .cta-btn:active {
   background: #6a3d95;
 }
@@ -425,9 +437,7 @@ body {
   color: #b8a9d1;
   font-style: italic;
   margin-top: 20px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
 }
 
 /* Why CLO2 Section */
@@ -451,13 +461,11 @@ body {
 }
 
 .why-clo2-text {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 0 20px;
-  line-height: 1.6;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.8;
+  max-width: 100%;
 }
 
 /* Grenon Section */
@@ -473,12 +481,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* Removed glowing animation
-.grenon-section::before {
-  Removed as part of animation cleanup
-}
-*/
-
 .grenon-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -488,11 +490,11 @@ body {
 }
 
 .grenon-text {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 auto 20px;
-  line-height: 1.6;
-  max-width: 800px;
+  line-height: 1.8;
+  max-width: 100%;
 }
 
 .grenon-gallery {
@@ -527,7 +529,7 @@ body {
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-  border: 1px solid #8a5db5; /* Controlled border, not gold */
+  border: 1px solid #8a5db5;
   transition: transform 0.3s ease;
 }
 
@@ -709,7 +711,7 @@ body {
   max-height: 80vh;
   object-fit: contain;
   border-radius: 10px;
-  border: 1px solid #8a5db5; /* Controlled border */
+  border: 1px solid #8a5db5;
 }
 
 /* A Message from Bob The Plumber Section */
@@ -725,12 +727,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* Removed glowing animation
-.bob-message-section::before {
-  Removed as part of animation cleanup
-}
-*/
-
 .bob-message-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -740,11 +736,11 @@ body {
 }
 
 .bob-message-text {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 auto 20px;
-  line-height: 1.6;
-  max-width: 800px;
+  line-height: 1.8;
+  max-width: 100%;
 }
 
 /* Testimonials Section */
@@ -783,6 +779,7 @@ body {
 .testimonial-text {
   color: #ffffff;
   font-style: italic;
+  line-height: 1.6;
 }
 
 .testimonial-author {
@@ -835,7 +832,7 @@ body {
 .faq-answer {
   font-size: 1.2rem;
   color: #ffffff;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 /* History Modal */
@@ -875,7 +872,7 @@ body {
 .history-text {
   font-size: 1.2rem;
   color: #ffffff;
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 20px;
 }
 
@@ -916,7 +913,7 @@ body {
 .course-text {
   font-size: 1.2rem;
   color: #ffffff;
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 20px;
 }
 
@@ -1065,12 +1062,6 @@ body {
   transform: scale(1.03);
 }
 
-/* Removed play button overlay
-.video-card::before {
-  Removed as part of animation cleanup
-}
-*/
-
 .video-title {
   font-size: 1.6rem;
   font-weight: 700;
@@ -1082,6 +1073,7 @@ body {
   font-size: 1rem;
   margin: 0 15px 15px;
   color: #ffffff;
+  line-height: 1.6;
 }
 
 .video-uploader {
@@ -1143,19 +1135,13 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Removed glowPulse animation
-@keyframes glowPulse {
-  Removed as part of animation cleanup
-}
-*/
-
 .no-videos {
   text-align: center;
   font-size: 1.8rem;
   color: #d4af37;
 }
 
-/* Footer - Simplified */
+/* Footer */
 .footer {
   width: 100%;
   text-align: center;
@@ -1224,12 +1210,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* Removed glowing animation
-.article-section::before {
-  Removed as part of animation cleanup
-}
-*/
-
 .article-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -1239,15 +1219,14 @@ body {
 }
 
 .article-content {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%;
 }
 
 .article-text {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 0 20px;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .article-author {
@@ -1301,19 +1280,13 @@ body {
   margin-bottom: 40px;
 }
 
-/* Removed glowing animation
-.articles-section::before {
-  Removed as part of animation cleanup
-}
-*/
-
 .article {
   margin-bottom: 2rem;
   padding: 20px;
   background: #2b1d4a;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
@@ -1345,7 +1318,7 @@ body {
   grid-template-rows: auto auto;
   gap: 20px;
   padding: 20px 0;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
   border: none !important;
 }
@@ -1474,12 +1447,41 @@ body {
 
 .about-content p {
   color: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.2rem;
+  line-height: 1.8;
 }
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar {
+    display: none; /* Hide sidebar on mobile */
+  }
+
+  .right-sidebar {
+    display: none; /* Hide right sidebar on mobile */
+  }
+
+  .main-content {
+    width: 100%; /* Full width on mobile */
+    max-width: 100%;
+  }
+
+  .header {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .navbar {
+    width: 100%;
+    padding: 10px;
+  }
+
   .eternal-picture-section {
     padding: 20px;
   }
@@ -1492,39 +1494,7 @@ body {
     padding: 10px;
     font-size: 0.9rem;
   }
-
-  .sidebar {
-    display: none;
-  }
-
-  .app {
-    display: block;
-  }
-
-  .main-content {
-    width: 100%;
-  }
-
-  .header {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .navbar {
-    width: 100%;
-    padding: 10px;
-  }
 }
-
-/* Removed Glowing Button Animation
-.glowing-btn {
-  Removed as part of animation cleanup
-}
-
-@keyframes glow {
-  Removed as part of animation cleanup
-}
-*/
 
 /* Eternal Modal */
 .eternal-modal {

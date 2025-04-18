@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactPlayer from 'react-player';
 import './App.css';
 
 function VideosPage({ user }) {
   const [title, setTitle] = useState('');
-  const [description, setTitle] = useState('');
+  const [description, setDescription] = useState(''); // Fixed: Renamed setTitle to setDescription
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState('video');
   const [uploading, setUploading] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch videos from MongoDB via Netlify function on component mount
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get('/.netlify/functions/videos');
+        setVideos(res.data || []);
+      } catch (err) {
+        console.error('Fetch videos error:', err.response?.data || err.message);
+        alert('Failed to load videos—please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -28,18 +47,23 @@ function VideosPage({ user }) {
     try {
       // Upload to Cloudinary
       const cloudinaryRes = await axios.post(
-        'https://api.cloudinary.com/v1_1/your-cloudinary-cloud-name/upload', // Replace with your Cloudinary cloud name
+        'https://api.cloudinary.com/v1_1/dwmnbrjtu/upload', // Replace with your Cloudinary cloud name
         formData
       );
 
       // Save metadata to MongoDB via Netlify function
-      await axios.post('/.netlify/functions/upload-content', {
+      const videoData = {
         title,
         description,
         category,
         fileUrl: cloudinaryRes.data.secure_url,
         uploadedBy: user.username,
-      });
+      };
+      await axios.post('/.netlify/functions/upload-content', videoData);
+
+      // Refresh the video list after upload
+      const videosRes = await axios.get('/.netlify/functions/videos');
+      setVideos(videosRes.data || []);
 
       alert('Content uploaded successfully!');
       setTitle('');
@@ -61,35 +85,29 @@ function VideosPage({ user }) {
         <p className="landing-text">
           Watch testimonies and tutorials on Chlorine Dioxide (ClO₂). Learn how Mark Grenon’s protocols heal the body. “Go into all the world and proclaim the gospel to the whole creation.” – Mark 16:15
         </p>
-        <div className="video-grid">
-          <div className="video-card glassmorphism">
-            <div className="video-placeholder">
-              <span>Video Coming Soon</span>
-            </div>
-            <h3 className="video-title">ClO₂ Testimony #1</h3>
-            <p className="video-description">A story of healing with Chlorine Dioxide.</p>
-            <p className="video-uploader">Uploaded by: Admin</p>
-            <p className="video-views">Views: 0</p>
+        {loading ? (
+          <div className="loader" />
+        ) : videos.length === 0 ? (
+          <p className="no-videos">No videos available—check back soon!</p>
+        ) : (
+          <div className="video-grid">
+            {videos.map((video) => (
+              <div key={video._id} className="video-card glassmorphism">
+                <ReactPlayer
+                  url={video.fileUrl}
+                  light={video.fileUrl.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_240/')}
+                  width="100%"
+                  height="180px"
+                  controls
+                />
+                <h3 className="video-title">{video.title}</h3>
+                <p className="video-description">{video.description}</p>
+                <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
+                <p className="video-views">Views: {video.views || 0}</p>
+              </div>
+            ))}
           </div>
-          <div className="video-card glassmorphism">
-            <div className="video-placeholder">
-              <span>Video Coming Soon</span>
-            </div>
-            <h3 className="video-title">How to Use ClO₂</h3>
-            <p className="video-description">A tutorial on Mark Grenon’s protocols.</p>
-            <p className="video-uploader">Uploaded by: Admin</p>
-            <p className="video-views">Views: 0</p>
-          </div>
-          <div className="video-card glassmorphism">
-            <div className="video-placeholder">
-              <span>Video Coming Soon</span>
-            </div>
-            <h3 className="video-title">ClO₂ Testimony #2</h3>
-            <p className="video-description">Another powerful healing story.</p>
-            <p className="video-uploader">Uploaded by: Admin</p>
-            <p className="video-views">Views: 0</p>
-          </div>
-        </div>
+        )}
         <p className="landing-text">
           More videos coming soon—check back for updates or share your own ClO₂ story!
         </p>

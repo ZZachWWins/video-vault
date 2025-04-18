@@ -10,11 +10,14 @@ import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
 import ArticlesPage from './ArticlesPage';
 import StarryBackground from './StarryBackground';
+import ErrorBoundary from './ErrorBoundary';
 import './App.css';
 
 function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
   const navigate = useNavigate();
   const [showEternalModal, setShowEternalModal] = useState(false);
+
+  console.log('HomePage rendering', { videos, featuredVideo, loading });
 
   return (
     <div className="main-content">
@@ -107,32 +110,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
         </div>
       )}
 
-      {showAuth && (
-        <div className="auth-modal">
-          <div className="auth-content">
-            <h2 className="auth-title">Authentication</h2>
-            <div className="auth-tabs">
-              <button className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>Login</button>
-              <button className={`tab-btn ${activeTab === 'signup' ? 'active' : ''}`} onClick={() => setActiveTab('signup')}>Signup</button>
-            </div>
-            {activeTab === 'login' ? (
-              <div className="auth-form">
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-                <button onClick={handleLogin} className="submit-btn">Login</button>
-              </div>
-            ) : (
-              <div className="auth-form">
-                <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />
-                <input type="password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="Choose Password" required />
-                <button onClick={handleSignup} className="submit-btn">Signup</button>
-              </div>
-            )}
-            <button className="close-btn" onClick={() => setShowAuth(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
       {showHistory && (
         <div className="history-modal">
           <div className="history-content">
@@ -210,6 +187,7 @@ function App() {
     const fetchVideos = async () => {
       try {
         const res = await axios.get('/.netlify/functions/videos');
+        console.log('Videos fetched:', res.data);
         setVideos(res.data || []);
       } catch (err) {
         console.error('Fetch videos error:', err.response?.data || err.message);
@@ -374,68 +352,70 @@ function App() {
           titleRef={titleRef}
           setActiveTab={setActiveTab}
           username={username}
-          setShowCourse={setShowCourse} // Added setShowCourse prop
+          setShowCourse={setShowCourse}
         />
         <Routes>
           <Route
             path="/"
             element={
-              <HomePage
-                user={user}
-                videos={videos}
-                loading={loading}
-                file={file}
-                title={title}
-                description={description}
-                username={username}
-                password={password}
-                signupUsername={signupUsername}
-                signupPassword={signupPassword}
-                showHistory={showHistory}
-                showCourse={showCourse}
-                showAuth={showAuth}
-                activeTab={activeTab}
-                progress={progress}
-                enlargedImage={enlargedImage}
-                isBookMenuOpen={isBookMenuOpen}
-                selectedMoment={selectedMoment}
-                searchTerm={searchTerm}
-                showBackToTop={showBackToTop}
-                setUser={setUser}
-                setVideos={setVideos}
-                setLoading={setLoading}
-                setFile={setFile}
-                setTitle={setTitle}
-                setDescription={setDescription}
-                setUsername={setUsername}
-                setPassword={setPassword}
-                setSignupUsername={setSignupUsername}
-                setSignupPassword={setSignupPassword}
-                setShowHistory={setShowHistory}
-                setShowCourse={setShowCourse}
-                setShowAuth={setShowAuth}
-                setActiveTab={setActiveTab}
-                setProgress={setProgress}
-                setEnlargedImage={setEnlargedImage}
-                setIsBookMenuOpen={setIsBookMenuOpen}
-                setSelectedMoment={setSelectedMoment}
-                setSearchTerm={setSearchTerm}
-                setShowBackToTop={setShowBackToTop}
-                landingRefs={landingRefs}
-                handleLogin={handleLogin}
-                handleSignup={handleSignup}
-                handleLogout={handleLogout}
-                handleUpload={handleUpload}
-                handleViewIncrement={handleViewIncrement}
-                handleLike={handleLike}
-                hasLiked={hasLiked}
-                handleImageClick={handleImageClick}
-                closeEnlargedImage={closeEnlargedImage}
-                toggleBookMenu={toggleBookMenu}
-                handleMomentClick={handleMomentClick}
-                sortedVideos={sortedVideos}
-                featuredVideo={featuredVideo}
-              />
+              <ErrorBoundary>
+                <HomePage
+                  user={user}
+                  videos={videos}
+                  loading={loading}
+                  file={file}
+                  title={title}
+                  description={description}
+                  username={username}
+                  password={password}
+                  signupUsername={signupUsername}
+                  signupPassword={signupPassword}
+                  showHistory={showHistory}
+                  showCourse={showCourse}
+                  showAuth={showAuth}
+                  activeTab={activeTab}
+                  progress={progress}
+                  enlargedImage={enlargedImage}
+                  isBookMenuOpen={isBookMenuOpen}
+                  selectedMoment={selectedMoment}
+                  searchTerm={searchTerm}
+                  showBackToTop={showBackToTop}
+                  setUser={setUser}
+                  setVideos={setVideos}
+                  setLoading={setLoading}
+                  setFile={setFile}
+                  setTitle={setTitle}
+                  setDescription={setDescription}
+                  setUsername={setUsername}
+                  setPassword={setPassword}
+                  setSignupUsername={setSignupUsername}
+                  setSignupPassword={setSignupPassword}
+                  setShowHistory={setShowHistory}
+                  setShowCourse={setShowCourse}
+                  setShowAuth={setShowAuth}
+                  setActiveTab={setActiveTab}
+                  setProgress={setProgress}
+                  setEnlargedImage={setEnlargedImage}
+                  setIsBookMenuOpen={setIsBookMenuOpen}
+                  setSelectedMoment={setSelectedMoment}
+                  setSearchTerm={setSearchTerm}
+                  setShowBackToTop={setShowBackToTop}
+                  landingRefs={landingRefs}
+                  handleLogin={handleLogin}
+                  handleSignup={handleSignup}
+                  handleLogout={handleLogout}
+                  handleUpload={handleUpload}
+                  handleViewIncrement={handleViewIncrement}
+                  handleLike={handleLike}
+                  hasLiked={hasLiked}
+                  handleImageClick={handleImageClick}
+                  closeEnlargedImage={closeEnlargedImage}
+                  toggleBookMenu={toggleBookMenu}
+                  handleMomentClick={handleMomentClick}
+                  sortedVideos={sortedVideos}
+                  featuredVideo={featuredVideo}
+                />
+              </ErrorBoundary>
             }
           />
           <Route path="/about" element={<AboutPage user={user} />} />
@@ -472,9 +452,35 @@ function App() {
           />
           <Route path="/articles" element={<ArticlesPage />} />
         </Routes>
+        {showAuth && (
+          <div className="auth-modal">
+            <div className="auth-content">
+              <h2 className="auth-title">Authentication</h2>
+              <div className="auth-tabs">
+                <button className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`} onClick={() => setActiveTab('login')}>Login</button>
+                <button className={`tab-btn ${activeTab === 'signup' ? 'active' : ''}`} onClick={() => setActiveTab('signup')}>Signup</button>
+              </div>
+              {activeTab === 'login' ? (
+                <div className="auth-form">
+                  <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+                  <button onClick={handleLogin} className="submit-btn">Login</button>
+                </div>
+              ) : (
+                <div className="auth-form">
+                  <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />
+                  <input type="password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="Choose Password" required />
+                  <button onClick={handleSignup} className="submit-btn">Signup</button>
+                </div>
+              )}
+              <button className="close-btn" onClick={() => setShowAuth(false)}>Close</button>
+            </div>
+          </div>
+        )}
         <Footer setShowBackToTop={setShowBackToTop} />
       </div>
     </Router>
   );
 }
+
 export default App;

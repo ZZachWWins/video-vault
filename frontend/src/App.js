@@ -172,61 +172,139 @@ function App() {
     const featuredVideo = videos.length > 0 ? videos[0] : null;
 
     return (
-      <div className="main-content">
-        {featuredVideo && (
-          <section className="featured-section">
-            <h2 className="menu-title">Featured Video</h2>
-            <div className="video-card">
-              <ReactPlayer
-                url={featuredVideo.fileUrl}
-                light={featuredVideo.thumbnailUrl}
-                width="100%"
-                height="200px"
-                controls
-              />
-              <h3 className="video-title">{featuredVideo.title}</h3>
-              <button className="cta-btn" onClick={() => navigate('/videos')}>
-                <span>▶</span> Watch More
-              </button>
+      <div className="main-content home-content">
+        {/* Main Grid Layout for All Sections */}
+        <div className="home-grid">
+          {/* Left Column: Menu Tiles and Featured Video */}
+          <div className="home-column home-left">
+            <h2 className="menu-title">Explore God’s Detox</h2>
+            <div className="menu-grid">
+              <section className="menu-tile">
+                <i className="fas fa-handshake"></i>
+                <h3 className="menu-title">Welcome</h3>
+                <button className="cta-btn" onClick={() => navigate('/articles')}>
+                  <span>▶</span> Learn More
+                </button>
+              </section>
+              <section className="menu-tile">
+                <i className="fas fa-question-circle"></i>
+                <h3 className="menu-title">Why CLO2?</h3>
+                <button className="cta-btn" onClick={() => navigate('/articles')}>
+                  <span>▶</span> Dive Deeper
+                </button>
+              </section>
+              <section className="menu-tile">
+                <i className="fas fa-comments"></i>
+                <h3 className="menu-title">Testimonials</h3>
+                <button className="cta-btn" onClick={() => navigate('/videos')}>
+                  <span>▶</span> See Stories
+                </button>
+              </section>
+              <section className="menu-tile">
+                <i className="fas fa-history"></i>
+                <h3 className="menu-title">CLO2 History</h3>
+                <button className="cta-btn" onClick={() => setShowHistory(true)}>
+                  <span>▶</span> Explore History
+                </button>
+              </section>
+              <section className="menu-tile">
+                <i className="fas fa-cross"></i>
+                <h3 className="menu-title">The Eternal Big Picture</h3>
+                <button className="cta-btn" onClick={() => setShowEternal(true)}>
+                  <span>▶</span> Explore Eternity
+                </button>
+              </section>
             </div>
-          </section>
-        )}
-        <div className="menu-grid">
-          <section className="menu-tile">
-            <i className="fas fa-handshake"></i>
-            <h2 className="menu-title">Welcome</h2>
-            <button className="cta-btn" onClick={() => navigate('/articles')}>
-              <span>▶</span> Learn More
-            </button>
-          </section>
-          <section className="menu-tile">
-            <i className="fas fa-question-circle"></i>
-            <h2 className="menu-title">Why CLO2?</h2>
-            <button className="cta-btn" onClick={() => navigate('/articles')}>
-              <span>▶</span> Dive Deeper
-            </button>
-          </section>
-          <section className="menu-tile">
-            <i className="fas fa-comments"></i>
-            <h2 className="menu-title">Testimonials</h2>
-            <button className="cta-btn" onClick={() => navigate('/videos')}>
-              <span>▶</span> See Stories
-            </button>
-          </section>
-          <section className="menu-tile">
-            <i className="fas fa-history"></i>
-            <h2 className="menu-title">CLO2 History</h2>
-            <button className="cta-btn" onClick={() => setShowHistory(true)}>
-              <span>▶</span> Explore History
-            </button>
-          </section>
-          <section className="menu-tile">
-            <i className="fas fa-cross"></i>
-            <h2 className="menu-title">The Eternal Big Picture</h2>
-            <button className="cta-btn" onClick={() => setShowEternal(true)}>
-              <span>▶</span> Explore Eternity
-            </button>
-          </section>
+
+            {featuredVideo && (
+              <section className="featured-section">
+                <h3 className="menu-title">Featured Video</h3>
+                <div className="video-card">
+                  <ReactPlayer
+                    url={featuredVideo.fileUrl}
+                    light={featuredVideo.thumbnailUrl}
+                    width="100%"
+                    height="150px"
+                    controls
+                  />
+                  <h4 className="video-title">{featuredVideo.title}</h4>
+                  <button className="cta-btn" onClick={() => navigate('/videos')}>
+                    <span>▶</span> Watch More
+                  </button>
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Right Column: Videos, Articles, and Upload */}
+          <div className="home-column home-right">
+            <section className="videos-section">
+              <h3 className="menu-title">Latest Videos</h3>
+              {loading ? (
+                <div className="loader"></div>
+              ) : videos.length === 0 ? (
+                <p className="no-videos">No videos available.</p>
+              ) : (
+                <div className="video-grid compact-video-grid">
+                  {videos.slice(0, 3).map((video) => (
+                    <div key={video._id} className="video-card">
+                      <ReactPlayer
+                        url={video.fileUrl}
+                        light={video.thumbnailUrl}
+                        width="100%"
+                        height="100px"
+                        controls
+                      />
+                      <h4 className="video-title">{video.title}</h4>
+                      <p className="video-description">{video.description.slice(0, 50)}...</p>
+                      <p className="video-uploader">By: {video.uploadedBy}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section className="articles-section">
+              <h3 className="menu-title">Featured Articles</h3>
+              <div className="article-section">
+                <h4 className="article-title">Welcome to God’s Detox</h4>
+                <p className="article-text">
+                  Discover the power of spiritual cleansing and the benefits of CLO2...
+                </p>
+                <button className="cta-btn" onClick={() => navigate('/articles')}>
+                  <span>▶</span> Read More
+                </button>
+              </div>
+              <div className="article-section">
+                <h4 className="article-title">The Science of CLO2</h4>
+                <p className="article-text">
+                  Learn how chlorine dioxide has been used for decades to purify...
+                </p>
+                <button className="cta-btn" onClick={() => navigate('/articles')}>
+                  <span>▶</span> Read More
+                </button>
+              </div>
+            </section>
+
+            {user && user.role === 'admin' && (
+              <section className="upload-section">
+                <h3 className="menu-title">Upload a Video</h3>
+                <div className="upload-form">
+                  <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+                  <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
+                  <button onClick={handleUpload} className="upload-btn">Upload Video</button>
+                  {progress > 0 && progress < 100 && (
+                    <div className="progress-container">
+                      <div className="progress-bar" style={{ width: `${progress}%` }}>
+                        <span className="progress-text">{progress}%</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+          </div>
         </div>
 
         {showHistory && (
@@ -251,24 +329,6 @@ function App() {
               <button className="close-btn" onClick={() => setShowEternal(false)}>Close</button>
             </div>
           </div>
-        )}
-
-        {user && user.role === 'admin' && (
-          <section className="upload-section">
-            <div className="upload-form">
-              <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
-              <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
-              <button onClick={handleUpload} className="upload-btn">Upload Video</button>
-              {progress > 0 && progress < 100 && (
-                <div className="progress-container">
-                  <div className="progress-bar" style={{ width: `${progress}%` }}>
-                    <span className="progress-text">{progress}%</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
         )}
       </div>
     );

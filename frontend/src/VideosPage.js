@@ -18,6 +18,31 @@ function VideosPage() {
     localStorage.setItem('likedVideos', JSON.stringify(likedVideos));
   }, [likedVideos]);
 
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        // Replace with your actual Cloudinary API call
+        setVideos([
+          {
+            _id: '1',
+            title: 'ClO₂ Testimony',
+            description: 'A powerful story of healing.',
+            fileUrl: 'https://res.cloudinary.com/dwmnbrjtu/video/upload/v1234567890/sample.mp4',
+            thumbnailUrl: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/v1234567890/sample.jpg',
+            uploadedBy: 'Bob The Plumber',
+            views: 100,
+            likes: 10,
+          },
+        ]);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideos();
+  }, []);
+
   const handleLike = (videoId) => {
     setLikedVideos((prev) => [...prev, videoId]);
     setVideos((prevVideos) =>
@@ -51,6 +76,7 @@ function VideosPage() {
     const sectionRef = useRef(null);
 
     useEffect(() => {
+      const currentRef = sectionRef.current; // Store ref value
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -62,16 +88,16 @@ function VideosPage() {
         { threshold: 0.1 }
       );
 
-      if (sectionRef.current) {
-        observer.observe(sectionRef.current);
+      if (currentRef) {
+        observer.observe(currentRef);
       }
 
       return () => {
-        if (sectionRef.current) {
-          observer.unobserve(sectionRef.current);
+        if (currentRef) {
+          observer.unobserve(currentRef); // Use stored ref in cleanup
         }
       };
-    }, []);
+    }, []); // Empty deps to run once
 
     return (
       <section ref={sectionRef} className={`${className} fade-in-section`}>
@@ -129,11 +155,12 @@ function VideosPage() {
               <div key={video._id} className="video-card fade-in-section">
                 <ReactPlayer
                   url={video.fileUrl}
-                  light={video.thumbnailUrl}
+                  light={video.thumbnailUrl || 'https://via.placeholder.com/320x180'}
                   width="100%"
                   height="200px"
                   controls
                   lazy={true}
+                  onError={(e) => console.error('ReactPlayer error:', e)}
                   onStart={() => handleViewIncrement(video._id)}
                 />
                 <h2 className="video-title">{video.title}</h2>

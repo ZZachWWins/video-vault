@@ -45,6 +45,7 @@ function GrenonPage() {
     const sectionRef = useRef(null);
 
     useEffect(() => {
+      const currentRef = sectionRef.current; // Store ref value
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -56,16 +57,16 @@ function GrenonPage() {
         { threshold: 0.1 }
       );
 
-      if (sectionRef.current) {
-        observer.observe(sectionRef.current);
+      if (currentRef) {
+        observer.observe(currentRef);
       }
 
       return () => {
-        if (sectionRef.current) {
-          observer.unobserve(sectionRef.current);
+        if (currentRef) {
+          observer.unobserve(currentRef); // Use stored ref in cleanup
         }
       };
-    }, []);
+    }, []); // Empty deps to run once
 
     return (
       <section ref={sectionRef} className={`${className} fade-in-section`}>
@@ -108,18 +109,21 @@ function GrenonPage() {
             alt="Mark Grenon - Mission Work"
             className="grenon-gallery-image fade-in-section"
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/g0rpwkyt3poc4lidafas.jpg", "Mark Grenon - Mission Work")}
+            onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200'; }}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg"
             alt="Mark Grenon - Preaching"
             className="grenon-gallery-image fade-in-section"
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/o7fzvl6tybthrtc41dsm.jpg", "Mark Grenon - Preaching")}
+            onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200'; }}
           />
           <img
             src="https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg"
             alt="Mark Grenon - Legacy Moment"
             className="grenon-gallery-image fade-in-section"
             onClick={() => handleImageClick("https://res.cloudinary.com/dwmnbrjtu/image/upload/v1711308900/wejh7oticxazrdvywhvt.jpg", "Mark Grenon - Legacy Moment")}
+            onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200'; }}
           />
         </div>
         <div className="grenon-timeline">

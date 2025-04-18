@@ -1,16 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 
-function Footer({ showBackToTop }) {
-  useEffect(() => {
-    const handleScroll = () => {
-      window.scrollY > 200 ? showBackToTop(true) : showBackToTop(false);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [showBackToTop]); // Added handleScroll to the dependency array
-
+function Footer() {
   return (
     <footer className="footer glassmorphism">
       <p className="footer-text">Built by Zachary | © 2025 Bob The Plumber. All rights reserved.</p>

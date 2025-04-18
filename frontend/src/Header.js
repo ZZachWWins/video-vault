@@ -1,79 +1,42 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { gsap } from 'gsap';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Header({ user, setUser, setShowAuth, setActiveTab, handleLogout }) {
+function Header({ user, setShowAuth, setUser, handleLogout, titleRef, setActiveTab, username }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
-  const titleRef = useRef(null);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const pageNames = {
-    '/': 'Home',
-    '/about': 'About',
-    '/videos': 'Videos',
-    '/grenon': 'Grenon',
-    '/articles': 'Articles',
-  };
-  const currentPage = pageNames[location.pathname] || 'Menu';
-
-  const toggleNavMenu = () => setIsNavMenuOpen(!isNavMenuOpen);
-
-  useEffect(() => {
-    const title = titleRef.current;
-    if (title) {
-      const letters = "God’s Detox".split('').map((char) => `<span class="letter">${char}</span>`).join('');
-      title.innerHTML = letters;
-      gsap.from('.letter', { duration: 1, opacity: 0, y: 50, stagger: 0.05, ease: 'power2.out', onComplete: () => gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' }) });
-    }
-  }, []);
+  const toggleNav = () => setIsNavOpen(!isNavOpen);
 
   return (
     <header className="header glassmorphism">
-      <h1 ref={titleRef} className="title">God’s Detox</h1>
-      <p className="subtitle">Presented by Bob The Plumber</p>
-      <nav className="navbar">
-        <div className="desktop-nav">
-          <button className="auth-btn" onClick={() => navigate('/')}>Home</button>
-          <button className="auth-btn" onClick={() => navigate('/about')}>About</button>
-          <button className="auth-btn" onClick={() => navigate('/videos')}>Videos</button>
-          <button className="auth-btn" onClick={() => navigate('/grenon')}>Grenon</button>
-          <button className="auth-btn" onClick={() => navigate('/articles')}>Articles</button>
-        </div>
+      <div className="header-content">
+        <h1 className="title" ref={titleRef}>God’s Detox</h1>
+        <button className="nav-toggle" onClick={toggleNav}>
+          {isNavOpen ? '✖' : '☰'}
+        </button>
+      </div>
 
-        <div className="mobile-nav">
-          <button className="nav-menu-btn" onClick={toggleNavMenu}>
-            Menu: {currentPage}
-          </button>
-          {isNavMenuOpen && (
-            <div className="nav-menu glassmorphism">
-              {Object.entries(pageNames).map(([path, name]) => (
-                <button
-                  key={path}
-                  className={`nav-menu-item ${location.pathname === path ? 'active' : ''}`}
-                  onClick={() => {
-                    navigate(path);
-                    setIsNavMenuOpen(false);
-                  }}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </nav>
-      <div className="auth-section">
+      <nav className={`nav-menu ${isNavOpen ? 'open' : ''}`}>
+        <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
+        <button className="nav-btn" onClick={() => { navigate('/about'); setIsNavOpen(false); }}>Learn More</button>
+        <button className="nav-btn" onClick={() => { navigate('/articles'); setIsNavOpen(false); }}>Why ClO₂?</button>
+        <button className="nav-btn" onClick={() => { navigate('/videos'); setIsNavOpen(false); }}>Testimonials</button>
+        <button className="nav-btn" onClick={() => { navigate('/grenon'); setIsNavOpen(false); }}>Grenon Legacy</button>
+        <button className="nav-btn" onClick={() => { setShowCourse(true); setIsNavOpen(false); }}>ClO₂ Course</button>
+        <button className="nav-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to Top</button>
+
         {user ? (
           <>
-            <span>Welcome, {user.username}</span>
-            <button onClick={handleLogout} className="auth-btn">Logout</button>
+            <span className="nav-username">Welcome, {username || user.username}!</span>
+            <button className="nav-btn" onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <button onClick={() => setShowAuth(true)} className="auth-btn">Sign up or Log in</button>
+          <button className="nav-btn" onClick={() => { setShowAuth(true); setActiveTab('login'); setIsNavOpen(false); }}>
+            Login / Signup
+          </button>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

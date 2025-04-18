@@ -20,26 +20,6 @@ function HomePage({ user, videos, loading, file, title, description, username, p
     <div className="main-content">
       <div className="rotating-text-background">God’s Detox</div>
 
-      {/* Sidebar */}
-      <div className="sidebar">
-        <h2 className="sidebar-title">Explore More</h2>
-        <button className="sidebar-btn" onClick={() => setShowCourse(true)}>
-          Buy a Course
-        </button>
-        <button className="sidebar-btn" onClick={() => navigate('/about')}>
-          Learn More
-        </button>
-        <button className="sidebar-btn" onClick={() => navigate('/articles')}>
-          Why CLO2?
-        </button>
-        <button className="sidebar-btn" onClick={() => navigate('/videos')}>
-          Testimonials
-        </button>
-        <button className="sidebar-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          Back to Top
-        </button>
-      </div>
-
       <main className="menu-container">
         {featuredVideo && (
           <section className="featured-section">
@@ -491,7 +471,7 @@ function App() {
           />
           <Route path="/articles" element={<ArticlesPage />} />
         </Routes>
-        <Footer setShowBackToTop={setShowBackToTop} /> {/* Updated to pass setShowBackToTop */}
+        <Footer setShowBackToTop={setShowBackToTop} />
       </div>
     </Router>
   );

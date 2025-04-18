@@ -126,15 +126,6 @@
   gap: 1rem;
 }
 
-.menu-tileme-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  background: linear-gradient(45deg, #800080, #ffd700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
-}
-
 .menu-tile {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
@@ -152,6 +143,15 @@
 .menu-tile i {
   font-size: 2rem;
   color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+.menu-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  background: linear-gradient(45deg, #800080, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
 }
 
@@ -320,13 +320,15 @@
 
 .video-description {
   font-size: 0.8rem;
-  color: #ccc;
+  color: #fff; /* Changed to white for readability */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle white glow */
   margin: 0.3rem 0;
 }
 
 .video-uploader {
   font-size: 0.7rem;
-  color: #aaa;
+  color: #fff; /* Changed to white for readability */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle white glow */
 }
 
 /* Articles Section */
@@ -352,7 +354,8 @@
 
 .article-text {
   font-size: 0.9rem;
-  color: #ccc;
+  color: #fff; /* Changed to white for readability */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle white glow */
   line-height: 1.4;
 }
 
@@ -424,7 +427,8 @@
 
 .footer-text {
   font-size: 0.8rem;
-  color: #ccc;
+  color: #fff; /* Changed to white for readability */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle white glow */
 }
 
 /* Loader */
@@ -447,7 +451,8 @@
 .no-videos {
   text-align: center;
   font-size: 1rem;
-  color: #ccc;
+  color: #fff; /* Changed to white for readability */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle white glow */
 }
 
 /* Media Queries for Mobile */

@@ -61,50 +61,73 @@ function VideosPage({ user }) {
         <p className="main-text">
           Watch testimonies and tutorials on Chlorine Dioxide (ClO₂). Learn how Mark Grenon’s protocols heal the body. “Go into all the world and proclaim the gospel to the whole creation.” – Mark 16:15
         </p>
+        <div className="video-grid">
+          <div className="video-card glassmorphism-card">
+            <div className="video-placeholder">
+              <span>Video Coming Soon</span>
+            </div>
+            <h3 className="video-title">ClO₂ Testimony #1</h3>
+            <p className="video-description">A story of healing with Chlorine Dioxide.</p>
+          </div>
+          <div className="video-card glassmorphism-card">
+            <div className="video-placeholder">
+              <span>Video Coming Soon</span>
+            </div>
+            <h3 className="video-title">How to Use ClO₂</h3>
+            <p className="video-description">A tutorial on Mark Grenon’s protocols.</p>
+          </div>
+          <div className="video-card glassmorphism-card">
+            <div className="video-placeholder">
+              <span>Video Coming Soon</span>
+            </div>
+            <h3 className="video-title">ClO₂ Testimony #2</h3>
+            <p className="video-description">Another powerful healing story.</p>
+          </div>
+        </div>
         <p className="main-text">
-          Videos coming soon—check back for updates or share your own ClO₂ story!
+          More videos coming soon—check back for updates or share your own ClO₂ story!
         </p>
-        {user && user.role === 'admin' && (
-          <>
-            <h3 className="main-title">Upload New Video</h3>
-            <form className="upload-form" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Video Title"
-                required
-                className="upload-input"
-              />
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Video Description"
-                required
-                className="upload-textarea"
-              />
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="upload-select"
-              >
-                <option value="video">Video</option>
-                <option value="article">Article</option>
-              </select>
-              <input
-                type="file"
-                accept="video/*,application/pdf"
-                onChange={handleFileChange}
-                className="upload-file"
-                required
-              />
-              <button type="submit" className="cta-btn" disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Upload'}
-              </button>
-            </form>
-          </>
-        )}
       </div>
+      {user && user.role === 'admin' && (
+        <div className="main-content glassmorphism-card">
+          <h3 className="main-title">Upload New Video</h3>
+          <form className="upload-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Video Title"
+              required
+              className="upload-input glassmorphism-input"
+            />
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Video Description"
+              required
+              className="upload-textarea glassmorphism-input"
+            />
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="upload-select glassmorphism-input"
+            >
+              <option value="video">Video</option>
+              <option value="article">Article</option>
+            </select>
+            <input
+              type="file"
+              accept="video/*,application/pdf"
+              onChange={handleFileChange}
+              className="upload-file glassmorphism-input"
+              required
+            />
+            <button type="submit" className="cta-btn" disabled={uploading}>
+              {uploading ? 'Uploading...' : 'Upload'}
+            </button>
+          </form>
+        </div>
+      )}
     </section>
   );
 }

@@ -10,7 +10,6 @@ import GrenonPage from './GrenonPage';
 import VideosPage from './VideosPage';
 import ArticlesPage from './ArticlesPage';
 import StarryBackground from './StarryBackground';
-import ErrorBoundary from './ErrorBoundary';
 import './App.css';
 
 function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
@@ -358,64 +357,62 @@ function App() {
           <Route
             path="/"
             element={
-              <ErrorBoundary>
-                <HomePage
-                  user={user}
-                  videos={videos}
-                  loading={loading}
-                  file={file}
-                  title={title}
-                  description={description}
-                  username={username}
-                  password={password}
-                  signupUsername={signupUsername}
-                  signupPassword={signupPassword}
-                  showHistory={showHistory}
-                  showCourse={showCourse}
-                  showAuth={showAuth}
-                  activeTab={activeTab}
-                  progress={progress}
-                  enlargedImage={enlargedImage}
-                  isBookMenuOpen={isBookMenuOpen}
-                  selectedMoment={selectedMoment}
-                  searchTerm={searchTerm}
-                  showBackToTop={showBackToTop}
-                  setUser={setUser}
-                  setVideos={setVideos}
-                  setLoading={setLoading}
-                  setFile={setFile}
-                  setTitle={setTitle}
-                  setDescription={setDescription}
-                  setUsername={setUsername}
-                  setPassword={setPassword}
-                  setSignupUsername={setSignupUsername}
-                  setSignupPassword={setSignupPassword}
-                  setShowHistory={setShowHistory}
-                  setShowCourse={setShowCourse}
-                  setShowAuth={setShowAuth}
-                  setActiveTab={setActiveTab}
-                  setProgress={setProgress}
-                  setEnlargedImage={setEnlargedImage}
-                  setIsBookMenuOpen={setIsBookMenuOpen}
-                  setSelectedMoment={setSelectedMoment}
-                  setSearchTerm={setSearchTerm}
-                  setShowBackToTop={setShowBackToTop}
-                  landingRefs={landingRefs}
-                  handleLogin={handleLogin}
-                  handleSignup={handleSignup}
-                  handleLogout={handleLogout}
-                  handleUpload={handleUpload}
-                  handleViewIncrement={handleViewIncrement}
-                  handleLike={handleLike}
-                  hasLiked={hasLiked}
-                  handleImageClick={handleImageClick}
-                  closeEnlargedImage={closeEnlargedImage}
-                  toggleBookMenu={toggleBookMenu}
-                  handleMomentClick={handleMomentClick}
-                  sortedVideos={sortedVideos}
-                  featuredVideo={featuredVideo}
-                />
-              </ErrorBoundary>
+              <HomePage
+                user={user}
+                videos={videos}
+                loading={loading}
+                file={file}
+                title={title}
+                description={description}
+                username={username}
+                password={password}
+                signupUsername={signupUsername}
+                signupPassword={signupPassword}
+                showHistory={showHistory}
+                showCourse={showCourse}
+                showAuth={showAuth}
+                activeTab={activeTab}
+                progress={progress}
+                enlargedImage={enlargedImage}
+                isBookMenuOpen={isBookMenuOpen}
+                selectedMoment={selectedMoment}
+                searchTerm={searchTerm}
+                showBackToTop={showBackToTop}
+                setUser={setUser}
+                setVideos={setVideos}
+                setLoading={setLoading}
+                setFile={setFile}
+                setTitle={setTitle}
+                setDescription={setDescription}
+                setUsername={setUsername}
+                setPassword={setPassword}
+                setSignupUsername={setSignupUsername}
+                setSignupPassword={setSignupPassword}
+                setShowHistory={setShowHistory}
+                setShowCourse={setShowCourse}
+                setShowAuth={setShowAuth}
+                setActiveTab={setActiveTab}
+                setProgress={setProgress}
+                setEnlargedImage={setEnlargedImage}
+                setIsBookMenuOpen={setIsBookMenuOpen}
+                setSelectedMoment={setSelectedMoment}
+                setSearchTerm={setSearchTerm}
+                setShowBackToTop={setShowBackToTop}
+                landingRefs={landingRefs}
+                handleLogin={handleLogin}
+                handleSignup={handleSignup}
+                handleLogout={handleLogout}
+                handleUpload={handleUpload}
+                handleViewIncrement={handleViewIncrement}
+                handleLike={handleLike}
+                hasLiked={hasLiked}
+                handleImageClick={handleImageClick}
+                closeEnlargedImage={closeEnlargedImage}
+                toggleBookMenu={toggleBookMenu}
+                handleMomentClick={handleMomentClick}
+                sortedVideos={sortedVideos}
+                featuredVideo={featuredVideo}
+              />
             }
           />
           <Route path="/about" element={<AboutPage user={user} />} />

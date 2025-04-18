@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Header({ user, setShowAuth, setUser, handleLogout, titleRef, setActiveTab, username }) {
+function Header({ user, setShowAuth, setUser, handleLogout, titleRef, setActiveTab, username, setShowCourse }) {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
 

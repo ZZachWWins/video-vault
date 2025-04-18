@@ -374,6 +374,7 @@ function App() {
           titleRef={titleRef}
           setActiveTab={setActiveTab}
           username={username}
+          setShowCourse={setShowCourse} // Added setShowCourse prop
         />
         <Routes>
           <Route
@@ -477,4 +478,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;export default App;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { gsap } from 'gsap'; // Ensure gsap is imported
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'; // Ensure useNavigate is imported
+import { gsap } from 'gsap';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Header from './Header';
 import Footer from './Footer';
@@ -13,7 +13,7 @@ import StarryBackground from './StarryBackground';
 import './App.css';
 
 function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
-  const navigate = useNavigate(); // Ensure useNavigate is available in HomePage
+  const navigate = useNavigate();
   const [showEternalModal, setShowEternalModal] = useState(false);
 
   return (
@@ -491,7 +491,7 @@ function App() {
           />
           <Route path="/articles" element={<ArticlesPage />} />
         </Routes>
-        <Footer showBackToTop={showBackToTop} />
+        <Footer setShowBackToTop={setShowBackToTop} /> {/* Updated to pass setShowBackToTop */}
       </div>
     </Router>
   );

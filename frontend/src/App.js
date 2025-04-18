@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { gsap } from 'gsap'; // Ensure gsap is imported
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'; // Ensure useNavigate is imported
+import ReactPlayer from 'react-player';
 import Header from './Header';
 import Footer from './Footer';
 import AboutPage from './AboutPage';
@@ -10,7 +12,8 @@ import ArticlesPage from './ArticlesPage';
 import StarryBackground from './StarryBackground';
 import './App.css';
 
-function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, titleRef, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo, navigate }) {
+function HomePage({ user, videos, loading, file, title, description, username, password, signupUsername, signupPassword, showHistory, showCourse, showAuth, activeTab, progress, enlargedImage, isBookMenuOpen, selectedMoment, searchTerm, showBackToTop, setUser, setVideos, setLoading, setFile, setTitle, setDescription, setUsername, setPassword, setSignupUsername, setSignupPassword, setShowHistory, setShowCourse, setShowAuth, setActiveTab, setProgress, setEnlargedImage, setIsBookMenuOpen, setSelectedMoment, setSearchTerm, setShowBackToTop, landingRefs, handleLogin, handleSignup, handleLogout, handleUpload, handleViewIncrement, handleLike, hasLiked, handleImageClick, closeEnlargedImage, toggleBookMenu, handleMomentClick, sortedVideos, featuredVideo }) {
+  const navigate = useNavigate(); // Ensure useNavigate is available in HomePage
   const [showEternalModal, setShowEternalModal] = useState(false);
 
   return (
@@ -20,26 +23,35 @@ function HomePage({ user, videos, loading, file, title, description, username, p
       {/* Sidebar */}
       <div className="sidebar">
         <h2 className="sidebar-title">Explore More</h2>
-        <button className="sidebar-btn" onClick={() => setShowCourse(true)}>Buy a Course</button>
-        <button className="sidebar-btn" onClick={() => navigate('/about')}>Learn More</button>
-        <button className="sidebar-btn" onClick={() => navigate('/articles')}>Why CLO2?</button>
-        <button className="sidebar-btn" onClick={() => navigate('/videos')}>Testimonials</button>
-        <button className="sidebar-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to Top</button>
+        <button className="sidebar-btn" onClick={() => setShowCourse(true)}>
+          Buy a Course
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/about')}>
+          Learn More
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/articles')}>
+          Why CLO2?
+        </button>
+        <button className="sidebar-btn" onClick={() => navigate('/videos')}>
+          Testimonials
+        </button>
+        <button className="sidebar-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          Back to Top
+        </button>
       </div>
 
-      {/* Main Content */}
       <main className="menu-container">
         {featuredVideo && (
           <section className="featured-section">
             <h2 className="featured-title">Featured Video</h2>
             <div className="featured-video">
-              <video
-                src={featuredVideo.fileUrl}
-                poster={featuredVideo.thumbnailUrl}
+              <ReactPlayer
+                url={featuredVideo.fileUrl}
+                light={featuredVideo.thumbnailUrl}
                 width="100%"
                 height="150px"
                 controls
-                onPlay={() => handleViewIncrement(featuredVideo._id)}
+                onStart={() => handleViewIncrement(featuredVideo._id)}
               />
               <h3 className="video-title">{featuredVideo.title}</h3>
               <button className="cta-btn" onClick={() => navigate('/videos')}>
@@ -182,6 +194,10 @@ function HomePage({ user, videos, loading, file, title, description, username, p
           </div>
         </section>
       )}
+
+      {showBackToTop && (
+        <button className="back-to-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>↑ Top</button>
+      )}
     </div>
   );
 }
@@ -223,9 +239,23 @@ function App() {
     };
     fetchVideos();
 
+    const title = titleRef.current;
+    if (title) {
+      const letters = "God’s Detox".split('').map((char) => `<span class="letter">${char}</span>`).join('');
+      title.innerHTML = letters;
+      gsap.from('.letter', { duration: 1, opacity: 0, y: 50, stagger: 0.05, ease: 'power2.out', onComplete: () => gsap.set('.letter', { y: 0, opacity: 1, clearProps: 'all' }) });
+    }
+
     if (landingRefs.current.length) {
       gsap.from(landingRefs.current, { duration: 1, opacity: 0, y: 30, stagger: 0.2, ease: 'power2.out', delay: 0.5 });
     }
+
+    const handleScroll = () => setShowBackToTop(window.scrollY > 200);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleLogin = async (e) => {
@@ -358,10 +388,12 @@ function App() {
         <StarryBackground />
         <Header
           user={user}
-          setUser={setUser}
           setShowAuth={setShowAuth}
-          setActiveTab={setActiveTab}
+          setUser={setUser}
           handleLogout={handleLogout}
+          titleRef={titleRef}
+          setActiveTab={setActiveTab}
+          username={username}
         />
         <Routes>
           <Route
@@ -387,6 +419,7 @@ function App() {
                 isBookMenuOpen={isBookMenuOpen}
                 selectedMoment={selectedMoment}
                 searchTerm={searchTerm}
+                showBackToTop={showBackToTop}
                 setUser={setUser}
                 setVideos={setVideos}
                 setLoading={setLoading}
@@ -406,7 +439,7 @@ function App() {
                 setIsBookMenuOpen={setIsBookMenuOpen}
                 setSelectedMoment={setSelectedMoment}
                 setSearchTerm={setSearchTerm}
-                titleRef={titleRef}
+                setShowBackToTop={setShowBackToTop}
                 landingRefs={landingRefs}
                 handleLogin={handleLogin}
                 handleSignup={handleSignup}
@@ -421,11 +454,10 @@ function App() {
                 handleMomentClick={handleMomentClick}
                 sortedVideos={sortedVideos}
                 featuredVideo={featuredVideo}
-                navigate={useNavigate()}
               />
             }
           />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about" element={<AboutPage user={user} />} />
           <Route
             path="/grenon"
             element={
@@ -459,7 +491,7 @@ function App() {
           />
           <Route path="/articles" element={<ArticlesPage />} />
         </Routes>
-        <Footer showBackToTop={showBackToTop} setShowBackToTop={setShowBackToTop} />
+        <Footer showBackToTop={showBackToTop} />
       </div>
     </Router>
   );

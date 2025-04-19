@@ -10,8 +10,8 @@
 .app {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(180deg, #2b1d4a, #3d2e6b); /* Original purple gradient */
-  color: #f0e6d2; /* Warm off-white text color */
+  background: linear-gradient(180deg, #000000, #333333); /* Black to dark gray gradient */
+  color: #FFFFFF; /* Pure white text for contrast */
   display: flex;
   flex-direction: column;
   max-width: 1400px;
@@ -23,15 +23,15 @@
 
 .star {
   position: absolute;
-  background: #fff;
+  background: #FFFFFF; /* Pure white stars */
   border-radius: 50%;
-  animation: twinkle 3s infinite;
+  animation: twinkle 2.5s infinite; /* Faster twinkle for sharper effect */
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.4; }
+  0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
 
@@ -42,12 +42,12 @@
   z-index: 1000;
   text-align: center;
   padding: 50px 20px;
-  background: linear-gradient(135deg, #4a2e85, #8a5db5, #d4af37); /* Original header gradient */
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black for glassmorphism */
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px); /* Enhanced blur for frosted glass */
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
   margin-bottom: 50px;
   position: relative;
   overflow: hidden;
@@ -60,15 +60,15 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
   animation: glow 8s infinite ease-in-out;
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes glow {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.1); opacity: 0.7; }
 }
 
 .header-content {
@@ -87,10 +87,10 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
-  background: linear-gradient(90deg, #f0e6d2, #d4af37); /* Original title gradient */
+  background: linear-gradient(90deg, #FFFFFF, #CCCCCC); /* White to light gray gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   margin: 0;
 }
 
@@ -100,24 +100,26 @@
 }
 
 .nav-btn {
-  background: linear-gradient(45deg, #8a5db5, #d4af37); /* Original button gradient */
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  color: #2b1d4a;
+  color: #FFFFFF; /* White text for contrast */
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .nav-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); /* White glow on hover */
 }
 
 .nav-username {
-  color: #d4af37;
+  color: #FFFFFF; /* Pure white for username */
   font-weight: bold;
   margin-right: 1rem;
 }
@@ -166,32 +168,32 @@
 }
 
 .menu-tile {
-  background: rgba(255, 255, 255, 0.1); /* Original semi-transparent background */
+  background: rgba(255, 255, 255, 0.1); /* Frosted white glass */
   border-radius: 15px;
   padding: 1rem;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px); /* Stronger blur for glassmorphism */
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .menu-tile:hover {
   transform: scale(1.03);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2); /* Subtle white glow */
 }
 
 .menu-tile i {
   font-size: 2rem;
-  color: #d4af37; /* Gold color for icons */
+  color: #FFFFFF; /* White icons for consistency */
   margin-bottom: 0.5rem;
 }
 
 .menu-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
-  background: linear-gradient(90deg, #d4af37, #8a5db5); /* Original gradient for headings */
+  background: linear-gradient(90deg, #FFFFFF, #CCCCCC); /* White to gray gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
@@ -199,11 +201,11 @@
 
 /* CTA Button */
 .cta-btn {
-  background: linear-gradient(45deg, #4a2e85, #8a5db5); /* Original button gradient */
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  color: #f0e6d2;
+  color: #FFFFFF; /* White text */
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -211,11 +213,13 @@
   align-items: center;
   gap: 0.5rem;
   transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .cta-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); /* White glow */
 }
 
 .cta-btn span {
@@ -229,7 +233,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8); /* Dark overlay for contrast */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -237,19 +241,23 @@
 }
 
 .auth-content, .info-content {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1); /* White frosted glass */
   border-radius: 15px;
   padding: 1.5rem;
   max-width: 500px;
   width: 90%;
   text-align: center;
   position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .auth-title, .info-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
-  background: linear-gradient(90deg, #d4af37, #8a5db5); /* Original gradient for headings */
+  background: linear-gradient(90deg, #FFFFFF, #CCCCCC); /* White to gray gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
@@ -263,24 +271,25 @@
 }
 
 .tab-btn {
-  background: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass */
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  color: #2b1d4a;
+  color: #FFFFFF;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(10px);
 }
 
 .tab-btn.active {
-  background: linear-gradient(45deg, #8a5db5, #d4af37); /* Original button gradient */
-  color: #2b1d4a;
+  background: rgba(255, 255, 255, 0.3); /* Slightly brighter glass for active */
+  color: #000000; /* Black text for contrast */
 }
 
 .tab-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
 }
 
 .auth-form {
@@ -293,34 +302,35 @@
   padding: 12px;
   border-radius: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: #f0e6d2;
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
+  color: #FFFFFF;
   font-size: 0.9rem;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .auth-form input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  background: rgba(255, 255, 255, 0.2); /* White glass on focus */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .submit-btn {
-  background: linear-gradient(45deg, #8a5db5, #d4af37); /* Original button gradient */
+  background: rgba(255, 255, 255, 0.3); /* White frosted glass */
   border: none;
   padding: 0.5rem;
   border-radius: 12px;
-  color: #2b1d4a;
+  color: #000000; /* Black text */
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(10px);
 }
 
 .submit-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
 }
 
 .close-btn {
@@ -329,26 +339,26 @@
   right: 0.5rem;
   background: none;
   border: none;
-  color: #333;
+  color: #FFFFFF;
   font-size: 1rem;
   cursor: pointer;
 }
 
 .info-text {
   font-size: 0.9rem;
-  color: #333;
+  color: #FFFFFF; /* White text for readability */
   line-height: 1.6;
 }
 
 /* Video Sections */
 .featured-section, .videos-section {
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem;
 }
 
@@ -364,13 +374,13 @@
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.1); /* Original semi-transparent background */
+  background: rgba(255, 255, 255, 0.1); /* White frosted glass */
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
   padding: 1rem;
   text-align: center;
@@ -378,7 +388,7 @@
 
 .video-card:hover {
   transform: scale(1.03);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
 }
 
 .video-card .react-player {
@@ -389,7 +399,7 @@
 .video-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
-  background: linear-gradient(90deg, #d4af37, #8a5db5); /* Original gradient for headings */
+  background: linear-gradient(90deg, #FFFFFF, #CCCCCC); /* White to gray gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0.5rem 0;
@@ -397,31 +407,31 @@
 
 .video-description {
   font-size: 0.8rem;
-  color: #fff; /* Keeping white with glow for readability */
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  color: #FFFFFF; /* White text with subtle glow */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   margin: 0.3rem 0;
 }
 
 .video-uploader {
   font-size: 0.7rem;
-  color: #b8a9d1; /* Original uploader color */
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  color: #666666; /* Gray for secondary text */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 /* Articles Section */
 .articles-section {
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem;
 }
 
 .article-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* White frosted glass */
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 0.5rem;
@@ -430,7 +440,7 @@
 .article-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
-  background: linear-gradient(90deg, #d4af37, #8a5db5); /* Original gradient for headings */
+  background: linear-gradient(90deg, #FFFFFF, #CCCCCC); /* White to gray gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
@@ -438,17 +448,18 @@
 
 .article-text {
   font-size: 0.9rem;
-  color: #fff; /* Keeping white with glow for readability */
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  color: #FFFFFF; /* White text with glow */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   line-height: 1.4;
 }
 
 /* Upload Section */
 .upload-section {
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
 }
 
 .upload-form {
@@ -461,34 +472,35 @@
   padding: 12px;
   border-radius: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: #f0e6d2;
+  background: rgba(255, 255, 255, 0.1); /* White frosted glass */
+  color: #FFFFFF;
   font-size: 0.9rem;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .upload-form input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .upload-btn {
-  background: linear-gradient(45deg, #4a2e85, #8a5db5); /* Original button gradient */
+  background: rgba(255, 255, 255, 0.3); /* White frosted glass */
   border: none;
   padding: 0.5rem;
   border-radius: 12px;
-  color: #f0e6d2;
+  color: #000000; /* Black text */
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(10px);
 }
 
 .upload-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(138, 93, 181, 0.5);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
 }
 
 .progress-container {
@@ -500,7 +512,7 @@
 
 .progress-bar {
   height: 15px;
-  background: linear-gradient(45deg, #d4af37, #8a5db5); /* Original gradient for progress bar */
+  background: linear-gradient(45deg, #FFFFFF, #CCCCCC); /* White to gray gradient */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -508,7 +520,7 @@
 }
 
 .progress-text {
-  color: #2b1d4a;
+  color: #000000; /* Black text for contrast */
   font-size: 0.7rem;
   font-weight: bold;
 }
@@ -517,20 +529,21 @@
 .footer {
   padding: 1rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.7); /* Black frosted glass */
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer-text {
   font-size: 0.8rem;
-  color: #fff; /* Keeping white with glow for readability */
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  color: #FFFFFF; /* White text with glow */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 /* Loader */
 .loader {
   border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top: 4px solid #d4af37;
+  border-top: 4px solid #FFFFFF; /* White spinner */
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -547,8 +560,8 @@
 .no-videos {
   text-align: center;
   font-size: 1rem;
-  color: #d4af37; /* Original no-videos color */
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  color: #FFFFFF; /* White text */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* Media Queries for Mobile */

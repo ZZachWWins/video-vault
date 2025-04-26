@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif; /* Genesis II uses generic sans-serif */
+  font-family: Arial, sans-serif; /* Genesis II uses Arial */
 }
 
 /* Main Container */
@@ -19,7 +19,7 @@
   overflow-x: hidden;
 }
 
-/* Starry Background */
+/* Starry Background (retained as a unique feature) */
 .star {
   position: absolute;
   background: #4682B4; /* Blue stars to match Genesis II */
@@ -41,7 +41,7 @@
   background: #005566; /* Solid teal for Genesis II */
   border-bottom: 3px solid #4682B4; /* Blue border */
   margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: none; /* Remove shadow to match Genesis II */
 }
 
 .header-content {
@@ -57,6 +57,7 @@
   font-weight: bold;
   color: #FFFFFF; /* White text on teal */
   margin: 0;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .nav-menu {
@@ -65,40 +66,24 @@
 }
 
 .nav-btn {
-  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue, more visible */
-  backdrop-filter: blur(5px); /* Frosted glass effect */
-  border: 1px solid rgba(70, 130, 180, 0.3); /* Blue border */
+  background: none; /* Remove glassmorphism for Genesis II */
+  border: none; /* Remove border */
   padding: 8px 15px;
-  color: #005566; /* Teal text for visibility on white background */
+  color: #000000; /* Black text to match Genesis II */
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: normal; /* Less bold for nav links */
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s, scale 0.3s;
-  animation: fadeIn 0.5s ease-in; /* Fade-in animation on load */
-}
-
-/* Override color for nav-btn in header to maintain white text on teal background */
-.header .nav-btn {
-  color: #FFFFFF; /* White text in header */
+  transition: color 0.3s; /* Subtle hover effect */
 }
 
 .nav-btn:hover {
-  background: rgba(70, 130, 180, 0.3); /* Slightly more opaque */
-  transform: translateY(-2px) scale(1.05); /* Lift and slight scale on hover */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
-}
-
-/* Fade-in animation for buttons */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
+  color: #4682B4; /* Blue on hover to match Genesis II link style */
 }
 
 .nav-username {
-  color: #FFFFFF;
-  font-weight: bold;
+  color: #000000; /* Black to match Genesis II */
+  font-weight: normal;
   margin-right: 15px;
 }
 
@@ -114,9 +99,9 @@
 .sidebar {
   width: 25%; /* Narrow like Genesis II */
   padding: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(70, 130, 180, 0.2);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 12px 40px rgba(0, 0, 0, 0.1);
+  background: #FFFFFF; /* Solid white, no translucency */
+  border: 1px solid #E0E0E0; /* Subtle gray border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .sidebar-section {
@@ -124,26 +109,26 @@
 }
 
 .sidebar-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* Smaller to match Genesis II */
   font-weight: bold;
-  color: #005566;
+  color: #000000; /* Black */
   margin-bottom: 10px;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .sidebar-link {
   display: block;
-  color: #0000FF;
+  color: #0000FF; /* Blue links like Genesis II */
   text-decoration: none;
   margin-bottom: 8px;
   font-size: 0.9rem;
   padding: 5px;
-  transition: background 0.3s, box-shadow 0.3s;
+  transition: color 0.3s; /* Subtle hover effect */
 }
 
 .sidebar-link:hover {
-  background: rgba(70, 130, 180, 0.1);
-  border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #4682B4; /* Blue on hover */
+  text-decoration: underline; /* Match Genesis II */
 }
 
 /* Content Area (Right Column) */
@@ -157,10 +142,11 @@
 }
 
 .content-title {
-  font-size: 2rem;
+  font-size: 1.5rem; /* Smaller to match Genesis II */
   font-weight: bold;
   color: #000000;
   margin-bottom: 15px;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .content-text {
@@ -201,7 +187,7 @@
 }
 
 .menu-tile {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
@@ -226,11 +212,40 @@
   font-weight: bold;
   color: #000000;
   margin-bottom: 5px;
+  text-transform: uppercase; /* Match Genesis II */
+}
+
+/* Buttons in Content Area (e.g., View ClO2 Testimonials) */
+.content-area .nav-btn {
+  background: #4682B4; /* Solid blue to match Genesis II */
+  border: none;
+  padding: 8px 15px;
+  color: #FFFFFF; /* White text */
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase; /* Match Genesis II */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  border-radius: 4px; /* Slight rounding */
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s, scale 0.3s;
+  animation: fadeIn 0.5s ease-in; /* Retain fade-in animation */
+}
+
+.content-area .nav-btn:hover {
+  background: #005566; /* Teal on hover */
+  transform: translateY(-2px) scale(1.05); /* Retain lift and scale */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Slightly stronger shadow on hover */
+}
+
+/* Fade-in animation for buttons */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* CTA Button */
 .cta-btn {
-  background: rgba(70, 130, 180, 0.2);
+  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
@@ -243,6 +258,7 @@
   gap: 5px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .cta-btn:hover {
@@ -258,7 +274,7 @@
 /* Video Sections */
 .featured-section, .videos-section {
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
@@ -278,7 +294,7 @@
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15); /* Retain glassmorphism */
   backdrop-filter: blur(8px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 10px;
@@ -301,6 +317,7 @@
   font-weight: bold;
   color: #000000;
   margin: 10px 0;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .video-description {
@@ -324,10 +341,11 @@
 }
 
 .article-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* Smaller to match Genesis II */
   font-weight: bold;
   color: #000000;
   margin-bottom: 10px;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .article-text {
@@ -338,7 +356,7 @@
 
 /* Upload Section */
 .upload-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 15px;
@@ -362,7 +380,7 @@
 }
 
 .upload-btn {
-  background: rgba(70, 130, 180, 0.2);
+  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
@@ -371,6 +389,7 @@
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .upload-btn:hover {
@@ -417,7 +436,7 @@
 }
 
 .auth-content, .info-content {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15); /* Retain glassmorphism */
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 85, 102, 0.3);
   padding: 20px;
@@ -428,10 +447,11 @@
 }
 
 .auth-title, .info-title {
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* Smaller to match Genesis II */
   font-weight: bold;
   color: #005566;
   margin-bottom: 15px;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .auth-tabs {
@@ -442,7 +462,7 @@
 }
 
 .tab-btn {
-  background: rgba(70, 130, 180, 0.2);
+  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
@@ -451,6 +471,7 @@
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, box-shadow 0.3s;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .tab-btn.active {
@@ -489,7 +510,7 @@
 }
 
 .submit-btn {
-  background: rgba(70, 130, 180, 0.2);
+  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
@@ -498,6 +519,7 @@
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  text-transform: uppercase; /* Match Genesis II */
 }
 
 .submit-btn:hover {
@@ -527,10 +549,9 @@
 .footer {
   text-align: center;
   padding: 15px;
-  background: rgba(245, 246, 245, 0.2);
-  backdrop-filter: blur(5px);
-  border-top: 1px solid rgba(70, 130, 180, 0.3);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #FFFFFF; /* Solid white, no glassmorphism */
+  border-top: 1px solid #E0E0E0; /* Subtle gray border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .footer-text {
@@ -580,19 +601,19 @@
     gap: 10px;
   }
   .content-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .video-grid, .compact-video-grid {
     gap: 10px;
   }
   .header, .sidebar, .video-card, .upload-section, .menu-tile, .auth-content, .info-content {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
   }
-  .nav-btn, .cta-btn, .upload-btn, .submit-btn, .tab-btn {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+  .content-area .nav-btn, .cta-btn, .upload-btn, .submit-btn, .tab-btn {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   }
-  .nav-btn:hover, .cta-btn:hover, .upload-btn:hover, .submit-btn:hover, .tab-btn:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  .content-area .nav-btn:hover, .cta-btn:hover, .upload-btn:hover, .submit-btn:hover, .tab-btn:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -600,7 +621,7 @@
   .title {
     font-size: 1.5rem;
   }
-  .nav-btn, .upload-btn, .cta-btn, .submit-btn {
+  .content-area .nav-btn, .upload-btn, .cta-btn, .submit-btn {
     padding: 6px 12px;
     font-size: 0.9rem;
   }

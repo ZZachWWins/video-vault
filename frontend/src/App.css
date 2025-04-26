@@ -19,7 +19,7 @@
   overflow-x: hidden;
 }
 
-/* Starry Background (enhanced for glassmorphism visibility) */
+/* Starry Background */
 .star {
   position: absolute;
   background: #4682B4; /* Blue stars to match Genesis II */
@@ -41,7 +41,7 @@
   background: #005566; /* Solid teal for Genesis II */
   border-bottom: 3px solid #4682B4; /* Blue border */
   margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15); /* Stronger layered shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .header-content {
@@ -65,23 +65,35 @@
 }
 
 .nav-btn {
-  background: rgba(255, 255, 255, 0.1); /* Glassmorphic translucent white */
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue, more visible */
   backdrop-filter: blur(5px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(70, 130, 180, 0.3); /* Blue border */
   padding: 8px 15px;
-  color: #FFFFFF; /* White nav links */
+  color: #005566; /* Teal text for visibility on white background */
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15); /* Bolder shadow */
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s, scale 0.3s;
+  animation: fadeIn 0.5s ease-in; /* Fade-in animation on load */
+}
+
+/* Override color for nav-btn in header to maintain white text on teal background */
+.header .nav-btn {
+  color: #FFFFFF; /* White text in header */
 }
 
 .nav-btn:hover {
-  background: rgba(255, 255, 255, 0.2); /* Slightly more opaque */
-  transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2); /* Enhanced hover shadow */
+  background: rgba(70, 130, 180, 0.3); /* Slightly more opaque */
+  transform: translateY(-2px) scale(1.05); /* Lift and slight scale on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade-in animation for buttons */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .nav-username {
@@ -102,9 +114,9 @@
 .sidebar {
   width: 25%; /* Narrow like Genesis II */
   padding: 10px;
-  background: rgba(255, 255, 255, 0.9); /* Slightly translucent */
-  border: 1px solid rgba(70, 130, 180, 0.2); /* Blue border */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 12px 40px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(70, 130, 180, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-section {
@@ -114,13 +126,13 @@
 .sidebar-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #005566; /* Teal for headings */
+  color: #005566;
   margin-bottom: 10px;
 }
 
 .sidebar-link {
   display: block;
-  color: #0000FF; /* Blue links like Genesis II */
+  color: #0000FF;
   text-decoration: none;
   margin-bottom: 8px;
   font-size: 0.9rem;
@@ -129,14 +141,14 @@
 }
 
 .sidebar-link:hover {
-  background: rgba(70, 130, 180, 0.1); /* Glassmorphic hover */
+  background: rgba(70, 130, 180, 0.1);
   border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Subtle hover shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Content Area (Right Column) */
 .content-area {
-  width: 75%; /* Wide like Genesis II */
+  width: 75%;
   padding: 10px;
 }
 
@@ -166,7 +178,7 @@
   text-decoration: underline;
 }
 
-/* Home Grid (retained for compatibility) */
+/* Home Grid */
 .home-grid {
   display: flex;
   gap: 20px;
@@ -189,18 +201,18 @@
 }
 
 .menu-tile {
-  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .menu-tile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25), 0 16px 50px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25), 0 16px 50px rgba(0, 0, 0, 0.2);
 }
 
 .menu-tile i {
@@ -218,7 +230,7 @@
 
 /* CTA Button */
 .cta-btn {
-  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
@@ -229,14 +241,14 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15); /* Bolder shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
 .cta-btn:hover {
   background: rgba(70, 130, 180, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
 }
 
 .cta-btn span {
@@ -246,11 +258,11 @@
 /* Video Sections */
 .featured-section, .videos-section {
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .video-grid {
@@ -266,22 +278,22 @@
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.15); /* Glassmorphic effect */
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 10px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 15px 45px rgba(0, 0, 0, 0.15); /* Bolder layered shadow */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 15px 45px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .video-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25), 0 20px 60px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25), 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .video-card .react-player {
-  border-radius: 0; /* No rounded corners for Genesis II style */
+  border-radius: 0;
 }
 
 .video-title {
@@ -326,12 +338,12 @@
 
 /* Upload Section */
 .upload-section {
-  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 15px;
   margin-bottom: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 15px 45px rgba(0, 0, 0, 0.15); /* Bolder shadow */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 15px 45px rgba(0, 0, 0, 0.15);
 }
 
 .upload-form {
@@ -344,40 +356,40 @@
   padding: 8px;
   border: 1px solid rgba(70, 130, 180, 0.5);
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.2); /* Glassmorphic input */
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(3px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle input shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .upload-btn {
-  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
   color: #FFFFFF;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15); /* Bolder shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
 .upload-btn:hover {
   background: rgba(70, 130, 180, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
 }
 
 .progress-container {
   width: 100%;
-  background: rgba(245, 246, 245, 0.2); /* Glassmorphic progress background */
+  background: rgba(245, 246, 245, 0.2);
   backdrop-filter: blur(3px);
   border: 1px solid rgba(70, 130, 180, 0.3);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
   height: 15px;
-  background: rgba(70, 130, 180, 0.5); /* Glassmorphic blue */
+  background: rgba(70, 130, 180, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -397,7 +409,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -405,20 +417,20 @@
 }
 
 .auth-content, .info-content {
-  background: rgba(255, 255, 255, 0.15); /* Glassmorphic frosted glass */
-  backdrop-filter: blur(10px); /* Strong blur for modal */
-  border: 1px solid rgba(0, 85, 102, 0.3); /* Teal border */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 85, 102, 0.3);
   padding: 20px;
   max-width: 400px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 20px 60px rgba(0, 0, 0, 0.2); /* Strong layered shadow */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .auth-title, .info-title {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #005566; /* Teal title */
+  color: #005566;
   margin-bottom: 15px;
 }
 
@@ -430,24 +442,24 @@
 }
 
 .tab-btn {
-  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
   color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15); /* Bolder shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, box-shadow 0.3s;
 }
 
 .tab-btn.active {
-  background: rgba(0, 85, 102, 0.3); /* Teal for active */
+  background: rgba(0, 85, 102, 0.3);
 }
 
 .tab-btn:hover {
   background: rgba(70, 130, 180, 0.3);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
 }
 
 .auth-form {
@@ -460,9 +472,9 @@
   padding: 8px;
   border: 1px solid rgba(70, 130, 180, 0.5);
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.2); /* Glassmorphic input */
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(3px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle input shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .testimonial-input {
@@ -477,21 +489,21 @@
 }
 
 .submit-btn {
-  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
   color: #FFFFFF;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15); /* Bolder shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
 .submit-btn:hover {
   background: rgba(70, 130, 180, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2); /* Enhanced hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
@@ -515,10 +527,10 @@
 .footer {
   text-align: center;
   padding: 15px;
-  background: rgba(245, 246, 245, 0.2); /* Glassmorphic light gray */
+  background: rgba(245, 246, 245, 0.2);
   backdrop-filter: blur(5px);
   border-top: 1px solid rgba(70, 130, 180, 0.3);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .footer-text {
@@ -573,7 +585,6 @@
   .video-grid, .compact-video-grid {
     gap: 10px;
   }
-  /* Adjust shadows for smaller screens */
   .header, .sidebar, .video-card, .upload-section, .menu-tile, .auth-content, .info-content {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(0, 0, 0, 0.1);
   }

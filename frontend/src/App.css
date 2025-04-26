@@ -19,7 +19,7 @@
   overflow-x: hidden;
 }
 
-/* Starry Background (retained for Bob's unique touch) */
+/* Starry Background (enhanced for glassmorphism visibility) */
 .star {
   position: absolute;
   background: #4682B4; /* Blue stars to match Genesis II */
@@ -38,9 +38,10 @@
 .header {
   text-align: center;
   padding: 20px;
-  background: #005566; /* Dark teal like Genesis II */
+  background: #005566; /* Solid teal for Genesis II */
   border-bottom: 3px solid #4682B4; /* Blue border */
   margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .header-content {
@@ -64,18 +65,21 @@
 }
 
 .nav-btn {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphic translucent white */
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px 15px;
   color: #FFFFFF; /* White nav links */
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .nav-btn:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
+  transform: translateY(-2px); /* Subtle lift */
 }
 
 .nav-username {
@@ -96,6 +100,9 @@
 .sidebar {
   width: 25%; /* Narrow like Genesis II */
   padding: 10px;
+  background: rgba(255, 255, 255, 0.9); /* Slightly translucent for depth */
+  border: 1px solid rgba(70, 130, 180, 0.2); /* Blue border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar-section {
@@ -115,10 +122,13 @@
   text-decoration: none;
   margin-bottom: 8px;
   font-size: 0.9rem;
+  padding: 5px;
+  transition: background 0.3s;
 }
 
 .sidebar-link:hover {
-  text-decoration: underline;
+  background: rgba(70, 130, 180, 0.1); /* Glassmorphic hover effect */
+  border-radius: 4px;
 }
 
 /* Content Area (Right Column) */
@@ -176,9 +186,17 @@
 }
 
 .menu-tile {
-  border: 1px solid #4682B4; /* Blue border */
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
   text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.menu-tile:hover {
+  transform: translateY(-2px);
 }
 
 .menu-tile i {
@@ -196,8 +214,9 @@
 
 /* CTA Button */
 .cta-btn {
-  background: #4682B4; /* Blue button */
-  border: none;
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
   color: #FFFFFF;
   font-size: 0.9rem;
@@ -206,10 +225,13 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
 }
 
 .cta-btn:hover {
-  background: #005566; /* Darker teal on hover */
+  background: rgba(70, 130, 180, 0.3);
+  transform: translateY(-2px);
 }
 
 .cta-btn span {
@@ -219,8 +241,11 @@
 /* Video Sections */
 .featured-section, .videos-section {
   margin-bottom: 20px;
-  border: 1px solid #4682B4; /* Blue border */
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .video-grid {
@@ -236,9 +261,17 @@
 }
 
 .video-card {
-  border: 1px solid #4682B4; /* Blue border */
+  background: rgba(255, 255, 255, 0.15); /* Glassmorphic effect */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 10px;
   text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-2px);
 }
 
 .video-card .react-player {
@@ -287,9 +320,12 @@
 
 /* Upload Section */
 .upload-section {
-  border: 1px solid #4682B4;
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphic effect */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 15px;
   margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .upload-form {
@@ -298,34 +334,41 @@
   gap: 10px;
 }
 
-.upload-form input {
+.upload-form input, .upload-form textarea {
   padding: 8px;
-  border: 1px solid #4682B4;
+  border: 1px solid rgba(70, 130, 180, 0.5);
   font-size: 1rem;
+  background: rgba(255, 255, 255, 0.2); /* Glassmorphic input */
+  backdrop-filter: blur(3px);
 }
 
 .upload-btn {
-  background: #4682B4;
-  border: none;
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
   color: #FFFFFF;
   font-size: 1rem;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
 }
 
 .upload-btn:hover {
-  background: #005566;
+  background: rgba(70, 130, 180, 0.3);
+  transform: translateY(-2px);
 }
 
 .progress-container {
   width: 100%;
-  background: #F5F6F5;
-  border: 1px solid #4682B4;
+  background: rgba(245, 246, 245, 0.2); /* Glassmorphic progress background */
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
 }
 
 .progress-bar {
   height: 15px;
-  background: #4682B4;
+  background: rgba(70, 130, 180, 0.5); /* Glassmorphic blue */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,12 +396,14 @@
 }
 
 .auth-content, .info-content {
-  background: #FFFFFF; /* White modal background */
-  border: 1px solid #4682B4;
+  background: rgba(255, 255, 255, 0.15); /* Glassmorphic frosted glass */
+  backdrop-filter: blur(10px); /* Strong blur for modal */
+  border: 1px solid rgba(0, 85, 102, 0.3); /* Teal border */
   padding: 20px;
   max-width: 400px;
   width: 90%;
   text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .auth-title, .info-title {
@@ -376,20 +421,22 @@
 }
 
 .tab-btn {
-  background: #4682B4;
-  border: none;
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
   color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .tab-btn.active {
-  background: #005566;
+  background: rgba(0, 85, 102, 0.3); /* Teal for active */
 }
 
 .tab-btn:hover {
-  background: #005566;
+  background: rgba(70, 130, 180, 0.3);
 }
 
 .auth-form {
@@ -400,8 +447,10 @@
 
 .auth-form input, .auth-form textarea {
   padding: 8px;
-  border: 1px solid #4682B4;
+  border: 1px solid rgba(70, 130, 180, 0.5);
   font-size: 1rem;
+  background: rgba(255, 255, 255, 0.2); /* Glassmorphic input */
+  backdrop-filter: blur(3px);
 }
 
 .testimonial-input {
@@ -416,16 +465,20 @@
 }
 
 .submit-btn {
-  background: #4682B4;
-  border: none;
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
   color: #FFFFFF;
   font-size: 1rem;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
 }
 
 .submit-btn:hover {
-  background: #005566;
+  background: rgba(70, 130, 180, 0.3);
+  transform: translateY(-2px);
 }
 
 .close-btn {
@@ -449,8 +502,9 @@
 .footer {
   text-align: center;
   padding: 15px;
-  background: #F5F6F5; /* Light gray like Genesis II */
-  border-top: 1px solid #4682B4;
+  background: rgba(245, 246, 245, 0.2); /* Glassmorphic light gray */
+  backdrop-filter: blur(5px);
+  border-top: 1px solid rgba(70, 130, 180, 0.3);
 }
 
 .footer-text {
@@ -460,7 +514,7 @@
 
 /* Loader */
 .loader {
-  border: 4px solid #F5F6F5;
+  border: 4px solid rgba(245, 246, 245, 0.2);
   border-top: 4px solid #4682B4;
   border-radius: 50%;
   width: 30px;

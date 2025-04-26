@@ -237,7 +237,7 @@
 
 .video-card {
   border: 1px solid #4682B4; /* Blue border */
-  padding: 10 createStars();
+  padding: 10px;
   text-align: center;
 }
 
@@ -398,10 +398,21 @@
   gap: 10px;
 }
 
-.auth-form input {
+.auth-form input, .auth-form textarea {
   padding: 8px;
   border: 1px solid #4682B4;
   font-size: 1rem;
+}
+
+.testimonial-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.disclaimer-text {
+  font-size: 0.8rem;
+  color: #666666;
+  margin-top: 5px;
 }
 
 .submit-btn {
@@ -507,7 +518,7 @@
   .content-title {
     font-size: 1.2rem;
   }
-  .content-text, .article-text, .info-text {
+  .content-text, .article-text, .info-text, .disclaimer-text {
     font-size: 0.9rem;
   }
 }

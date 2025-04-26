@@ -8,6 +8,7 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(null);
   const [videos, setVideos] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
@@ -16,11 +17,13 @@ function App() {
   const [password, setPassword] = useState('');
   const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+  const [signupTestimonial, setSignupTestimonial] = useState('');
   const [showAuth, setShowAuth] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
   const [progress, setProgress] = useState(0);
   const [showHistory, setShowHistory] = useState(false);
   const [showEternal, setShowEternal] = useState(false);
+  const [showClo2, setShowClo2] = useState(false);
   const titleRef = useRef(null);
 
   useEffect(() => {
@@ -30,15 +33,27 @@ function App() {
         setVideos(res.data || []);
       } catch (err) {
         console.error('Fetch videos error:', err.response?.data || err.message);
-      } finally {
-        setLoading(false);
       }
     };
-    fetchVideos();
+
+    const fetchTestimonials = async () => {
+      try {
+        const res = await axios.get('/.netlify/functions/testimonials');
+        setTestimonials(res.data || []);
+      } catch (err) {
+        console.error('Fetch testimonials error:', err.response?.data || err.message);
+      }
+    };
+
+    const loadData = async () => {
+      await Promise.all([fetchVideos(), fetchTestimonials()]);
+      setLoading(false);
+    };
+    loadData();
 
     const createStars = () => {
       const app = document.querySelector('.app');
-      const starCount = 50; // Fewer stars for simplicity
+      const starCount = 50;
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
@@ -54,7 +69,7 @@ function App() {
 
     const title = titleRef.current;
     if (title) {
-      gsap.from(title, { duration: 1, opacity: 0, y: 20, ease: 'power2.out' }); // Simplified animation
+      gsap.from(title, { duration: 1, opacity: 0, y: 20, ease: 'power2.out' });
     }
   }, []);
 
@@ -74,11 +89,19 @@ function App() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/.netlify/functions/signup', { username: signupUsername, password: signupPassword });
+      await axios.post('/.netlify/functions/signup', {
+        username: signupUsername,
+        password: signupPassword,
+        testimonial: signupTestimonial,
+      });
       alert('Signup successful! Please log in.');
       setSignupUsername('');
       setSignupPassword('');
+      setSignupTestimonial('');
       setActiveTab('login');
+      // Refresh testimonials
+      const res = await axios.get('/.netlify/functions/testimonials');
+      setTestimonials(res.data || []);
     } catch (err) {
       alert('Signup failed—username might be taken!');
     }
@@ -174,6 +197,7 @@ function App() {
           <div className="sidebar-section">
             <h3 className="sidebar-title">Quick Links</h3>
             <a href="#welcome" className="sidebar-link">Welcome</a>
+            <a href="#clo2" className="sidebar-link">About ClO2</a>
             <a href="#testimonials" className="sidebar-link">Testimonials</a>
             <a href="#eternal" className="sidebar-link">Eternal Perspective</a>
             <a href="#history" className="sidebar-link">Detox History</a>
@@ -195,10 +219,20 @@ function App() {
               <a href="/articles">Learn more about our approach</a> to detoxification and spiritual growth.
             </p>
           </section>
+          <section className="content-section" id="clo2">
+            <h2 className="content-title">About Chlorine Dioxide (ClO2)</h2>
+            <p className="content-text">
+              Chlorine dioxide (ClO2) is a chemical compound that some individuals have explored for various purposes. At God’s Detox for Bob, we provide a platform for community members to share their personal experiences with ClO2 through testimonials. We encourage you to conduct your own research to understand its history and uses.
+            </p>
+            <p className="content-text">
+              <strong>Disclaimer:</strong> God’s Detox for Bob does not sell, promote, or endorse chlorine dioxide (ClO2) or any related products. The information and testimonials provided are for educational purposes only and do not constitute medical advice. Always consult a qualified healthcare professional before making health-related decisions.
+            </p>
+            <button className="nav-btn" onClick={() => setShowClo2(true)}>View ClO2 Testimonials</button>
+          </section>
           <section className="content-section" id="testimonials">
             <h2 className="content-title">Testimonials</h2>
             <p className="content-text">
-              Hear from our community members who have experienced transformation through God’s Detox. Watch their stories in our <a href="/videos">video gallery</a>.
+              Hear from our community members who have experienced transformation through God’s Detox. Watch their stories in our <a href="/videos">video gallery</a> or read their ClO2 testimonials below, shared for informational purposes only.
             </p>
           </section>
           <section className="content-section" id="eternal">
@@ -218,6 +252,9 @@ function App() {
           {user && user.role === 'admin' && (
             <section className="upload-section">
               <h3 className="content-title">Share Your Story</h3>
+              <p className="content-text">
+                Contribute to our community by uploading a video testimonial about your detox journey. Please ensure content complies with our guidelines and does not promote or sell products.
+              </p>
               <div className="upload-form">
                 <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
@@ -256,6 +293,31 @@ function App() {
             </div>
           </div>
         )}
+        {showClo2 && (
+          <div className="info-modal">
+            <div className="info-content">
+              <h2 className="info-title">ClO2 Testimonials</h2>
+              <p className="info-text">
+                Below are personal stories shared by our community members about their experiences with chlorine dioxide (ClO2). These testimonials are provided for informational purposes only and do not reflect endorsements or recommendations by God’s Detox for Bob. We encourage independent research and consultation with healthcare professionals.
+              </p>
+              {testimonials.length > 0 ? (
+                testimonials.map((t, index) => (
+                  <p key={index} className="info-text">
+                    <strong>Testimonial by {t.username}:</strong> {t.testimonial}
+                  </p>
+                ))
+              ) : (
+                <p className="info-text">
+                  <strong>Example Testimonial:</strong> "After researching ClO2 online, I decided to explore its uses. My experience was positive, but I recommend everyone do their own research." — Anonymous User
+                </p>
+              )}
+              <p className="info-text">
+                <a href="/videos">Watch video testimonials</a> or <a href="/articles">read more stories</a> shared by our community.
+              </p>
+              <button className="close-btn" onClick={() => setShowClo2(false)}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -265,6 +327,9 @@ function App() {
       <div className="content-area">
         <section className="videos-section">
           <h2 className="content-title">Videos</h2>
+          <p className="content-text">
+            Explore testimonials and stories from our community, including personal experiences with holistic detox and ClO2. These videos are shared for informational purposes; please conduct your own research.
+          </p>
           {loading ? (
             <div className="loader"></div>
           ) : videos.length === 0 ? (
@@ -304,9 +369,9 @@ function App() {
             </p>
           </div>
           <div className="article-section">
-            <h3 className="article-title">Benefits of Detox</h3>
+            <h3 className="article-title">Understanding ClO2: Do Your Research</h3>
             <p className="article-text">
-              Learn how detoxification can rejuvenate your body and spirit, drawing from ancient traditions.
+              Chlorine dioxide (ClO2) has been discussed in various communities. We share stories from users who have explored it, but we do not sell or endorse ClO2. Learn more through independent research and consult professionals.
             </p>
           </div>
         </section>
@@ -341,6 +406,16 @@ function App() {
                 <div className="auth-form">
                   <input type="text" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} placeholder="Choose Username" required />
                   <input type="password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="Choose Password" required />
+                  <textarea
+                    className="testimonial-input"
+                    value={signupTestimonial}
+                    onChange={(e) => setSignupTestimonial(e.target.value)}
+                    placeholder="Share your personal experience with ClO2 (optional). We do not sell or promote ClO2; please encourage others to do their own research."
+                    rows="4"
+                  />
+                  <p className="disclaimer-text">
+                    <strong>Disclaimer:</strong> Testimonials are personal stories, not medical advice. God’s Detox for Bob does not sell or endorse ClO2.
+                  </p>
                   <button onClick={handleSignup} className="submit-btn">Signup</button>
                 </div>
               )}

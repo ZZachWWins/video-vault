@@ -38,11 +38,11 @@ function App() {
 
     const createStars = () => {
       const app = document.querySelector('.app');
-      const starCount = 100;
+      const starCount = 50; // Fewer stars for simplicity
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        star.style.width = `${Math.random() * 3}px`;
+        star.style.width = `${Math.random() * 2}px`;
         star.style.height = star.style.width;
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
@@ -54,9 +54,7 @@ function App() {
 
     const title = titleRef.current;
     if (title) {
-      const letters = "God’s Detox".split('').map((char) => `<span class="letter">${char}</span>`).join('');
-      title.innerHTML = letters;
-      gsap.from('.letter', { duration: 1, opacity: 0, y: 50, stagger: 0.05, ease: 'power2.out' });
+      gsap.from(title, { duration: 1, opacity: 0, y: 20, ease: 'power2.out' }); // Simplified animation
     }
   }, []);
 
@@ -140,7 +138,7 @@ function App() {
     return (
       <header className="header">
         <div className="header-content">
-          <h1 className="title" ref={titleRef}>God’s Detox</h1>
+          <h1 className="title" ref={titleRef}>God’s Detox for Bob</h1>
           <nav className="nav-menu">
             <button className="nav-btn" onClick={() => navigate('/')}>Home</button>
             <button className="nav-btn" onClick={() => navigate('/videos')}>Videos</button>
@@ -163,168 +161,96 @@ function App() {
 
   const Footer = () => (
     <footer className="footer">
-      <p className="footer-text">© 2025 God’s Detox. All rights reserved.</p>
+      <p className="footer-text">© 2025 God’s Detox for Bob. All rights reserved. | Contact: info@godsdetoxforbob.com</p>
     </footer>
   );
 
   const HomeContent = () => {
     const navigate = useNavigate();
-    const featuredVideo = videos.length > 0 ? videos[0] : null;
-
     return (
-      <div className="main-content home-content">
-        {/* Main Grid Layout for All Sections */}
-        <div className="home-grid">
-          {/* Left Column: Menu Tiles and Featured Video */}
-          <div className="home-column home-left">
-            <h2 className="menu-title">Explore God’s Detox</h2>
-            <div className="menu-grid">
-              <section className="menu-tile">
-                <i className="fas fa-handshake"></i>
-                <h3 className="menu-title">Welcome</h3>
-                <button className="cta-btn" onClick={() => navigate('/articles')}>
-                  <span>▶</span> Learn More
-                </button>
-              </section>
-              <section className="menu-tile">
-                <i className="fas fa-question-circle"></i>
-                <h3 className="menu-title">Why CLO2?</h3>
-                <button className="cta-btn" onClick={() => navigate('/articles')}>
-                  <span>▶</span> Dive Deeper
-                </button>
-              </section>
-              <section className="menu-tile">
-                <i className="fas fa-comments"></i>
-                <h3 className="menu-title">Testimonials</h3>
-                <button className="cta-btn" onClick={() => navigate('/videos')}>
-                  <span>▶</span> See Stories
-                </button>
-              </section>
-              <section className="menu-tile">
-                <i className="fas fa-history"></i>
-                <h3 className="menu-title">CLO2 History</h3>
-                <button className="cta-btn" onClick={() => setShowHistory(true)}>
-                  <span>▶</span> Explore History
-                </button>
-              </section>
-              <section className="menu-tile">
-                <i className="fas fa-cross"></i>
-                <h3 className="menu-title">The Eternal Big Picture</h3>
-                <button className="cta-btn" onClick={() => setShowEternal(true)}>
-                  <span>▶</span> Explore Eternity
-                </button>
-              </section>
-            </div>
-
-            {featuredVideo && (
-              <section className="featured-section">
-                <h3 className="menu-title">Featured Video</h3>
-                <div className="video-card">
-                  <ReactPlayer
-                    url={featuredVideo.fileUrl}
-                    light={featuredVideo.thumbnailUrl}
-                    width="100%"
-                    height="150px"
-                    controls
-                  />
-                  <h4 className="video-title">{featuredVideo.title}</h4>
-                  <button className="cta-btn" onClick={() => navigate('/videos')}>
-                    <span>▶</span> Watch More
-                  </button>
-                </div>
-              </section>
-            )}
+      <div className="main-content">
+        {/* Sidebar (Left Column) */}
+        <div className="sidebar">
+          <div className="sidebar-section">
+            <h3 className="sidebar-title">Quick Links</h3>
+            <a href="#welcome" className="sidebar-link">Welcome</a>
+            <a href="#testimonials" className="sidebar-link">Testimonials</a>
+            <a href="#eternal" className="sidebar-link">Eternal Perspective</a>
+            <a href="#history" className="sidebar-link">Detox History</a>
           </div>
-
-          {/* Right Column: Videos, Articles, and Upload */}
-          <div className="home-column home-right">
-            <section className="videos-section">
-              <h3 className="menu-title">Latest Videos</h3>
-              {loading ? (
-                <div className="loader"></div>
-              ) : videos.length === 0 ? (
-                <p className="no-videos">No videos available.</p>
-              ) : (
-                <div className="video-grid compact-video-grid">
-                  {videos.slice(0, 3).map((video) => (
-                    <div key={video._id} className="video-card">
-                      <ReactPlayer
-                        url={video.fileUrl}
-                        light={video.thumbnailUrl}
-                        width="100%"
-                        height="100px"
-                        controls
-                      />
-                      <h4 className="video-title">{video.title}</h4>
-                      <p className="video-description">{video.description.slice(0, 50)}...</p>
-                      <p className="video-uploader">By: {video.uploadedBy}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
-
-            <section className="articles-section">
-              <h3 className="menu-title">Featured Articles</h3>
-              <div className="article-section">
-                <h4 className="article-title">Welcome to God’s Detox</h4>
-                <p className="article-text">
-                  Discover the power of spiritual cleansing and the benefits of CLO2...
-                </p>
-                <button className="cta-btn" onClick={() => navigate('/articles')}>
-                  <span>▶</span> Read More
-                </button>
-              </div>
-              <div className="article-section">
-                <h4 className="article-title">The Science of CLO2</h4>
-                <p className="article-text">
-                  Learn how chlorine dioxide has been used for decades to purify...
-                </p>
-                <button className="cta-btn" onClick={() => navigate('/articles')}>
-                  <span>▶</span> Read More
-                </button>
-              </div>
-            </section>
-
-            {user && user.role === 'admin' && (
-              <section className="upload-section">
-                <h3 className="menu-title">Upload a Video</h3>
-                <div className="upload-form">
-                  <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
-                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
-                  <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
-                  <button onClick={handleUpload} className="upload-btn">Upload Video</button>
-                  {progress > 0 && progress < 100 && (
-                    <div className="progress-container">
-                      <div className="progress-bar" style={{ width: `${progress}%` }}>
-                        <span className="progress-text">{progress}%</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </section>
-            )}
+          <div className="sidebar-section">
+            <h3 className="sidebar-title">Resources</h3>
+            <a href="/videos" className="sidebar-link">Watch Videos</a>
+            <a href="/articles" className="sidebar-link">Read Articles</a>
           </div>
         </div>
-
+        {/* Main Content Area (Right Column) */}
+        <div className="content-area">
+          <section className="content-section" id="welcome">
+            <h2 className="content-title">Welcome to God’s Detox for Bob</h2>
+            <p className="content-text">
+              God’s Detox for Bob is dedicated to holistic wellness through spiritual cleansing and healthy living. Our mission is to guide you toward a renewed body, mind, and spirit through faith-based practices and community support.
+            </p>
+            <p className="content-text">
+              <a href="/articles">Learn more about our approach</a> to detoxification and spiritual growth.
+            </p>
+          </section>
+          <section className="content-section" id="testimonials">
+            <h2 className="content-title">Testimonials</h2>
+            <p className="content-text">
+              Hear from our community members who have experienced transformation through God’s Detox. Watch their stories in our <a href="/videos">video gallery</a>.
+            </p>
+          </section>
+          <section className="content-section" id="eternal">
+            <h2 className="content-title">The Eternal Big Picture</h2>
+            <p className="content-text">
+              The foundation of God’s Detox is spiritual cleansing through faith. We believe true wellness begins with a connection to the divine, offering peace and purpose for eternity.
+            </p>
+            <button className="nav-btn" onClick={() => setShowEternal(true)}>Read More</button>
+          </section>
+          <section className="content-section" id="history">
+            <h2 className="content-title">History of Detox</h2>
+            <p className="content-text">
+              Detoxification has been practiced for centuries across cultures. Explore the history of holistic cleansing and its benefits.
+            </p>
+            <button className="nav-btn" onClick={() => setShowHistory(true)}>Learn More</button>
+          </section>
+          {user && user.role === 'admin' && (
+            <section className="upload-section">
+              <h3 className="content-title">Share Your Story</h3>
+              <div className="upload-form">
+                <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="video/*" required />
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
+                <button onClick={handleUpload} className="upload-btn">Upload Video</button>
+                {progress > 0 && progress < 100 && (
+                  <div className="progress-container">
+                    <div className="progress-bar" style={{ width: `${progress}%` }}>
+                      <span className="progress-text">{progress}%</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+        </div>
         {showHistory && (
           <div className="info-modal">
             <div className="info-content">
-              <h2 className="info-title">Chlorine Dioxide: A Brief History</h2>
+              <h2 className="info-title">History of Detox</h2>
               <p className="info-text">
-                Discovered in 1814 by Sir Humphry Davy, chlorine dioxide (ClO₂) started as a yellowish-green gas with powerful oxidizing properties.
+                Detox practices date back to ancient civilizations, using natural methods to cleanse the body and spirit. From fasting to herbal remedies, these traditions continue to inspire modern wellness.
               </p>
               <button className="close-btn" onClick={() => setShowHistory(false)}>Close</button>
             </div>
           </div>
         )}
-
         {showEternal && (
           <div className="info-modal">
             <div className="info-content">
               <h2 className="info-title">The Eternal Big Picture</h2>
               <p className="info-text">
-                The foundational TRUTH of “God’s Detox.com” is that man needs to be Spiritually cleansed (detoxed) by the Word of God. And that can ONLY happen by repenting and believing the Gospel of Jesus, which allows ANY man or woman to enter into His Kingdom for eternity through the blood sacrifice of the Christ!
+                The foundation of God’s Detox is spiritual cleansing through faith. True wellness begins with a connection to the divine, offering peace and purpose for eternity.
               </p>
               <button className="close-btn" onClick={() => setShowEternal(false)}>Close</button>
             </div>
@@ -336,40 +262,54 @@ function App() {
 
   const VideosContent = () => (
     <div className="main-content">
-      <h2 className="menu-title">Videos</h2>
-      {loading ? (
-        <div className="loader"></div>
-      ) : videos.length === 0 ? (
-        <p className="no-videos">No videos available.</p>
-      ) : (
-        <div className="video-grid">
-          {videos.map((video) => (
-            <div key={video._id} className="video-card">
-              <ReactPlayer
-                url={video.fileUrl}
-                light={video.thumbnailUrl}
-                width="100%"
-                height="200px"
-                controls
-              />
-              <h3 className="video-title">{video.title}</h3>
-              <p className="video-description">{video.description}</p>
-              <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
+      <div className="content-area">
+        <section className="videos-section">
+          <h2 className="content-title">Videos</h2>
+          {loading ? (
+            <div className="loader"></div>
+          ) : videos.length === 0 ? (
+            <p className="no-videos">No videos available.</p>
+          ) : (
+            <div className="video-grid">
+              {videos.map((video) => (
+                <div key={video._id} className="video-card">
+                  <ReactPlayer
+                    url={video.fileUrl}
+                    light={video.thumbnailUrl}
+                    width="100%"
+                    height="200px"
+                    controls
+                  />
+                  <h3 className="video-title">{video.title}</h3>
+                  <p className="video-description">{video.description}</p>
+                  <p className="video-uploader">Uploaded by: {video.uploadedBy}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+          )}
+        </section>
+      </div>
     </div>
   );
 
   const ArticlesContent = () => (
     <div className="main-content">
-      <h2 className="menu-title">Articles</h2>
-      <div className="article-section">
-        <h3 className="article-title">Welcome to God’s Detox</h3>
-        <p className="article-text">
-          Stay tuned for articles on spiritual cleansing, the benefits of CLO2, and more.
-        </p>
+      <div className="content-area">
+        <section className="articles-section">
+          <h2 className="content-title">Articles</h2>
+          <div className="article-section">
+            <h3 className="article-title">Welcome to God’s Detox</h3>
+            <p className="article-text">
+              Explore our holistic approach to wellness through spiritual cleansing and healthy living practices.
+            </p>
+          </div>
+          <div className="article-section">
+            <h3 className="article-title">Benefits of Detox</h3>
+            <p className="article-text">
+              Learn how detoxification can rejuvenate your body and spirit, drawing from ancient traditions.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );

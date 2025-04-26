@@ -189,7 +189,6 @@ function App() {
   );
 
   const HomeContent = () => {
-    const navigate = useNavigate();
     return (
       <div className="main-content">
         {/* Sidebar (Left Column) */}

@@ -14,7 +14,7 @@
   color: #000000; /* Black text for readability */
   max-width: 1200px; /* Matches Genesis II's content width */
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px; /* Tighter padding to match Genesis II */
   z-index: 1;
   overflow-x: hidden;
 }
@@ -37,11 +37,12 @@
 /* Header Styles */
 .header {
   text-align: center;
-  padding: 20px;
-  background: #005566; /* Solid teal for Genesis II */
+  padding: 10px; /* Tighter padding to match Genesis II */
+  background: rgba(0, 85, 102, 0.9); /* Teal with glassmorphism */
+  backdrop-filter: blur(10px);
   border-bottom: 3px solid #4682B4; /* Blue border */
-  margin-bottom: 20px;
-  box-shadow: none; /* Remove shadow to match Genesis II */
+  margin-bottom: 15px; /* Reduced margin */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .header-content {
@@ -52,37 +53,84 @@
   margin: 0 auto;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #FFFFFF; /* White text on teal */
-  margin: 0;
-  text-transform: uppercase; /* Match Genesis II */
+.logo-placeholder {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-.nav-menu {
+.title {
+  font-size: 1.5rem; /* Smaller to match Genesis II */
+  font-weight: bold;
+  color: #000000; /* Black to match Genesis II */
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.header-links {
   display: flex;
   gap: 15px;
 }
 
+.header-links .nav-btn {
+  background: none; /* No background initially */
+  border: none;
+  padding: 8px 15px;
+  color: #000000; /* Black text */
+  font-size: 1rem;
+  font-weight: normal;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.header-links .nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2); /* Glassmorphic hover */
+  backdrop-filter: blur(5px);
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #4682B4;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px; /* Space below title */
+}
+
 .nav-btn {
-  background: none; /* Remove glassmorphism for Genesis II */
-  border: none; /* Remove border */
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphic */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px 15px;
   color: #000000; /* Black text to match Genesis II */
   font-size: 1rem;
-  font-weight: normal; /* Less bold for nav links */
+  font-weight: normal;
   cursor: pointer;
   text-decoration: none;
-  transition: color 0.3s; /* Subtle hover effect */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .nav-btn:hover {
-  color: #4682B4; /* Blue on hover to match Genesis II link style */
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  color: #4682B4;
 }
 
 .nav-username {
-  color: #000000; /* Black to match Genesis II */
+  color: #000000;
   font-weight: normal;
   margin-right: 15px;
 }
@@ -90,45 +138,49 @@
 /* Main Content */
 .main-content {
   display: flex;
-  gap: 20px;
+  gap: 15px; /* Reduced gap to match Genesis II */
   max-width: 1200px;
   margin: 0 auto;
 }
 
 /* Sidebar (Left Column) */
 .sidebar {
-  width: 25%; /* Narrow like Genesis II */
+  width: 25%; /* Matches Genesis II */
   padding: 10px;
-  background: #FFFFFF; /* Solid white, no translucency */
-  border: 1px solid #E0E0E0; /* Subtle gray border */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background: rgba(255, 255, 255, 0.9); /* Glassmorphic white */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(70, 130, 180, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-section {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .sidebar-title {
-  font-size: 1.3rem; /* Smaller to match Genesis II */
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #000000; /* Black */
-  margin-bottom: 10px;
-  text-transform: uppercase; /* Match Genesis II */
+  color: #000000;
+  margin-bottom: 8px; /* Tighter spacing */
+  text-transform: uppercase;
 }
 
 .sidebar-link {
   display: block;
-  color: #0000FF; /* Blue links like Genesis II */
+  color: #0000FF;
   text-decoration: none;
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* Tighter spacing */
   font-size: 0.9rem;
   padding: 5px;
-  transition: color 0.3s; /* Subtle hover effect */
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .sidebar-link:hover {
-  color: #4682B4; /* Blue on hover */
-  text-decoration: underline; /* Match Genesis II */
+  background: rgba(70, 130, 180, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #4682B4;
+  text-decoration: underline;
 }
 
 /* Content Area (Right Column) */
@@ -138,21 +190,21 @@
 }
 
 .content-section {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .content-title {
-  font-size: 1.5rem; /* Smaller to match Genesis II */
+  font-size: 1.5rem;
   font-weight: bold;
   color: #000000;
-  margin-bottom: 15px;
-  text-transform: uppercase; /* Match Genesis II */
+  margin-bottom: 10px; /* Tighter spacing */
+  text-transform: uppercase;
 }
 
 .content-text {
   font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 10px;
+  line-height: 1.5; /* Slightly tighter line height */
+  margin-bottom: 8px;
 }
 
 .content-text a {
@@ -164,10 +216,57 @@
   text-decoration: underline;
 }
 
+/* Hero Section */
+.hero-section {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 300px; /* Matches Genesis II's large image */
+  background: rgba(70, 130, 180, 0.2);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9); /* Glassmorphic white */
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  width: 300px; /* Matches Genesis II's overlay width */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.hero-overlay .content-title {
+  font-size: 1.3rem; /* Smaller to match Genesis II */
+  margin-bottom: 10px;
+}
+
+.beliefs-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #000000;
+}
+
+.beliefs-list li {
+  margin-bottom: 5px;
+}
+
 /* Home Grid */
 .home-grid {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
 .home-column {
@@ -187,7 +286,7 @@
 }
 
 .menu-tile {
-  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
@@ -212,29 +311,30 @@
   font-weight: bold;
   color: #000000;
   margin-bottom: 5px;
-  text-transform: uppercase; /* Match Genesis II */
+  text-transform: uppercase;
 }
 
-/* Buttons in Content Area (e.g., View ClO2 Testimonials) */
+/* Buttons in Content Area (e.g., Sign Up, View ClO2 Testimonials) */
 .content-area .nav-btn {
-  background: #4682B4; /* Solid blue to match Genesis II */
-  border: none;
+  background: rgba(70, 130, 180, 0.2); /* Glassmorphic blue */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
-  color: #FFFFFF; /* White text */
+  color: #FFFFFF;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  text-transform: uppercase; /* Match Genesis II */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  border-radius: 4px; /* Slight rounding */
+  text-transform: uppercase;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s, scale 0.3s;
-  animation: fadeIn 0.5s ease-in; /* Retain fade-in animation */
+  animation: fadeIn 0.5s ease-in;
 }
 
 .content-area .nav-btn:hover {
-  background: #005566; /* Teal on hover */
-  transform: translateY(-2px) scale(1.05); /* Retain lift and scale */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Slightly stronger shadow on hover */
+  background: rgba(70, 130, 180, 0.3);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 15px 45px rgba(0, 0, 0, 0.2);
 }
 
 /* Fade-in animation for buttons */
@@ -245,7 +345,7 @@
 
 /* CTA Button */
 .cta-btn {
-  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
@@ -257,8 +357,9 @@
   align-items: center;
   gap: 5px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  text-transform: uppercase; /* Match Genesis II */
+  text-transform: uppercase;
 }
 
 .cta-btn:hover {
@@ -273,8 +374,8 @@
 
 /* Video Sections */
 .featured-section, .videos-section {
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 10px;
@@ -284,17 +385,17 @@
 .video-grid {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .compact-video-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .video-card {
-  background: rgba(255, 255, 255, 0.15); /* Retain glassmorphism */
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 10px;
@@ -316,8 +417,8 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #000000;
-  margin: 10px 0;
-  text-transform: uppercase; /* Match Genesis II */
+  margin: 8px 0;
+  text-transform: uppercase;
 }
 
 .video-description {
@@ -333,41 +434,41 @@
 
 /* Articles Section */
 .articles-section {
-  margin-bottom: 20px;
-}
-
-.article-section {
   margin-bottom: 15px;
 }
 
+.article-section {
+  margin-bottom: 10px;
+}
+
 .article-title {
-  font-size: 1.3rem; /* Smaller to match Genesis II */
+  font-size: 1.3rem;
   font-weight: bold;
   color: #000000;
-  margin-bottom: 10px;
-  text-transform: uppercase; /* Match Genesis II */
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .article-text {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #000000;
 }
 
 /* Upload Section */
 .upload-section {
-  background: rgba(255, 255, 255, 0.1); /* Retain glassmorphism */
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 15px 45px rgba(0, 0, 0, 0.15);
 }
 
 .upload-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .upload-form input, .upload-form textarea {
@@ -380,7 +481,7 @@
 }
 
 .upload-btn {
-  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
@@ -388,8 +489,9 @@
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  text-transform: uppercase; /* Match Genesis II */
+  text-transform: uppercase;
 }
 
 .upload-btn:hover {
@@ -436,7 +538,7 @@
 }
 
 .auth-content, .info-content {
-  background: rgba(255, 255, 255, 0.15); /* Retain glassmorphism */
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 85, 102, 0.3);
   padding: 20px;
@@ -447,11 +549,11 @@
 }
 
 .auth-title, .info-title {
-  font-size: 1.5rem; /* Smaller to match Genesis II */
+  font-size: 1.5rem;
   font-weight: bold;
   color: #005566;
-  margin-bottom: 15px;
-  text-transform: uppercase; /* Match Genesis II */
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .auth-tabs {
@@ -462,7 +564,7 @@
 }
 
 .tab-btn {
-  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px 15px;
@@ -470,8 +572,9 @@
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
   transition: background 0.3s, box-shadow 0.3s;
-  text-transform: uppercase; /* Match Genesis II */
+  text-transform: uppercase;
 }
 
 .tab-btn.active {
@@ -486,7 +589,7 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .auth-form input, .auth-form textarea {
@@ -510,7 +613,7 @@
 }
 
 .submit-btn {
-  background: rgba(70, 130, 180, 0.2); /* Retain glassmorphism */
+  background: rgba(70, 130, 180, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.3);
   padding: 8px;
@@ -518,8 +621,9 @@
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  text-transform: uppercase; /* Match Genesis II */
+  text-transform: uppercase;
 }
 
 .submit-btn:hover {
@@ -541,17 +645,18 @@
 
 .info-text {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #000000;
 }
 
 /* Footer */
 .footer {
   text-align: center;
-  padding: 15px;
-  background: #FFFFFF; /* Solid white, no glassmorphism */
-  border-top: 1px solid #E0E0E0; /* Subtle gray border */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-top: 1px solid rgba(70, 130, 180, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .footer-text {
@@ -567,7 +672,7 @@
   width: 30px;
   height: 30px;
   animation: spin 1s linear infinite;
-  margin: 20px auto;
+  margin: 15px auto;
 }
 
 @keyframes spin {
@@ -585,7 +690,7 @@
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
   .app {
-    padding: 10px;
+    padding: 8px;
   }
   .main-content {
     flex-direction: column;
@@ -594,32 +699,45 @@
     width: 100%;
   }
   .title {
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
   .nav-menu {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+  }
+  .header-content {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .header-links {
+    flex-direction: column;
+    gap: 8px;
   }
   .content-title {
     font-size: 1.3rem;
   }
   .video-grid, .compact-video-grid {
-    gap: 10px;
+    gap: 8px;
+  }
+  .hero-overlay {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
   }
   .header, .sidebar, .video-card, .upload-section, .menu-tile, .auth-content, .info-content {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(0, 0, 0, 0.1);
   }
   .content-area .nav-btn, .cta-btn, .upload-btn, .submit-btn, .tab-btn {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
   }
   .content-area .nav-btn:hover, .cta-btn:hover, .upload-btn:hover, .submit-btn:hover, .tab-btn:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 }
 
 @media (max-width: 480px) {
   .title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
   .content-area .nav-btn, .upload-btn, .cta-btn, .submit-btn {
     padding: 6px 12px;

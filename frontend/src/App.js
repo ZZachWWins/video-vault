@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
 import './App.css';
@@ -22,8 +22,6 @@ function Home() {
   const [testimony, setTestimony] = useState('');
   const [testimonials, setTestimonials] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -175,8 +173,8 @@ function Home() {
         <aside className="sidebar">
           <div className="sidebar-section">
             <h3 className="sidebar-title">Upcoming Seminars</h3>
-            <a href="#" className="sidebar-link">G2 Church seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH)</a>
-            <a href="#" className="sidebar-link">Genesis II Church Seminar 2020 Santa Marta, Colombia! - In English: Feb. 15th-16th - In Spanish: Feb. 22nd-23rd</a>
+            <span className="sidebar-link">G2 Church seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH)</span>
+            <span className="sidebar-link">Genesis II Church Seminar 2020 Santa Marta, Colombia! - In English: Feb. 15th-16th - In Spanish: Feb. 22nd-23rd</span>
           </div>
         </aside>
         <main className="content-area">
@@ -304,7 +302,7 @@ function Home() {
         </div>
       )}
       <footer className="footer">
-        <p className="footer-text">&copy; 2025 God's Detox for Bob. All rights reserved.</p>
+        <p className="footer-text">© 2025 God's Detox for Bob. All rights reserved.</p>
       </footer>
     </div>
   );

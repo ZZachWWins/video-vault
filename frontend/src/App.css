@@ -168,7 +168,6 @@
 .sidebar-link {
   display: block;
   color: #0000FF;
-  text-decoration: none;
   margin-bottom: 6px; /* Tighter spacing */
   font-size: 0.9rem;
   padding: 5px;
@@ -180,7 +179,6 @@
   border-radius: 4px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   color: #4682B4;
-  text-decoration: underline;
 }
 
 /* Content Area (Right Column) */
@@ -457,7 +455,7 @@
 
 /* Upload Section */
 .upload-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(70, 130, 180, 0.2);
   padding: 15px;

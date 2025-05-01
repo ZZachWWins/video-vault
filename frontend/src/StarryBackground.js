@@ -1,27 +1,42 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
 
-function StarryBackground() {
+const StarryBackground = () => {
   useEffect(() => {
-    const createStars = () => {
-      const app = document.querySelector('.app');
-      const starCount = 100;
+    const stars = Array.from({ length: 50 }, (_, index) => ({
+      id: index,
+      size: Math.random() * 3 + 1,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2,
+    }));
 
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.width = `${Math.random() * 3}px`;
-        star.style.height = star.style.width;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 3}s`;
-        app.appendChild(star);
-      }
-    };
-
-    createStars();
+    gsap.to('.star', {
+      opacity: 0.3,
+      repeat: -1,
+      yoyo: true,
+      duration: 2,
+      stagger: 0.05,
+    });
   }, []);
 
-  return null;
-}
+  return (
+    <>
+      {Array.from({ length: 50 }, (_, index) => (
+        <div
+          key={index}
+          className="star"
+          style={{
+            width: `${Math.random() * 3 + 1}px`,
+            height: `${Math.random() * 3 + 1}px`,
+            left: `${Math.random() * 100}vw`,
+            top: `${Math.random() * 100}vh`,
+            animationDelay: `${Math.random() * 2}s`,
+          }}
+        />
+      ))}
+    </>
+  );
+};
 
 export default StarryBackground;

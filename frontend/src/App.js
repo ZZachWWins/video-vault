@@ -38,6 +38,26 @@ const mockTestimonials = [
   { username: 'TestUser2', testimony: 'Another mock testimonial.' },
 ];
 
+// Preload images to check availability
+const preloadImages = (images) => {
+  return Promise.all(
+    images.map((image) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = image.src;
+        img.onload = () => {
+          console.log(`Successfully loaded image: ${image.src}`);
+          resolve({ ...image, isLoaded: true });
+        };
+        img.onerror = () => {
+          console.error(`Failed to load image: ${image.src}`);
+          resolve({ ...image, isLoaded: false });
+        };
+      });
+    })
+  );
+};
+
 function GalleryModal({ images, selectedIndex, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(selectedIndex);
 
@@ -59,7 +79,7 @@ function GalleryModal({ images, selectedIndex, onClose }) {
           alt={images[currentIndex].alt}
           className="gallery-modal-image"
           onError={(e) => {
-            console.error(`Failed to load image: ${images[currentIndex].src}`);
+            console.error(`Failed to load modal image: ${images[currentIndex].src}`);
             e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
           }}
         />
@@ -90,11 +110,19 @@ function Home() {
   const [testimonials, setTestimonials] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [error, setError] = useState(null);
-  const [loadedImages, setLoadedImages] = useState([]);
-  const [displayedImages, setDisplayedImages] = useState([]);
+  const [galleryImagesState, setGalleryImagesState] = useState([]);
 
   useEffect(() => {
     console.log('Starting useEffect in Home component');
+
+    // Preload images
+    preloadImages(galleryImages).then((loadedImages) => {
+      console.log('Preload complete:', loadedImages);
+      setGalleryImagesState(loadedImages);
+    }).catch((err) => {
+      console.error('Error preloading images:', err);
+      setError('Failed to preload images');
+    });
 
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -108,37 +136,7 @@ function Home() {
       setFeaturedVideo(mockVideos[0]);
     }
     setTestimonials(mockTestimonials);
-
-    // Initialize loadedImages state
-    setLoadedImages(new Array(galleryImages.length).fill(false));
-
-    // Progressively display images (start with first 3)
-    setDisplayedImages(galleryImages.slice(0, 3));
   }, []);
-
-  const handleImageLoad = (index) => {
-    console.log(`Image loaded successfully: ${galleryImages[index].src}`);
-    setLoadedImages((prev) => {
-      const newLoadedImages = [...prev];
-      newLoadedImages[index] = true;
-      return newLoadedImages;
-    });
-
-    // Load more images if fewer than 6 are displayed and more are available
-    if (displayedImages.length < 6 && displayedImages.length < galleryImages.length) {
-      const nextImages = galleryImages.slice(displayedImages.length, displayedImages.length + 3);
-      setDisplayedImages((prev) => [...prev, ...nextImages]);
-    }
-  };
-
-  const handleImageError = (index) => {
-    console.error(`Failed to load image: ${galleryImages[index].src}`);
-    setLoadedImages((prev) => {
-      const newLoadedImages = [...prev];
-      newLoadedImages[index] = false;
-      return newLoadedImages;
-    });
-  };
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -383,26 +381,28 @@ function Home() {
           <section className="content-section">
             <h2 className="content-title">Gallery: Bob with Famous People</h2>
             <div className="gallery-grid">
-              {displayedImages.length > 0 ? (
-                displayedImages.map((image, index) => (
+              {galleryImagesState.length > 0 ? (
+                galleryImagesState.slice(0, 6).map((image, index) => (
                   <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="gallery-image"
-                      loading="lazy"
-                      onLoad={() => handleImageLoad(index)}
-                      onError={() => handleImageError(index)}
-                      style={{ display: loadedImages[index] ? 'block' : 'none' }}
-                    />
-                    {!loadedImages[index] && (
-                      <div className="image-placeholder">Loading...</div>
+                    {image.isLoaded ? (
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="gallery-image"
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error(`Failed to load gallery image: ${image.src}`);
+                          e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                        }}
+                      />
+                    ) : (
+                      <div className="image-placeholder">Image Failed to Load</div>
                     )}
                     <p className="gallery-caption">{image.caption}</p>
                   </div>
                 ))
               ) : (
-                <p className="no-videos">No gallery images available.</p>
+                <p className="no-videos">Loading gallery images...</p>
               )}
             </div>
             <Link to="/gallery" className="nav-btn">View More</Link>
@@ -464,7 +464,7 @@ function Home() {
       )}
       {showGalleryModal && (
         <GalleryModal
-          images={displayedImages}
+          images={galleryImagesState}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />
@@ -583,32 +583,17 @@ function Testimonials({ testimonials }) {
 function Gallery() {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [loadedImages, setLoadedImages] = useState([]);
-  const [displayedImages, setDisplayedImages] = useState([]);
+  const [galleryImagesState, setGalleryImagesState] = useState([]);
 
   useEffect(() => {
     console.log('Starting useEffect in Gallery component');
-    setLoadedImages(new Array(galleryImages.length).fill(false));
-    setDisplayedImages(galleryImages);
+    preloadImages(galleryImages).then((loadedImages) => {
+      console.log('Preload complete in Gallery:', loadedImages);
+      setGalleryImagesState(loadedImages);
+    }).catch((err) => {
+      console.error('Error preloading images in Gallery:', err);
+    });
   }, []);
-
-  const handleImageLoad = (index) => {
-    console.log(`Image loaded successfully in Gallery: ${galleryImages[index].src}`);
-    setLoadedImages((prev) => {
-      const newLoadedImages = [...prev];
-      newLoadedImages[index] = true;
-      return newLoadedImages;
-    });
-  };
-
-  const handleImageError = (index) => {
-    console.error(`Failed to load image in Gallery: ${galleryImages[index].src}`);
-    setLoadedImages((prev) => {
-      const newLoadedImages = [...prev];
-      newLoadedImages[index] = false;
-      return newLoadedImages;
-    });
-  };
 
   const openGalleryModal = (index) => {
     console.log('Opening gallery modal for image index:', index);
@@ -620,31 +605,33 @@ function Gallery() {
     <div className="content-area">
       <h2 className="content-title">Gallery: Bob with Famous People</h2>
       <div className="gallery-grid">
-        {displayedImages.length > 0 ? (
-          displayedImages.map((image, index) => (
+        {galleryImagesState.length > 0 ? (
+          galleryImagesState.map((image, index) => (
             <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="gallery-image"
-                loading="lazy"
-                onLoad={() => handleImageLoad(index)}
-                onError={() => handleImageError(index)}
-                style={{ display: loadedImages[index] ? 'block' : 'none' }}
-              />
-              {!loadedImages[index] && (
-                <div className="image-placeholder">Loading...</div>
+              {image.isLoaded ? (
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="gallery-image"
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`Failed to load gallery image: ${image.src}`);
+                    e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                  }}
+                />
+              ) : (
+                <div className="image-placeholder">Image Failed to Load</div>
               )}
               <p className="gallery-caption">{image.caption}</p>
             </div>
           ))
         ) : (
-          <p className="no-videos">No gallery images available.</p>
+          <p className="no-videos">Loading gallery images...</p>
         )}
       </div>
       {showGalleryModal && (
         <GalleryModal
-          images={displayedImages}
+          images={galleryImagesState}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />

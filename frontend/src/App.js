@@ -6,25 +6,25 @@ import './App.css';
 import ErrorBoundary from './ErrorBoundary';
 import StarryBackground from './StarryBackground';
 
-// Cloudinary images for Bob with famous people and other notable moments
+// Cloudinary images for Bob with famous people and other notable moments (updated cloud name to dwmnbrjtu)
 const galleryImages = [
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-22-59_b6xwco', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-20-58_fp4wia', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-19-19_ewlfnf', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-18-16_fzzykg', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-17-10_j3dgni', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-13-57_tqumou', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-11-51_iwpv1u', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-09-18_epmfga', alt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-08-35_ulzvvw', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-07-09_fldumk', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-06-19_yaioox', alt: 'Photo of Bob', caption: 'Photo of Bob' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-02-43_r167hf', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
-  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-22-59_b6xwco', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-20-58_fp4wia', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-19-19_ewlfnf', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-18-16_fzzykg', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-17-10_j3dgni', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-13-57_tqumou', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-11-51_iwpv1u', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-09-18_epmfga', alt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-08-35_ulzvvw', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-09_fldumk', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-06-19_yaioox', alt: 'Photo of Bob', caption: 'Photo of Bob' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-02-43_r167hf', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
 ];
 
 // Mock data for videos and testimonials
@@ -37,26 +37,6 @@ const mockTestimonials = [
   { username: 'TestUser1', testimony: 'This is a mock testimonial.' },
   { username: 'TestUser2', testimony: 'Another mock testimonial.' },
 ];
-
-// Preload images to check availability
-const preloadImages = (images) => {
-  return Promise.all(
-    images.map((image) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = image.src;
-        img.onload = () => {
-          console.log(`Successfully loaded image: ${image.src}`);
-          resolve({ ...image, isLoaded: true });
-        };
-        img.onerror = () => {
-          console.error(`Failed to load image: ${image.src}`);
-          resolve({ ...image, isLoaded: false });
-        };
-      });
-    })
-  );
-};
 
 function GalleryModal({ images, selectedIndex, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(selectedIndex);
@@ -82,6 +62,7 @@ function GalleryModal({ images, selectedIndex, onClose }) {
             console.error(`Failed to load modal image: ${images[currentIndex].src}`);
             e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
           }}
+          onLoad={() => console.log(`Successfully loaded modal image: ${images[currentIndex].src}`)}
         />
         <button className="nav-arrow nav-arrow-right" onClick={handleNext}>→</button>
         <p className="gallery-modal-caption">{images[currentIndex].caption}</p>
@@ -110,19 +91,9 @@ function Home() {
   const [testimonials, setTestimonials] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [error, setError] = useState(null);
-  const [galleryImagesState, setGalleryImagesState] = useState([]);
 
   useEffect(() => {
     console.log('Starting useEffect in Home component');
-
-    // Preload images
-    preloadImages(galleryImages).then((loadedImages) => {
-      console.log('Preload complete:', loadedImages);
-      setGalleryImagesState(loadedImages);
-    }).catch((err) => {
-      console.error('Error preloading images:', err);
-      setError('Failed to preload images');
-    });
 
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -143,14 +114,14 @@ function Home() {
     if (!videoFile || !title || !description) return;
 
     setUploading(true);
-    const formData = new FormData();
-    formData.append('file', videoFile);
-    formData.append('upload_preset', 'detox_videos');
-    formData.append('public_id', title);
 
     try {
-      console.log('Uploading video to Cloudinary');
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dcmv6p5a8/video/upload', formData, {
+      console.log('Uploading video via Netlify function');
+      const response = await axios.post('/.netlify/functions/upload-video', {
+        file: videoFile,
+        upload_preset: 'detox_videos',
+        public_id: title,
+      }, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           setProgress(percentCompleted);
@@ -381,28 +352,25 @@ function Home() {
           <section className="content-section">
             <h2 className="content-title">Gallery: Bob with Famous People</h2>
             <div className="gallery-grid">
-              {galleryImagesState.length > 0 ? (
-                galleryImagesState.slice(0, 6).map((image, index) => (
+              {galleryImages.length > 0 ? (
+                galleryImages.slice(0, 6).map((image, index) => (
                   <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-                    {image.isLoaded ? (
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="gallery-image"
-                        loading="lazy"
-                        onError={(e) => {
-                          console.error(`Failed to load gallery image: ${image.src}`);
-                          e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-                        }}
-                      />
-                    ) : (
-                      <div className="image-placeholder">Image Failed to Load</div>
-                    )}
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="gallery-image"
+                      loading="lazy"
+                      onError={(e) => {
+                        console.error(`Failed to load gallery image: ${image.src}`);
+                        e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                      }}
+                      onLoad={() => console.log(`Successfully loaded gallery image: ${image.src}`)}
+                    />
                     <p className="gallery-caption">{image.caption}</p>
                   </div>
                 ))
               ) : (
-                <p className="no-videos">Loading gallery images...</p>
+                <p className="no-videos">No gallery images available.</p>
               )}
             </div>
             <Link to="/gallery" className="nav-btn">View More</Link>
@@ -464,7 +432,7 @@ function Home() {
       )}
       {showGalleryModal && (
         <GalleryModal
-          images={galleryImagesState}
+          images={galleryImages}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />
@@ -583,16 +551,9 @@ function Testimonials({ testimonials }) {
 function Gallery() {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [galleryImagesState, setGalleryImagesState] = useState([]);
 
   useEffect(() => {
     console.log('Starting useEffect in Gallery component');
-    preloadImages(galleryImages).then((loadedImages) => {
-      console.log('Preload complete in Gallery:', loadedImages);
-      setGalleryImagesState(loadedImages);
-    }).catch((err) => {
-      console.error('Error preloading images in Gallery:', err);
-    });
   }, []);
 
   const openGalleryModal = (index) => {
@@ -605,33 +566,30 @@ function Gallery() {
     <div className="content-area">
       <h2 className="content-title">Gallery: Bob with Famous People</h2>
       <div className="gallery-grid">
-        {galleryImagesState.length > 0 ? (
-          galleryImagesState.map((image, index) => (
+        {galleryImages.length > 0 ? (
+          galleryImages.map((image, index) => (
             <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-              {image.isLoaded ? (
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="gallery-image"
-                  loading="lazy"
-                  onError={(e) => {
-                    console.error(`Failed to load gallery image: ${image.src}`);
-                    e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-                  }}
-                />
-              ) : (
-                <div className="image-placeholder">Image Failed to Load</div>
-              )}
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="gallery-image"
+                loading="lazy"
+                onError={(e) => {
+                  console.error(`Failed to load gallery image: ${image.src}`);
+                  e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                }}
+                onLoad={() => console.log(`Successfully loaded gallery image: ${image.src}`)}
+              />
               <p className="gallery-caption">{image.caption}</p>
             </div>
           ))
         ) : (
-          <p className="no-videos">Loading gallery images...</p>
+          <p className="no-videos">No gallery images available.</p>
         )}
       </div>
       {showGalleryModal && (
         <GalleryModal
-          images={galleryImagesState}
+          images={galleryImages}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />

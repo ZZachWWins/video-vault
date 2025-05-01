@@ -42,7 +42,7 @@ function GalleryModal({ images, selectedIndex, onClose }) {
       <div className="gallery-modal-content">
         <button className="close-btn" onClick={onClose}>X</button>
         <button className="nav-arrow nav-arrow-left" onClick={handlePrev}>←</button>
-        <img src={images[currentIndex].src} alt={images[currentIndex].alt} className="gallery-modal-image" />
+        <img src={images[currentIndex].src} alt={images[currentIndex].alt} className="gallery-modal-image" onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'} />
         <button className="nav-arrow nav-arrow-right" onClick={handleNext}>→</button>
         <p className="gallery-modal-caption">{images[currentIndex].caption}</p>
       </div>
@@ -363,7 +363,13 @@ function Home() {
             <div className="gallery-grid">
               {galleryImages.slice(0, 6).map((image, index) => (
                 <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-                  <img src={image.src} alt={image.alt} className="gallery-image" />
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="gallery-image"
+                    loading="lazy"
+                    onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+                  />
                   <p className="gallery-caption">{image.caption}</p>
                 </div>
               ))}
@@ -558,7 +564,13 @@ function Gallery() {
       <div className="gallery-grid">
         {galleryImages.map((image, index) => (
           <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-            <img src={image.src} alt={image.alt} className="gallery-image" />
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="gallery-image"
+              loading="lazy"
+              onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+            />
             <p className="gallery-caption">{image.caption}</p>
           </div>
         ))}

@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
 import './App.css';
-import { gsap } from 'gsap';
+import ErrorBoundary from './ErrorBoundary';
+import StarryBackground from './StarryBackground';
 
 // Cloudinary images for Bob with famous people and other notable moments
 const galleryImages = [
@@ -26,6 +27,17 @@ const galleryImages = [
   { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
 ];
 
+// Mock data for videos and testimonials
+const mockVideos = [
+  { url: '//vjs.zencdn.net/v/oceans.mp4', title: 'Mock Video 1', description: 'A mock video for testing.', uploader: 'Test User' },
+  { url: '//vjs.zencdn.net/v/oceans.mp4', title: 'Mock Video 2', description: 'Another mock video.', uploader: 'Test User' },
+];
+
+const mockTestimonials = [
+  { username: 'TestUser1', testimony: 'This is a mock testimonial.' },
+  { username: 'TestUser2', testimony: 'Another mock testimonial.' },
+];
+
 function GalleryModal({ images, selectedIndex, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(selectedIndex);
 
@@ -42,7 +54,15 @@ function GalleryModal({ images, selectedIndex, onClose }) {
       <div className="gallery-modal-content">
         <button className="close-btn" onClick={onClose}>X</button>
         <button className="nav-arrow nav-arrow-left" onClick={handlePrev}>←</button>
-        <img src={images[currentIndex].src} alt={images[currentIndex].alt} className="gallery-modal-image" onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'} />
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="gallery-modal-image"
+          onError={(e) => {
+            console.error(`Failed to load image: ${images[currentIndex].src}`);
+            e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+          }}
+        />
         <button className="nav-arrow nav-arrow-right" onClick={handleNext}>→</button>
         <p className="gallery-modal-caption">{images[currentIndex].caption}</p>
       </div>
@@ -69,58 +89,56 @@ function Home() {
   const [testimony, setTestimony] = useState('');
   const [testimonials, setTestimonials] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [error, setError] = useState(null);
+  const [loadedImages, setLoadedImages] = useState([]);
+  const [displayedImages, setDisplayedImages] = useState([]);
 
   useEffect(() => {
+    console.log('Starting useEffect in Home component');
+
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
+      console.log('Found stored user:', storedUser);
       setLoggedInUser(JSON.parse(storedUser));
     }
 
-    const fetchVideos = async () => {
-      try {
-        const response = await axios.get('/.netlify/functions/fetch-videos');
-        const fetchedVideos = response.data;
-        setVideos(fetchedVideos);
-        if (fetchedVideos.length > 0) {
-          setFeaturedVideo(fetchedVideos[0]);
-        }
-      } catch (error) {
-        console.error('Error fetching videos:', error);
-      }
-    };
-
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get('/api/testimonials');
-        setTestimonials(response.data);
-      } catch (error) {
-        console.error('Error fetching testimonials:', error);
-      }
-    };
-
-    fetchVideos();
-    fetchTestimonials();
-
-    const stars = 50;
-    for (let i = 0; i < stars; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.width = `${Math.random() * 3 + 1}px`;
-      star.style.height = star.style.width;
-      star.style.left = `${Math.random() * 100}vw`;
-      star.style.top = `${Math.random() * 100}vh`;
-      star.style.animationDelay = `${Math.random() * 2}s`;
-      document.body.appendChild(star);
+    // Mock videos and testimonials for now
+    setVideos(mockVideos);
+    if (mockVideos.length > 0) {
+      setFeaturedVideo(mockVideos[0]);
     }
+    setTestimonials(mockTestimonials);
 
-    gsap.to('.star', {
-      opacity: 0.3,
-      repeat: -1,
-      yoyo: true,
-      duration: 2,
-      stagger: 0.05,
-    });
+    // Initialize loadedImages state
+    setLoadedImages(new Array(galleryImages.length).fill(false));
+
+    // Progressively display images (start with first 3)
+    setDisplayedImages(galleryImages.slice(0, 3));
   }, []);
+
+  const handleImageLoad = (index) => {
+    console.log(`Image loaded successfully: ${galleryImages[index].src}`);
+    setLoadedImages((prev) => {
+      const newLoadedImages = [...prev];
+      newLoadedImages[index] = true;
+      return newLoadedImages;
+    });
+
+    // Load more images if fewer than 6 are displayed and more are available
+    if (displayedImages.length < 6 && displayedImages.length < galleryImages.length) {
+      const nextImages = galleryImages.slice(displayedImages.length, displayedImages.length + 3);
+      setDisplayedImages((prev) => [...prev, ...nextImages]);
+    }
+  };
+
+  const handleImageError = (index) => {
+    console.error(`Failed to load image: ${galleryImages[index].src}`);
+    setLoadedImages((prev) => {
+      const newLoadedImages = [...prev];
+      newLoadedImages[index] = false;
+      return newLoadedImages;
+    });
+  };
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -133,6 +151,7 @@ function Home() {
     formData.append('public_id', title);
 
     try {
+      console.log('Uploading video to Cloudinary');
       const response = await axios.post('https://api.cloudinary.com/v1_1/dcmv6p5a8/video/upload', formData, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -154,6 +173,7 @@ function Home() {
       setProgress(0);
     } catch (error) {
       console.error('Error uploading video:', error);
+      setError('Failed to upload video');
     } finally {
       setUploading(false);
     }
@@ -162,6 +182,7 @@ function Home() {
   const handleAuth = async (e) => {
     e.preventDefault();
     try {
+      console.log(`Attempting ${authMode} with username: ${username}`);
       const response = await axios.post(`/api/${authMode}`, { username, password, email, testimony });
       if (authMode === 'signup') {
         const newTestimonial = { username, testimony };
@@ -174,27 +195,35 @@ function Home() {
       }
     } catch (error) {
       console.error(`Error during ${authMode}:`, error);
+      setError(`Failed to ${authMode}`);
     }
   };
 
   const handleLogout = () => {
+    console.log('Logging out user');
     localStorage.removeItem('user');
     setLoggedInUser(null);
   };
 
   const handleNewsletterSignup = (e) => {
     e.preventDefault();
-    // Placeholder for newsletter signup logic
+    console.log('Newsletter signup submitted');
     alert('Thank you for signing up for our newsletter!');
   };
 
   const openGalleryModal = (index) => {
+    console.log('Opening gallery modal for image index:', index);
     setSelectedImageIndex(index);
     setShowGalleryModal(true);
   };
 
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   return (
     <div className="app">
+      <StarryBackground />
       <header className="header">
         <div className="header-content">
           <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox for Bob Logo" className="logo-placeholder" />
@@ -354,16 +383,21 @@ function Home() {
           <section className="content-section">
             <h2 className="content-title">Gallery: Bob with Famous People</h2>
             <div className="gallery-grid">
-              {Array.isArray(galleryImages) && galleryImages.length > 0 ? (
-                galleryImages.slice(0, 6).map((image, index) => (
+              {displayedImages.length > 0 ? (
+                displayedImages.map((image, index) => (
                   <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
                     <img
                       src={image.src}
                       alt={image.alt}
                       className="gallery-image"
                       loading="lazy"
-                      onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+                      onLoad={() => handleImageLoad(index)}
+                      onError={() => handleImageError(index)}
+                      style={{ display: loadedImages[index] ? 'block' : 'none' }}
                     />
+                    {!loadedImages[index] && (
+                      <div className="image-placeholder">Loading...</div>
+                    )}
                     <p className="gallery-caption">{image.caption}</p>
                   </div>
                 ))
@@ -430,7 +464,7 @@ function Home() {
       )}
       {showGalleryModal && (
         <GalleryModal
-          images={galleryImages}
+          images={displayedImages}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />
@@ -549,8 +583,35 @@ function Testimonials({ testimonials }) {
 function Gallery() {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState([]);
+  const [displayedImages, setDisplayedImages] = useState([]);
+
+  useEffect(() => {
+    console.log('Starting useEffect in Gallery component');
+    setLoadedImages(new Array(galleryImages.length).fill(false));
+    setDisplayedImages(galleryImages);
+  }, []);
+
+  const handleImageLoad = (index) => {
+    console.log(`Image loaded successfully in Gallery: ${galleryImages[index].src}`);
+    setLoadedImages((prev) => {
+      const newLoadedImages = [...prev];
+      newLoadedImages[index] = true;
+      return newLoadedImages;
+    });
+  };
+
+  const handleImageError = (index) => {
+    console.error(`Failed to load image in Gallery: ${galleryImages[index].src}`);
+    setLoadedImages((prev) => {
+      const newLoadedImages = [...prev];
+      newLoadedImages[index] = false;
+      return newLoadedImages;
+    });
+  };
 
   const openGalleryModal = (index) => {
+    console.log('Opening gallery modal for image index:', index);
     setSelectedImageIndex(index);
     setShowGalleryModal(true);
   };
@@ -559,16 +620,21 @@ function Gallery() {
     <div className="content-area">
       <h2 className="content-title">Gallery: Bob with Famous People</h2>
       <div className="gallery-grid">
-        {Array.isArray(galleryImages) && galleryImages.length > 0 ? (
-          galleryImages.map((image, index) => (
+        {displayedImages.length > 0 ? (
+          displayedImages.map((image, index) => (
             <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
               <img
                 src={image.src}
                 alt={image.alt}
                 className="gallery-image"
                 loading="lazy"
-                onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+                onLoad={() => handleImageLoad(index)}
+                onError={() => handleImageError(index)}
+                style={{ display: loadedImages[index] ? 'block' : 'none' }}
               />
+              {!loadedImages[index] && (
+                <div className="image-placeholder">Loading...</div>
+              )}
               <p className="gallery-caption">{image.caption}</p>
             </div>
           ))
@@ -578,7 +644,7 @@ function Gallery() {
       </div>
       {showGalleryModal && (
         <GalleryModal
-          images={galleryImages}
+          images={displayedImages}
           selectedIndex={selectedImageIndex}
           onClose={() => setShowGalleryModal(false)}
         />
@@ -624,32 +690,27 @@ function App() {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get('/api/testimonials');
-        setTestimonials(response.data);
-      } catch (error) {
-        console.error('Error fetching testimonials:', error);
-      }
-    };
-    fetchTestimonials();
+    console.log('Starting useEffect in App component');
+    setTestimonials(mockTestimonials);
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/benefits" element={<Benefits />} />
-        <Route path="/mms" element={<MMS />} />
-        <Route path="/seminars" element={<Seminars />} />
-        <Route path="/testimonials" element={<Testimonials testimonials={testimonials} />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/documentary" element={<Documentary />} />
-        <Route path="/newsletter" element={<Newsletter />} />
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/benefits" element={<Benefits />} />
+          <Route path="/mms" element={<MMS />} />
+          <Route path="/seminars" element={<Seminars />} />
+          <Route path="/testimonials" element={<Testimonials testimonials={testimonials} />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/documentary" element={<Documentary />} />
+          <Route path="/newsletter" element={<Newsletter />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

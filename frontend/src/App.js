@@ -5,6 +5,51 @@ import axios from 'axios';
 import './App.css';
 import { gsap } from 'gsap';
 
+// Cloudinary images for Bob with famous people and other notable moments
+const galleryImages = [
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-22-59_b6xwco', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-20-58_fp4wia', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-19-19_ewlfnf', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-18-16_fzzykg', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-17-10_j3dgni', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-13-57_tqumou', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-11-51_iwpv1u', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-09-18_epmfga', alt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-08-35_ulzvvw', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-07-09_fldumk', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-06-19_yaioox', alt: 'Photo of Bob', caption: 'Photo of Bob' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-02-43_r167hf', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
+  { src: 'https://res.cloudinary.com/dcmv6p5a8/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
+];
+
+function GalleryModal({ images, selectedIndex, onClose }) {
+  const [currentIndex, setCurrentIndex] = useState(selectedIndex);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="gallery-modal">
+      <div className="gallery-modal-content">
+        <button className="close-btn" onClick={onClose}>X</button>
+        <button className="nav-arrow nav-arrow-left" onClick={handlePrev}>←</button>
+        <img src={images[currentIndex].src} alt={images[currentIndex].alt} className="gallery-modal-image" />
+        <button className="nav-arrow nav-arrow-right" onClick={handleNext}>→</button>
+        <p className="gallery-modal-caption">{images[currentIndex].caption}</p>
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   const [videos, setVideos] = useState([]);
   const [featuredVideo, setFeaturedVideo] = useState(null);
@@ -15,6 +60,8 @@ function Home() {
   const [videoFile, setVideoFile] = useState(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [authMode, setAuthMode] = useState('signup');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -142,12 +189,26 @@ function Home() {
     setLoggedInUser(null);
   };
 
+  const handleNewsletterSignup = (e) => {
+    e.preventDefault();
+    // Placeholder for newsletter signup logic
+    alert('Thank you for signing up for our newsletter!');
+  };
+
+  const openGalleryModal = (index) => {
+    setSelectedImageIndex(index);
+    setShowGalleryModal(true);
+  };
+
   return (
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <div className="logo-placeholder">Logo</div>
-          <h1 className="title">God's Detox for Bob</h1>
+          <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox for Bob Logo" className="logo-placeholder" />
+          <div className="title-container">
+            <h1 className="title">God's Detox for Bob</h1>
+            <p className="tagline">A Community for Health & Healing</p>
+          </div>
           <div className="header-links">
             <Link to="/documentary" className="nav-btn">G2 Church Documentary</Link>
             <Link to="/newsletter" className="nav-btn">Get The Newsletter!</Link>
@@ -155,9 +216,12 @@ function Home() {
         </div>
         <nav className="nav-menu">
           <Link to="/" className="nav-btn">Home</Link>
-          <Link to="/about" className="nav-btn">About Our...</Link>
+          <Link to="/about" className="nav-btn">About Our Mission</Link>
           <Link to="/benefits" className="nav-btn">Benefits</Link>
           <Link to="/mms" className="nav-btn">MMS (Master Mineral Solution)</Link>
+          <Link to="/seminars" className="nav-btn">Seminars</Link>
+          <Link to="/testimonials" className="nav-btn">Testimonials</Link>
+          <Link to="/gallery" className="nav-btn">Gallery</Link>
           <Link to="/contact" className="nav-btn">Contact The Church</Link>
           {loggedInUser ? (
             <>
@@ -172,30 +236,50 @@ function Home() {
       <div className="main-content">
         <aside className="sidebar">
           <div className="sidebar-section">
-            <h3 className="sidebar-title">Upcoming Seminars</h3>
-            <span className="sidebar-link">G2 Church seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH)</span>
-            <span className="sidebar-link">Genesis II Church Seminar 2020 Santa Marta, Colombia! - In English: Feb. 15th-16th - In Spanish: Feb. 22nd-23rd</span>
+            <h3 className="sidebar-title">
+              <img src="https://cdn-icons-png.flaticon.com/32/2089/2089733.png" alt="Calendar Icon" className="sidebar-icon" />
+              Upcoming Seminars
+            </h3>
+            <span className="sidebar-link">G2 Church Seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH): Learn about ClO2 detoxification in a hands-on workshop.</span>
+            <span className="sidebar-link">Genesis II Church Seminar in Miami, FL - March 10th-11th 2025 (ENGLISH): Join us for a comprehensive detox training session.</span>
+          </div>
+          <div className="sidebar-section">
+            <h3 className="sidebar-title">Recent News</h3>
+            <span className="sidebar-link">New ClO2 Study Published - Jan 2025: A recent study highlights the benefits of ClO2 in detoxification.</span>
+            <span className="sidebar-link">Community Spotlight - Feb 2025: Member Sarah shares her detox journey.</span>
           </div>
         </aside>
         <main className="content-area">
           <section className="content-section">
             <div className="hero-section">
-              <div className="hero-image-placeholder">Event Image</div>
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=300&fit=crop" alt="Detox Event" className="hero-image" />
               <div className="hero-overlay">
                 <h2 className="content-title">We believe in...</h2>
+                <p className="content-text">
+                  At God's Detox for Bob, we are committed to promoting holistic health through natural detoxification methods. Our core beliefs include:
+                </p>
                 <ul className="beliefs-list">
-                  <li>Doing good deeds</li>
-                  <li>Doing what is right</li>
-                  <li>Good health for all mankind</li>
-                  <li>Freedom for all mankind</li>
-                  <li>Enlightening with the truth</li>
-                  <li>Helping one another</li>
-                  <li>Integrity in all things</li>
+                  <li>Doing good deeds to support our community</li>
+                  <li>Doing what is right for the health of all</li>
+                  <li>Good health for all mankind through natural means</li>
+                  <li>Freedom for all mankind to choose their health path</li>
+                  <li>Enlightening with the truth about detoxification</li>
+                  <li>Helping one another in our health journeys</li>
+                  <li>Integrity in all things we do</li>
                 </ul>
                 <button className="nav-btn" onClick={() => setShowAuthModal(true)}>Sign Up</button>
               </div>
             </div>
           </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
+          <section className="content-section">
+            <h2 className="content-title">What is ClO2?</h2>
+            <p className="content-text">
+              Chlorine Dioxide (ClO2) is a powerful detoxifying agent used in various holistic health practices. It is known for its ability to support the body in eliminating toxins and promoting overall wellness. Learn more about how ClO2 can benefit your health journey.
+            </p>
+            <Link to="/mms" className="nav-btn">Learn More About MMS</Link>
+          </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
           <section className="content-section">
             <h2 className="content-title">Featured Video</h2>
             {featuredVideo ? (
@@ -206,9 +290,27 @@ function Home() {
                 <p className="video-uploader">Uploaded by: {featuredVideo.uploader}</p>
               </div>
             ) : (
-              <p className="no-videos">No featured video available.</p>
+              <p className="no-videos">No featured video available. Check back soon!</p>
             )}
           </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
+          <section className="content-section">
+            <h2 className="content-title">Testimonials Spotlight</h2>
+            {testimonials.length > 0 ? (
+              <div className="testimonials-grid">
+                {testimonials.slice(0, 2).map((testimonial, index) => (
+                  <div key={index} className="testimonial-card">
+                    <p className="testimonial-text">"{testimonial.testimony}"</p>
+                    <p className="testimonial-author">- {testimonial.username}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="no-videos">No testimonials available. Share your story today!</p>
+            )}
+            <Link to="/testimonials" className="nav-btn">View All Testimonials</Link>
+          </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
           <section className="content-section">
             <h2 className="content-title">Videos</h2>
             {videos.length > 0 ? (
@@ -223,9 +325,10 @@ function Home() {
                 ))}
               </div>
             ) : (
-              <p className="no-videos">No videos available.</p>
+              <p className="no-videos">No videos available. Upload your detox video today!</p>
             )}
           </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
           <section className="content-section">
             <h2 className="content-title">Upload Your Detox Video</h2>
             <div className="upload-section">
@@ -245,6 +348,27 @@ function Home() {
                 )}
               </form>
             </div>
+          </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
+          <section className="content-section">
+            <h2 className="content-title">Join Our Community</h2>
+            <p className="content-text">
+              Become a part of God's Detox for Bob and connect with others on their health journey. Share your experiences, learn from others, and grow together in wellness.
+            </p>
+            <button className="nav-btn" onClick={() => setShowAuthModal(true)}>Join Now</button>
+          </section>
+          <img src="https://cdn-icons-png.flaticon.com/512/10438/10438811.png" alt="Wave Divider" className="section-divider" />
+          <section className="content-section">
+            <h2 className="content-title">Gallery: Bob with Famous People</h2>
+            <div className="gallery-grid">
+              {galleryImages.slice(0, 6).map((image, index) => (
+                <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
+                  <img src={image.src} alt={image.alt} className="gallery-image" />
+                  <p className="gallery-caption">{image.caption}</p>
+                </div>
+              ))}
+            </div>
+            <Link to="/gallery" className="nav-btn">View More</Link>
           </section>
         </main>
       </div>
@@ -301,7 +425,43 @@ function Home() {
           </div>
         </div>
       )}
+      {showGalleryModal && (
+        <GalleryModal
+          images={galleryImages}
+          selectedIndex={selectedImageIndex}
+          onClose={() => setShowGalleryModal(false)}
+        />
+      )}
       <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3 className="footer-title">Quick Links</h3>
+            <Link to="/about" className="footer-link">About Us</Link>
+            <Link to="/contact" className="footer-link">Contact</Link>
+            <Link to="/testimonials" className="footer-link">Testimonials</Link>
+          </div>
+          <div className="footer-section">
+            <h3 className="footer-title">Connect With Us</h3>
+            <a href="https://facebook.com" className="footer-link" target="_blank" rel="noopener noreferrer">
+              <img src="https://cdn-icons-png.flaticon.com/32/5968/5968764.png" alt="Facebook Icon" className="footer-icon" /> Facebook
+            </a>
+            <a href="https://twitter.com" className="footer-link" target="_blank" rel="noopener noreferrer">
+              <img src="https://cdn-icons-png.flaticon.com/32/5969/5969020.png" alt="Twitter Icon" className="footer-icon" /> Twitter
+            </a>
+            <a href="mailto:info@godsdetoxforbob.com" className="footer-link">
+              <img src="https://cdn-icons-png.flaticon.com/32/732/732200.png" alt="Email Icon" className="footer-icon" /> Email Us
+            </a>
+          </div>
+          <div className="footer-section">
+            <h3 className="footer-title">
+              <img src="https://cdn-icons-png.flaticon.com/32/732/732200.png" alt="Envelope Icon" className="footer-icon" /> Newsletter Signup
+            </h3>
+            <form onSubmit={handleNewsletterSignup} className="newsletter-form">
+              <input type="email" placeholder="Your Email" required />
+              <button type="submit" className="submit-btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
         <p className="footer-text">© 2025 God's Detox for Bob. All rights reserved.</p>
       </footer>
     </div>
@@ -313,7 +473,7 @@ function About() {
     <div className="content-area">
       <h2 className="content-title">About Our Mission</h2>
       <p className="content-text">
-        God's Detox for Bob is dedicated to sharing knowledge and testimonials about ClO2 detoxification methods inspired by holistic health practices.
+        God's Detox for Bob is dedicated to sharing knowledge and testimonials about ClO2 detoxification methods inspired by holistic health practices. Our mission is to empower individuals to take control of their health through natural means, fostering a community of support and education.
       </p>
     </div>
   );
@@ -324,7 +484,7 @@ function Benefits() {
     <div className="content-area">
       <h2 className="content-title">Benefits of ClO2 Detox</h2>
       <p className="content-text">
-        Learn about the potential benefits of ClO2 detoxification, including improved health and wellness as reported by our community.
+        ClO2 detoxification has been reported to support the body in eliminating toxins, boosting energy levels, and promoting overall wellness. Many community members have shared stories of improved health and vitality after incorporating ClO2 into their routines.
       </p>
     </div>
   );
@@ -335,8 +495,81 @@ function MMS() {
     <div className="content-area">
       <h2 className="content-title">MMS (Master Mineral Solution)</h2>
       <p className="content-text">
-        MMS, or Master Mineral Solution, is a key component in many detox protocols. Learn more about its uses and community experiences.
+        MMS, or Master Mineral Solution, is a key component in many detox protocols. It involves the use of ClO2 to support the body's natural detoxification processes. Learn more about its uses, preparation, and community experiences.
       </p>
+    </div>
+  );
+}
+
+function Seminars() {
+  return (
+    <div className="content-area">
+      <h2 className="content-title">Upcoming Seminars</h2>
+      <div className="seminar-card">
+        <h3 className="seminar-title">G2 Church Seminar in Santa Marta, Colombia</h3>
+        <p className="seminar-date">Feb 22nd-23rd 2020 (SPANISH)</p>
+        <p className="seminar-description">
+          Join us in Santa Marta for a hands-on workshop on ClO2 detoxification. Learn how to safely use MMS and other detox methods to improve your health.
+        </p>
+      </div>
+      <div className="seminar-card">
+        <h3 className="seminar-title">Genesis II Church Seminar in Miami, FL</h3>
+        <p className="seminar-date">March 10th-11th 2025 (ENGLISH)</p>
+        <p className="seminar-description">
+          A comprehensive training session in Miami, FL, covering the latest in detox protocols and community health practices. Perfect for beginners and advanced practitioners alike.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Testimonials({ testimonials }) {
+  return (
+    <div className="content-area">
+      <h2 className="content-title">ClO2 Testimonials</h2>
+      {testimonials && testimonials.length > 0 ? (
+        <div className="testimonials-grid">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="testimonial-card">
+              <p className="testimonial-text">"{testimonial.testimony}"</p>
+              <p className="testimonial-author">- {testimonial.username}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="no-videos">No testimonials available. Share your story today!</p>
+      )}
+    </div>
+  );
+}
+
+function Gallery() {
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const openGalleryModal = (index) => {
+    setSelectedImageIndex(index);
+    setShowGalleryModal(true);
+  };
+
+  return (
+    <div className="content-area">
+      <h2 className="content-title">Gallery: Bob with Famous People</h2>
+      <div className="gallery-grid">
+        {galleryImages.map((image, index) => (
+          <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
+            <img src={image.src} alt={image.alt} className="gallery-image" />
+            <p className="gallery-caption">{image.caption}</p>
+          </div>
+        ))}
+      </div>
+      {showGalleryModal && (
+        <GalleryModal
+          images={galleryImages}
+          selectedIndex={selectedImageIndex}
+          onClose={() => setShowGalleryModal(false)}
+        />
+      )}
     </div>
   );
 }
@@ -346,7 +579,7 @@ function Contact() {
     <div className="content-area">
       <h2 className="content-title">Contact The Church</h2>
       <p className="content-text">
-        Reach out to us for more information about God's Detox for Bob and our mission to promote holistic health.
+        Reach out to us for more information about God's Detox for Bob and our mission to promote holistic health. Email us at <a href="mailto:info@godsdetoxforbob.com">info@godsdetoxforbob.com</a>.
       </p>
     </div>
   );
@@ -357,7 +590,7 @@ function Documentary() {
     <div className="content-area">
       <h2 className="content-title">G2 Church Documentary</h2>
       <p className="content-text">
-        Watch the G2 Church Documentary to learn more about the history and mission of the Genesis II Church of Health & Healing.
+        Watch the G2 Church Documentary to learn more about the history and mission of the Genesis II Church of Health & Healing. Discover how communities worldwide are embracing natural health practices.
       </p>
     </div>
   );
@@ -368,13 +601,27 @@ function Newsletter() {
     <div className="content-area">
       <h2 className="content-title">Get The Newsletter!</h2>
       <p className="content-text">
-        Sign up for our newsletter to receive updates, testimonials, and more from God's Detox for Bob.
+        Sign up for our newsletter to receive updates, testimonials, and more from God's Detox for Bob. Stay informed about upcoming seminars and community events.
       </p>
     </div>
   );
 }
 
 function App() {
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await axios.get('/api/testimonials');
+        setTestimonials(response.data);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      }
+    };
+    fetchTestimonials();
+  }, []);
+
   return (
     <Router>
       <Routes>
@@ -382,6 +629,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/benefits" element={<Benefits />} />
         <Route path="/mms" element={<MMS />} />
+        <Route path="/seminars" element={<Seminars />} />
+        <Route path="/testimonials" element={<Testimonials testimonials={testimonials} />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/documentary" element={<Documentary />} />
         <Route path="/newsletter" element={<Newsletter />} />

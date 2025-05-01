@@ -78,15 +78,8 @@ function Home() {
 
     const fetchVideos = async () => {
       try {
-        const response = await axios.get('https://api.cloudinary.com/v1_1/dcmv6p5a8/resources/video', {
-          headers: { Authorization: `Basic ${btoa('CLOUDINARY_API_KEY:CLOUDINARY_API_SECRET')}` },
-        });
-        const fetchedVideos = response.data.resources.map(video => ({
-          url: video.secure_url,
-          title: video.public_id,
-          description: 'A video on detoxification.',
-          uploader: 'Anonymous',
-        }));
+        const response = await axios.get('/.netlify/functions/fetch-videos');
+        const fetchedVideos = response.data;
         setVideos(fetchedVideos);
         if (fetchedVideos.length > 0) {
           setFeaturedVideo(fetchedVideos[0]);
@@ -361,18 +354,22 @@ function Home() {
           <section className="content-section">
             <h2 className="content-title">Gallery: Bob with Famous People</h2>
             <div className="gallery-grid">
-              {galleryImages.slice(0, 6).map((image, index) => (
-                <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="gallery-image"
-                    loading="lazy"
-                    onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
-                  />
-                  <p className="gallery-caption">{image.caption}</p>
-                </div>
-              ))}
+              {Array.isArray(galleryImages) && galleryImages.length > 0 ? (
+                galleryImages.slice(0, 6).map((image, index) => (
+                  <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="gallery-image"
+                      loading="lazy"
+                      onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+                    />
+                    <p className="gallery-caption">{image.caption}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="no-videos">No gallery images available.</p>
+              )}
             </div>
             <Link to="/gallery" className="nav-btn">View More</Link>
           </section>
@@ -562,18 +559,22 @@ function Gallery() {
     <div className="content-area">
       <h2 className="content-title">Gallery: Bob with Famous People</h2>
       <div className="gallery-grid">
-        {galleryImages.map((image, index) => (
-          <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="gallery-image"
-              loading="lazy"
-              onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
-            />
-            <p className="gallery-caption">{image.caption}</p>
-          </div>
-        ))}
+        {Array.isArray(galleryImages) && galleryImages.length > 0 ? (
+          galleryImages.map((image, index) => (
+            <div key={index} className="gallery-card" onClick={() => openGalleryModal(index)}>
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="gallery-image"
+                loading="lazy"
+                onError={(e) => e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'}
+              />
+              <p className="gallery-caption">{image.caption}</p>
+            </div>
+          ))
+        ) : (
+          <p className="no-videos">No gallery images available.</p>
+        )}
       </div>
       {showGalleryModal && (
         <GalleryModal

@@ -195,9 +195,9 @@ function Home() {
       <StarryBackground />
       <header className="header">
         <div className="header-content">
-          <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox for Bob Logo" className="logo-placeholder" />
+          <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox Logo" className="logo-placeholder" />
           <div className="title-container">
-            <h1 className="title">God's Detox for Bob</h1>
+            <h1 className="title">God's Detox</h1>
             <p className="tagline">A Community for Health & Healing</p>
           </div>
           <div className="header-links">
@@ -247,7 +247,7 @@ function Home() {
               <div className="hero-overlay">
                 <h2 className="content-title">We believe in...</h2>
                 <p className="content-text">
-                  At God's Detox for Bob, we are committed to promoting holistic health through natural detoxification methods. Our core beliefs include:
+                  At God's Detox, we are committed to promoting holistic health through natural detoxification methods. Our core beliefs include:
                 </p>
                 <ul className="beliefs-list">
                   <li>Doing good deeds to support our community</li>
@@ -344,7 +344,7 @@ function Home() {
           <section className="content-section">
             <h2 className="content-title">Join Our Community</h2>
             <p className="content-text">
-              Become a part of God's Detox for Bob and connect with others on their health journey. Share your experiences, learn from others, and grow together in wellness.
+              Become a part of God's Detox and connect with others on their health journey. Share your experiences, learn from others, and grow together in wellness.
             </p>
             <button className="nav-btn" onClick={() => setShowAuthModal(true)}>Join Now</button>
           </section>
@@ -467,7 +467,7 @@ function Home() {
             </form>
           </div>
         </div>
-        <p className="footer-text">© 2025 God's Detox for Bob. All rights reserved.</p>
+        <p className="footer-text">© 2025 God's Detox. All rights reserved.</p>
       </footer>
     </div>
   );
@@ -478,7 +478,7 @@ function About() {
     <div className="content-area">
       <h2 className="content-title">About Our Mission</h2>
       <p className="content-text">
-        God's Detox for Bob is dedicated to sharing knowledge and testimonials about ClO2 detoxification methods inspired by holistic health practices. Our mission is to empower individuals to take control of their health through natural means, fostering a community of support and education.
+        God's Detox is dedicated to sharing knowledge and testimonials about ClO2 detoxification methods inspired by holistic health practices. Our mission is to empower individuals to take control of their health through natural means, fostering a community of support and education.
       </p>
     </div>
   );
@@ -603,7 +603,7 @@ function Contact() {
     <div className="content-area">
       <h2 className="content-title">Contact The Church</h2>
       <p className="content-text">
-        Reach out to us for more information about God's Detox for Bob and our mission to promote holistic health. Email us at <a href="mailto:info@godsdetoxforbob.com">info@godsdetoxforbob.com</a>.
+        Reach out to us for more information about God's Detox and our mission to promote holistic health. Email us at <a href="mailto:info@godsdetoxforbob.com">info@godsdetoxforbob.com</a>.
       </p>
     </div>
   );
@@ -625,7 +625,7 @@ function Newsletter() {
     <div className="content-area">
       <h2 className="content-title">Get The Newsletter!</h2>
       <p className="content-text">
-        Sign up for our newsletter to receive updates, testimonials, and more from God's Detox for Bob. Stay informed about upcoming seminars and community events.
+        Sign up for our newsletter to receive updates, testimonials, and more from God's Detox. Stay informed about upcoming seminars and community events.
       </p>
     </div>
   );

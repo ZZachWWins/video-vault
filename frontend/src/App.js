@@ -6,25 +6,25 @@ import './App.css';
 import ErrorBoundary from './ErrorBoundary';
 import StarryBackground from './StarryBackground';
 
-// Cloudinary images for Bob with famous people and other notable moments (updated cloud name to dwmnbrjtu)
+// Placeholder images for the gallery (to be replaced with correct Cloudinary URLs)
 const galleryImages = [
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-22-59_b6xwco', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-20-58_fp4wia', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-19-19_ewlfnf', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-18-16_fzzykg', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-17-10_j3dgni', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-13-57_tqumou', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-11-51_iwpv1u', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-09-18_epmfga', alt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-08-35_ulzvvw', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-09_fldumk', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-06-19_yaioox', alt: 'Photo of Bob', caption: 'Photo of Bob' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-02-43_r167hf', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
+  { src: 'https://via.placeholder.com/300x200?text=Damascus+Gate', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
+  { src: 'https://via.placeholder.com/300x200?text=Filming+Movie', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
+  { src: 'https://via.placeholder.com/300x200?text=Meeting+Michael+Yon', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
+  { src: 'https://via.placeholder.com/300x200?text=Interviewing+Dr+Brian+Artis', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+and+Mr+G', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Dr+Judy+Mikovits', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Charlie+Ward', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+Healing+Kids', entschuldigungalt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+the+Ladies', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Dr+Jane+Ruby', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
+  { src: 'https://via.placeholder.com/300x200?text=Patriot+Street+Fighter', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
+  { src: 'https://via.placeholder.com/300x200?text=Photo+of+Bob', alt: 'Photo of Bob', caption: 'Photo of Bob' },
+  { src: 'https://via.placeholder.com/300x200?text=Cutting+Up+with+General', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+General+Flynn', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Tom+Renz', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Karen+Kingston', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
+  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Leo+and+Dr+Merritt', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
 ];
 
 // Mock data for videos and testimonials
@@ -201,7 +201,7 @@ function Home() {
             <p className="tagline">A Community for Health & Healing</p>
           </div>
           <div className="header-links">
-            <Link to="/documentary" className="nav-btn">G2 Church Documentary</Link>
+            <Link to="/documentary" className="nav-btn">God's Detox Documentary</Link>
             <Link to="/newsletter" className="nav-btn">Get The Newsletter!</Link>
           </div>
         </div>
@@ -231,8 +231,8 @@ function Home() {
               <img src="https://cdn-icons-png.flaticon.com/32/2089/2089733.png" alt="Calendar Icon" className="sidebar-icon" />
               Upcoming Seminars
             </h3>
-            <span className="sidebar-link">G2 Church Seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH): Learn about ClO2 detoxification in a hands-on workshop.</span>
-            <span className="sidebar-link">Genesis II Church Seminar in Miami, FL - March 10th-11th 2025 (ENGLISH): Join us for a comprehensive detox training session.</span>
+            <span className="sidebar-link">God's Detox Seminar in Santa Marta, Colombia - Feb 22nd-23rd 2020 (SPANISH): Learn about ClO2 detoxification in a hands-on workshop.</span>
+            <span className="sidebar-link">God's Detox Seminar in Miami, FL - March 10th-11th 2025 (ENGLISH): Join us for a comprehensive detox training session.</span>
           </div>
           <div className="sidebar-section">
             <h3 className="sidebar-title">Recent News</h3>
@@ -511,14 +511,14 @@ function Seminars() {
     <div className="content-area">
       <h2 className="content-title">Upcoming Seminars</h2>
       <div className="seminar-card">
-        <h3 className="seminar-title">G2 Church Seminar in Santa Marta, Colombia</h3>
+        <h3 className="seminar-title">God's Detox Seminar in Santa Marta, Colombia</h3>
         <p className="seminar-date">Feb 22nd-23rd 2020 (SPANISH)</p>
         <p className="seminar-description">
           Join us in Santa Marta for a hands-on workshop on ClO2 detoxification. Learn how to safely use MMS and other detox methods to improve your health.
         </p>
       </div>
       <div className="seminar-card">
-        <h3 className="seminar-title">Genesis II Church Seminar in Miami, FL</h3>
+        <h3 className="seminar-title">God's Detox Seminar in Miami, FL</h3>
         <p className="seminar-date">March 10th-11th 2025 (ENGLISH)</p>
         <p className="seminar-description">
           A comprehensive training session in Miami, FL, covering the latest in detox protocols and community health practices. Perfect for beginners and advanced practitioners alike.
@@ -612,9 +612,9 @@ function Contact() {
 function Documentary() {
   return (
     <div className="content-area">
-      <h2 className="content-title">G2 Church Documentary</h2>
+      <h2 className="content-title">God's Detox Documentary</h2>
       <p className="content-text">
-        Watch the G2 Church Documentary to learn more about the history and mission of the Genesis II Church of Health & Healing. Discover how communities worldwide are embracing natural health practices.
+        Watch the God's Detox Documentary to learn more about our mission to promote holistic health and natural detoxification practices. Discover how communities worldwide are embracing these methods for wellness.
       </p>
     </div>
   );

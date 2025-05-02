@@ -6,25 +6,25 @@ import './App.css';
 import ErrorBoundary from './ErrorBoundary';
 import StarryBackground from './StarryBackground';
 
-// Placeholder images for the gallery (to be replaced with correct Cloudinary URLs)
+// Cloudinary images for Bob with famous people and other notable moments
 const galleryImages = [
-  { src: 'https://via.placeholder.com/300x200?text=Damascus+Gate', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
-  { src: 'https://via.placeholder.com/300x200?text=Filming+Movie', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
-  { src: 'https://via.placeholder.com/300x200?text=Meeting+Michael+Yon', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
-  { src: 'https://via.placeholder.com/300x200?text=Interviewing+Dr+Brian+Artis', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+and+Mr+G', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Dr+Judy+Mikovits', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Charlie+Ward', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+Healing+Kids', entschuldigungalt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+the+Ladies', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Dr+Jane+Ruby', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
-  { src: 'https://via.placeholder.com/300x200?text=Patriot+Street+Fighter', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
-  { src: 'https://via.placeholder.com/300x200?text=Photo+of+Bob', alt: 'Photo of Bob', caption: 'Photo of Bob' },
-  { src: 'https://via.placeholder.com/300x200?text=Cutting+Up+with+General', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+General+Flynn', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Tom+Renz', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Karen+Kingston', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
-  { src: 'https://via.placeholder.com/300x200?text=Bob+with+Leo+and+Dr+Merritt', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-22-59_b6xwco.jpg', alt: 'Damascus Gate Old City Jerusalem', caption: 'Damascus Gate in Old City Jerusalem' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-20-58_fp4wia.jpg', alt: 'Filming a movie with Ann Vandersteel Sheriff Mack and Michael Yon', caption: 'Filming a movie with Ann Vandersteel, Sheriff Mack, and Michael Yon' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-19-19_ewlfnf.jpg', alt: 'Meeting Michael Yon', caption: 'Meeting Michael Yon' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-18-16_fzzykg.jpg', alt: 'Interviewing Dr Brian Artis', caption: 'Interviewing Dr. Brian Artis' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-17-10_j3dgni.jpg', alt: 'Bob and Mr. G again', caption: 'Bob and Mr. G Together Again' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-13-57_tqumou.jpg', alt: 'Bob with Dr. Judy Mikovits', caption: 'Bob with Dr. Judy Mikovits' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-11-51_iwpv1u.jpg', alt: 'Bob with Charlie Ward', caption: 'Bob with Charlie Ward' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-09-18_epmfga.jpg', alt: 'Bob Healing Kids in Uganda', caption: 'Bob Healing Kids in Uganda' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-08-35_ulzvvw.jpg', alt: 'Bob the Ladies', caption: 'Bob with the Ladies' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5.jpg', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-09_fldumk.jpg', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-06-19_yaioox.jpg', alt: 'Photo of Bob', caption: 'Photo of Bob' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai.jpg', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-02-43_r167hf.jpg', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1.jpg', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf.jpg', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf.jpg', alt: 'Bob & Leo Dr. Merritt me and Mr. G', caption: 'Bob with Leo, Dr. Merritt, and Mr. G' },
 ];
 
 // Mock data for videos and testimonials

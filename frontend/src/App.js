@@ -91,6 +91,7 @@ function Home() {
   const [testimonials, setTestimonials] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [error, setError] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     console.log('Starting useEffect in Home component');
@@ -172,6 +173,7 @@ function Home() {
     console.log('Logging out user');
     localStorage.removeItem('user');
     setLoggedInUser(null);
+    setIsMenuOpen(false);
   };
 
   const handleNewsletterSignup = (e) => {
@@ -186,6 +188,10 @@ function Home() {
     setShowGalleryModal(true);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   if (error) {
     return <div className="error-message">{error}</div>;
   }
@@ -198,29 +204,33 @@ function Home() {
           <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox Logo" className="logo-placeholder" />
           <div className="title-container">
             <h1 className="title">God's Detox</h1>
-            <p className="tagline">A Community for Health & Healing</p>
+            <p className="tagline">Chlorine Dioxide - The Universal Antidote</p>
           </div>
-          <div className="header-links">
-            <Link to="/documentary" className="nav-btn">God's Detox Documentary</Link>
-            <Link to="/newsletter" className="nav-btn">Get The Newsletter!</Link>
-          </div>
+          <button
+            className="hamburger-menu"
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? 'Close Menu' : 'Open Menu'}
+          >
+            <span className="hamburger-icon"></span>
+          </button>
         </div>
-        <nav className="nav-menu">
-          <Link to="/" className="nav-btn">Home</Link>
-          <Link to="/about" className="nav-btn">About Our Mission</Link>
-          <Link to="/benefits" className="nav-btn">Benefits</Link>
-          <Link to="/mms" className="nav-btn">MMS (Master Mineral Solution)</Link>
-          <Link to="/seminars" className="nav-btn">Seminars</Link>
-          <Link to="/testimonials" className="nav-btn">Testimonials</Link>
-          <Link to="/gallery" className="nav-btn">Gallery</Link>
-          <Link to="/contact" className="nav-btn">Contact The Church</Link>
+        <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
+          <Link to="/" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Knowing God</Link>
+          <Link to="/about" className="nav-btn" onClick={() => setIsMenuOpen(false)}>What is CLO2</Link>
+          <Link to="/benefits" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
+          <Link to="/mms" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Our Mission</Link>
+          <Link to="/seminars" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Documentaries</Link>
+          <Link to="/testimonials" className="nav-btn" onClick={() => setIsMenuOpen(false)}>News Letters</Link>
+          <Link to="/gallery" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Articles</Link>
+          <Link to="/contact" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Research</Link>
           {loggedInUser ? (
             <>
               <span className="nav-username">{loggedInUser.username}</span>
               <button onClick={handleLogout} className="nav-btn">Logout</button>
             </>
           ) : (
-            <button onClick={() => setShowAuthModal(true)} className="nav-btn">Sign Up / Login</button>
+            <button onClick={() => { setShowAuthModal(true); setIsMenuOpen(false); }} className="nav-btn">Sign Up / Login</button>
           )}
         </nav>
       </header>
@@ -376,6 +386,17 @@ function Home() {
             <Link to="/gallery" className="nav-btn">View More</Link>
           </section>
         </main>
+        <aside className="resources">
+          <div className="resources-section">
+            <h3 className="resources-title">
+              <img src="https://cdn-icons-png.flaticon.com/32/1087/1087840.png" alt="Resources Icon" className="resources-icon" />
+              Resources
+            </h3>
+            <a href="https://example.com/clo2-guide" className="resources-link" target="_blank" rel="noopener noreferrer">ClO2 Usage Guide</a>
+            <a href="https://example.com/detox-protocols" className="resources-link" target="_blank" rel="noopener noreferrer">Detox Protocols</a>
+            <a href="https://example.com/research-papers" className="resources-link" target="_blank" rel="noopener noreferrer">Research Papers</a>
+          </div>
+        </aside>
       </div>
       {showAuthModal && (
         <div className="auth-modal">

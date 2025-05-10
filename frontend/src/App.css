@@ -88,15 +88,12 @@
 }
 
 .title {
-  font-size: 1.5rem; /* Smaller to match Genesis II */
+  font-size: 2.5rem; /* Increased size */
   font-weight: bold;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #005566, #4682B4); /* Teal to blue gradient */
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent; /* Make text transparent to show gradient */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for readability */
+  color: #FFD700; /* Gold color */
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); /* Gold glow effect */
 }
 
 .tagline {

@@ -20,7 +20,7 @@ const galleryImages = [
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5.jpg', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-09_fldumk.jpg', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-06-19_yaioox.jpg', alt: 'Photo of Bob', caption: 'Photo of Bob' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai.jpg', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai.jpg', -----------: 'Cutting up with the General', caption: 'Cutting Up with the General' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-02-43_r167hf.jpg', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1.jpg', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf.jpg', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
@@ -201,7 +201,7 @@ function Home() {
       <StarryBackground />
       <header className="header">
         <div className="header-content">
-          <img src="https://images.unsplash.com/photo-1627483262112-039e9a0a0f16?w=50&h=50&fit=crop" alt="God's Detox Logo" className="logo-placeholder" />
+          <img src="https://res.cloudinary.com/dwmnbrjtu/image/upload/The_Universal_Antidote_u6g7xx.png" alt="God's Detox Logo" className="header-logo" />
           <div className="title-container">
             <h1 className="title">God's Detox</h1>
             <p className="tagline">Chlorine Dioxide - The Universal Antidote</p>
@@ -316,7 +316,7 @@ function Home() {
             <h2 className="content-title">Videos</h2>
             {videos.length > 0 ? (
               <div className="video-grid">
-                {videos.map((video, index) => (
+                {videosisateurs.map((video, index) => (
                   <div key={index} className="video-card">
                     <ReactPlayer url={video.url} className="react-player" width="100%" height="200px" controls />
                     <h3 className="video-title">{video.title}</h3>

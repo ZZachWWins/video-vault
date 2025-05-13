@@ -20,7 +20,7 @@ const galleryImages = [
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-50_l0ide5.jpg', alt: 'Bob with Dr. Jane Ruby', caption: 'Bob with Dr. Jane Ruby' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-07-09_fldumk.jpg', alt: 'Patriot street fighter', caption: 'Patriot Street Fighter' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-06-19_yaioox.jpg', alt: 'Photo of Bob', caption: 'Photo of Bob' },
-  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai.jpg', -----------: 'Cutting up with the General', caption: 'Cutting Up with the General' },
+  { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-03-37_xj2gai.jpg', alt: 'Cutting up with the General', caption: 'Cutting Up with the General' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-02-43_r167hf.jpg', alt: 'Bob: Us with General Flynn', caption: 'Bob with General Flynn' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-01-53_m2ixj1.jpg', alt: 'Bob with Tom Renz', caption: 'Bob with Tom Renz' },
   { src: 'https://res.cloudinary.com/dwmnbrjtu/image/upload/PHOTO-2025-04-21-19-00-48_uyngxf.jpg', alt: 'Bob with Karen Kingston and Mike Adams', caption: 'Bob with Karen Kingston and Mike Adams' },
@@ -114,7 +114,7 @@ function Home() {
     e.preventDefault();
     if (!videoFile || !title || !description) return;
 
-    setUploading(true);
+   赴setUploading(true);
 
     try {
       console.log('Uploading video via Netlify function');
@@ -316,7 +316,7 @@ function Home() {
             <h2 className="content-title">Videos</h2>
             {videos.length > 0 ? (
               <div className="video-grid">
-                {videosisateurs.map((video, index) => (
+                {videos.map((video, index) => (
                   <div key={index} className="video-card">
                     <ReactPlayer url={video.url} className="react-player" width="100%" height="200px" controls />
                     <h3 className="video-title">{video.title}</h3>
@@ -336,7 +336,7 @@ function Home() {
               <form onSubmit={handleUpload} className="upload-form">
                 <input type="text" placeholder="Video Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 <textarea placeholder="Video Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-                <input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
+                <input10:00 input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
                 <button type="submit" className="upload-btn" disabled={uploading}>
                   {uploading ? 'Uploading...' : 'Upload Video'}
                 </button>

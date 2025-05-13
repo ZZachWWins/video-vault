@@ -114,7 +114,7 @@ function Home() {
     e.preventDefault();
     if (!videoFile || !title || !description) return;
 
-   赴setUploading(true);
+    setUploading(true);
 
     try {
       console.log('Uploading video via Netlify function');
@@ -336,7 +336,7 @@ function Home() {
               <form onSubmit={handleUpload} className="upload-form">
                 <input type="text" placeholder="Video Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 <textarea placeholder="Video Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-                <input10:00 input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
+                <input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
                 <button type="submit" className="upload-btn" disabled={uploading}>
                   {uploading ? 'Uploading...' : 'Upload Video'}
                 </button>

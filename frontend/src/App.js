@@ -34,8 +34,8 @@ const mockVideos = [
 ];
 
 const mockTestimonials = [
-  { username: 'TestUser1', testimony: 'This is a mock testimonial.' },
-  { username: 'TestUser2', testimony: 'Another mock testimonial.' },
+  { username: 'Sarah', testimony: 'CLO2 changed my life. The users here helped me make my own informed decisions.' },
+  { username: 'Sam', testimony: 'Bishop Grenons work showed me a new life. Bobs writings brought me closer to knowing God.'},
 ];
 
 function GalleryModal({ images, selectedIndex, onClose }) {

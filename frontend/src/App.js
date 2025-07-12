@@ -29,7 +29,7 @@ const galleryImages = [
 
 // Mock data for videos and testimonials
 const mockVideos = [
-  { url: '//vjs.zencdn.net/v/oceans.mp4', title: 'Mock Video 1', description: 'A mock video for testing.', uploader: 'Test User' },
+  { url: 'https://rumble.com/vm8dkf-chlorine-dioxide-the-universal-remedy-that-drug-companies-hate.html', title: 'Chlorine Dioxide, the Universal Remedy that Drug Companies Hate', description: 'This video discusses a remedy claimed to cure many life-threatening illnesses, with testimonials from people sharing their success stories, and notes that it is not widely promoted by the pharmaceutical industry. It is presented as a low-budget documentary from circa 2016, sourced from the Genesis II Church of Health and Healing.', uploader: 'Test User' },
   { url: '//vjs.zencdn.net/v/oceans.mp4', title: 'Mock Video 2', description: 'Another mock video.', uploader: 'Test User' },
 ];
 

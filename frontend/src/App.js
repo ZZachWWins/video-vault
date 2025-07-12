@@ -218,6 +218,7 @@ function Home() {
         <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Knowing God</Link>
           <Link to="/about" className="nav-btn" onClick={() => setIsMenuOpen(false)}>What is CLO2</Link>
+          <Link to="/dmso" className="nav-btn" onClick={() => setIsMenuOpen(false)}>What is DMSO</Link>
           <Link to="/benefits" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Testimonials</Link>
           <Link to="/mms" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Our Mission</Link>
           <Link to="/seminars" className="nav-btn" onClick={() => setIsMenuOpen(false)}>Documentaries</Link>
@@ -505,6 +506,32 @@ function About() {
   );
 }
 
+function DMSO() {
+  return (
+    <div className="content-area">
+      <h2 className="content-title">What is DMSO?</h2>
+      <p className="content-text">
+        DMSO (Dimethyl Sulfoxide) is a colorless liquid derived as a by-product from wood pulp in paper production. In holistic health and alternative medicine, it is valued for its ability to penetrate the skin deeply and act as a carrier for other substances, making it useful in detoxification protocols. It has anti-inflammatory and analgesic properties, often used to relieve pain from conditions like osteoarthritis and arthritis. Some community members combine DMSO with ClO2 for enhanced detox effects, as it can help transport detox agents more effectively into tissues.
+      </p>
+      <h3 className="content-subtitle">Potential Benefits</h3>
+      <ul className="beliefs-list">
+        <li>Reduces inflammation and pain in joints and muscles.</li>
+        <li>Enhances skin penetration for topical treatments, aiding in toxin removal.</li>
+        <li>Supports wound healing and tissue repair in alternative practices.</li>
+        <li>May help with conditions like interstitial cystitis (FDA-approved use) and other inflammatory issues.</li>
+      </ul>
+      <h3 className="content-subtitle">Risks and Considerations</h3>
+      <p className="content-text">
+        While DMSO is generally considered safe for topical use, it can cause skin irritation, dryness, or a garlic-like odor on breath. It is not approved by the FDA for most alternative uses, and internal use should be approached with caution. Always consult a healthcare professional before incorporating DMSO into your detox routine, as it can interact with medications and carry impurities through the skin.
+      </p>
+      <p className="disclaimer-text">
+        Disclaimer: Information provided is for educational purposes only and based on community experiences. It is not medical advice. Consult a qualified healthcare provider for personalized guidance.
+      </p>
+      <Link to="/" className="nav-btn">Back to Home</Link>
+    </div>
+  );
+}
+
 function Benefits() {
   return (
     <div className="content-area">
@@ -666,6 +693,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/dmso" element={<DMSO />} />
           <Route path="/benefits" element={<Benefits />} />
           <Route path="/mms" element={<MMS />} />
           <Route path="/seminars" element={<Seminars />} />
